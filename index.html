@@ -1,0 +1,79 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presensi Shahaba</title>
+    <link rel="icon" href="assets/icons/priority.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="curve">
+      <h1>Shahaba</h1>
+      <h2>Sistem Pendataan Presensi</h2>
+    </div>
+
+  <div class="announcement-section">
+      <div id="announcementContent">
+          <h3><i class="fas fa-bullhorn"></i> Pengumuman</h3>
+          <p id="announcementText">Memuat....</p>
+      </div>
+      <button id="adminAnnouncementButton" class="admin-button">
+          <i class="fas fa-edit"></i> Edit Pengumuman (Admin)
+      </button>
+  </div>
+
+  <div class="container">
+      <!-- Tombol untuk menuju web app presensi peserta didik -->
+      <a href="https://muchrifqi.github.io/Apl/Shahaba/Presensi/PesertaDidik/index.html">
+        <i class="fas fa-users"></i> Aplikasi Presensi Peserta Didik
+      </a>
+
+      <h3><i class="fas fa-calendar-check"></i> Presensi Pegawai</h3>
+      <div class="button-container">
+        <div class="button-container">
+          <button onclick="presensi('Deva Mandela')">Deva Mandela</button>
+          <button onclick="presensi('Dwi Indo')">Dwi Indo</button>
+          <button onclick="presensi('Muchamad Rifqi Hermawan')">Muchamad Rifqi Hermawan</button>
+          <button onclick="presensi('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
+          <button onclick="presensi('Nurhayati')">Nurhayati</button>
+          <button onclick="presensi('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
+          <button onclick="presensi('Nandar Sunandar')">Nandar Sunandar</button>
+          <button onclick="presensi('Salma Satira Askar')">Salma Satira Askar</button>
+        </div>
+        </div>
+      </div>
+      <div id="loading">
+        <i class="fas fa-spinner"></i> Memproses...
+      </div>
+      <div id="confirmation" class="confirmation">
+        <h2><i class="fas fa-check-circle"></i> Pendataan Berhasil</h2>
+        <p id="confirmationMessage"></p>
+      </div>
+      <p id="statusMessage" style="margin-top: 1rem;"></p>
+    </div>
+
+    <!-- Tombol Melayang -->
+    <button id="floatingMenuButton" class="floating-button">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <!-- Menu yang muncul saat tombol diklik -->
+    <div id="floatingMenu" class="floating-menu">
+      <button id="floatingLocationButton" class="floating-menu-item">
+          <i class="fas fa-sync-alt"></i> Lokasi Presisi
+      </button>
+      <a href="pages/about.html" class="floating-menu-item">
+          <i class="fas fa-info-circle"></i> Tentang
+      </a>
+    </div>
+
+  <br>
+    <footer class="footer">
+      &copy; 2025 Shahaba SD & Prasekolah
+    </footer>
+  </body>
+  </html>
