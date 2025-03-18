@@ -7,6 +7,7 @@
     --error-color: #870900; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
     --button-hover-color: rgba(6, 158, 54, 0.758); /* Warna hijau saat hover */
+    --border-radius: 25px
 }
 
 body {
@@ -34,7 +35,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     padding: 1rem;
-    border-radius: 25px;
+    border-radius: var(--border-radius);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     max-width: 800px;
     width: 90%;
@@ -95,12 +96,14 @@ h1 {
 }
 
 button {
+    letter-spacing: 0.7px; /* Mengatur jarak huruf */
+    line-height: 1.3;    /* Mengatur jarak baris */
     padding: 0.7rem;
-    font-size: 15px;
+    font-size: 14px;
     background: rgba(173, 173, 173, 0.468);
     border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -139,12 +142,15 @@ button:disabled {
 }
 
 #statusMessage {
+    text-align: center;
     color: var(--error-color);
     background: rgb(255, 255, 255);
-    padding: 7px;
+    padding: 0.5rem;
+    width: 350px;
     max-width: 800px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
+    margin-bottom: 1rem;
     margin-top: 1rem;
 }
 
@@ -182,7 +188,7 @@ button:disabled {
         padding: 10px 20px;
         background-color: rgba(255, 255, 255, 0.1);
         color: var(--text-color);
-        border-radius: 15px;
+        border-radius: var(--border-radius);
         cursor: pointer;
         display: inline-block;
         transition: all 0.3s ease;
@@ -200,7 +206,7 @@ button:disabled {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
         padding: 1rem;
-        border-radius: 25px;
+        border-radius: var(--border-radius);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         margin-bottom: 20px;
         margin-top: 110px;
@@ -226,7 +232,7 @@ button:disabled {
         color: white;
         border: none;
         padding: 0.5rem 1rem;
-        border-radius: 10px;
+        border-radius: var(--border-radius);
         cursor: pointer;
         font-size: 0.9rem;
         transition: all 0.3s ease;
@@ -248,7 +254,7 @@ button:disabled {
         color: white;
         border: none;
         padding: 10px 15px;
-        border-radius: 25px;
+        border-radius: var(--border-radius);
         cursor: pointer;
         font-size: 0.8rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -276,7 +282,7 @@ button:disabled {
         background-color: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(10px);
         padding: 10px;
-        border-radius: 15px;
+        border-radius: var(--border-radius);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
     }
@@ -286,7 +292,7 @@ button:disabled {
         color: white;
         border: none;
         padding: 10px 15px;
-        border-radius: 15px;
+        border-radius: var(--border-radius);
         cursor: pointer;
         font-size: 0.8rem;
         text-decoration: none;
@@ -367,7 +373,7 @@ button:disabled {
         background: rgba(173, 173, 173, 0.468);
         border: 2px solid rgba(255, 255, 255, 0.2);
         color: white;
-        border-radius: 15px;
+        border-radius: var(--border-radius);
         cursor: pointer;
         transition: all 0.3s ease;
         text-decoration: none;
@@ -408,15 +414,116 @@ button:disabled {
             padding: 8px 16px;
         }
     }
-    /* Tambahkan di bagian bawah file CSS */
-#reportContainer {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 1rem;
-    margin-top: 1rem;
-}
+    /* Gaya untuk halaman laporan */
+        #reportContainer {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
 
-iframe {
-    border: none !important;
-    background: transparent !important;
-}
+        iframe {
+            border: none !important;
+            background: transparent !important;
+        }
+        /* Gaya untuk halaman about */
+        .laporan-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--background-color);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 100px;
+            animation: fadeIn 1s ease-in-out;
+            color: var(--text-color);
+        }
+
+        .laporan-container h1 {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .laporan-container h2 {
+            color: var(--text-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .laporan-container h3 {
+            color: var(--text-color);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .laporan-container p {
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .laporan-container ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: var(--text-color);
+        }
+
+        .laporan-container ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 0.7rem;
+            font-size: 15px;
+            background: rgba(173, 173, 173, 0.468);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .back-button:hover {
+            background: var(--button-hover-color);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        /* Responsif untuk perangkat kecil */
+        @media (max-width: 768px) {
+            .laporan-container {
+                padding: 15px;
+                margin-top: 80px;
+            }
+
+            .laporan-container h1 {
+                font-size: 1.8rem;
+            }
+
+            .laporan-container h2 {
+                font-size: 1.3rem;
+            }
+
+            .laporan-container h3 {
+                font-size: 1.1rem;
+            }
+
+            .laporan-container p, .laporan-container ul li {
+                font-size: 0.9rem;
+            }
+
+            .back-button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }

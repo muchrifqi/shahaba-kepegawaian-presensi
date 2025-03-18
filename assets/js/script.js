@@ -96,7 +96,7 @@ async function updateButtonStatus() {
     const nama = button.innerText;
     if (status[nama] === "Nonaktif") {
       button.disabled = true;
-      button.innerText = `${nama} ✓`;
+      button.innerHTML = `${nama} <i class="fas fa-check"></i>`;
     }
   });
 }
