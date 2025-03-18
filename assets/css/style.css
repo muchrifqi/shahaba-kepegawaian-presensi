@@ -25,6 +25,11 @@ body {
     padding: 20px;
 }
 
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+}
+
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
