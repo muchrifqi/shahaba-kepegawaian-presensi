@@ -213,6 +213,16 @@ async function presensi(nama) {
       }
     });
 
+    // Di bagian event listeners floating menu
+    document.getElementById('adminReportButton').addEventListener('click', () => {
+      const password = prompt("Masukkan password admin:");
+      if(password === ADMIN_PASSWORD) {
+          window.location.href = "pages/laporan.html";
+      } else {
+          alert("Password salah!");
+      }
+    });
+    
     // Fungsi-fungsi Pengumuman
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbx4zfI-4mYrQ5Wx5u6qYoJ4Z0bt2848P4pDh_MeufnwxPNi-1TBZNJjR7b02d3c9piK/exec';
     const ADMIN_PASSWORD = "151951"; // Ganti dengan password admin Anda
