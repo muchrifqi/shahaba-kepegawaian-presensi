@@ -108,7 +108,7 @@ button {
     background: rgba(173, 173, 173, 0.468);
     border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
-    border-radius: var(--border-radius);
+    border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
