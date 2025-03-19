@@ -2,11 +2,11 @@
     --primary-color: #172e69; /* Warna biru shahaba sd */
     --secondary-color: #2b2b2b; 
     --accent-color: #e15f0e;
-    --background-gradient: linear-gradient(-45deg, #2d58c4, #172e69); /* Gradien biru */
+    --background-gradient: linear-gradient(-45deg, /*#57c7de*/ #3693cc, #172e69); /* Gradien biru */
     --text-color: white; /* Warna teks putih */
-    --error-color: #870900; /* Warna merah untuk pesan error */
+    --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
-    --button-hover-color: rgba(6, 158, 54, 0.758); /* Warna hijau saat hover */
+    --button-hover-color: #1e7637; /* Warna hijau saat hover */
     --border-radius: 25px
 }
 
@@ -120,8 +120,8 @@ button:hover:not(:disabled) {
 }
 
 button:disabled {
-    background: rgba(0, 74, 11, 0.872);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: #126128;
+    border-color: rgba(255, 255, 255, 0.406);
     cursor: not-allowed;
 }
 
