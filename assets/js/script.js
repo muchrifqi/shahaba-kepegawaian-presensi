@@ -180,7 +180,10 @@ async function presensi(nama) {
       }
     });
   }
-
+  //Hash
+    function hashPassword(password) {
+      return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+  }
       // Fungsi untuk mengontrol tombol melayang dan menu
     const floatingMenuButton = document.getElementById('floatingMenuButton');
     const floatingMenu = document.getElementById('floatingMenu');
@@ -214,14 +217,9 @@ async function presensi(nama) {
     });
 
     // Di bagian event listeners floating menu
-    document.getElementById('adminReportButton').addEventListener('click', () => {
-      const password = prompt("Masukkan password admin:");
-      if(password === ADMIN_PASSWORD) {
+    document.getElementById('adminReportButton').addEventListener('click', async () => {
           window.location.href = "pages/laporan.html";
-      } else {
-          alert("Password salah!");
-      }
-    });
+          });
     
     // Fungsi-fungsi Pengumuman
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbx4zfI-4mYrQ5Wx5u6qYoJ4Z0bt2848P4pDh_MeufnwxPNi-1TBZNJjR7b02d3c9piK/exec';
@@ -280,17 +278,48 @@ async function presensi(nama) {
     setInterval(getAnnouncement, 5000);
 
     // Event listener untuk tombol admin
-    document.getElementById('adminAnnouncementButton').addEventListener('click', () => {
-      const password = prompt("Masukkan password admin:");
-      if (password === ADMIN_PASSWORD) {
-        const newAnnouncement = prompt("Masukkan pengumuman baru:");
-        if (newAnnouncement) {
-          setAnnouncement(newAnnouncement);
-          alert("Pengumuman berhasil diperbarui!");
+    const ADMIN_PASSWORD_HASH = "b251b590aa7474295b09b586463278ef3032e9c75f1500d34458afb96b2fc7e1"; // Hash SHA-256
+
+    document.getElementById('adminAnnouncementButton').addEventListener('click', async () => {
+        const { value: password } = await Swal.fire({
+            title: 'Masukkan Password Admin',
+            input: 'password',
+            inputPlaceholder: 'Ketik password...',
+            showCancelButton: true,
+            confirmButtonText: 'Masuk',
+            cancelButtonText: 'Batal',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Password tidak boleh kosong!';
+                }
+            }
+        });
+    
+        if (password) {
+            const enteredPasswordHash = hashPassword(password);
+            if (enteredPasswordHash === ADMIN_PASSWORD_HASH) {
+                const { value: newAnnouncement } = await Swal.fire({
+                    title: 'Edit Pengumuman',
+                    input: 'text',
+                    inputPlaceholder: 'Masukkan pengumuman baru...',
+                    showCancelButton: true,
+                    confirmButtonText: 'Simpan',
+                    cancelButtonText: 'Batal',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Pengumuman tidak boleh kosong!';
+                        }
+                    }
+                });
+    
+                if (newAnnouncement) {
+                    await setAnnouncement(newAnnouncement);
+                    Swal.fire('Berhasil!', 'Pengumuman telah diperbarui.', 'success');
+                }
+            } else {
+                Swal.fire('Gagal!', 'Password salah.', 'error');
+            }
         }
-      } else {
-        alert("Password salah!");
-      }
     });
 
     // Ambil pengumuman saat halaman dimuat
@@ -304,3 +333,8 @@ async function presensi(nama) {
       getAnnouncement(); // Ambil pengumuman saat halaman dimuat
       setInterval(updateButtonStatus, 3000); // Periksa status tombol setiap 5 detik
     };
+
+    //ganti password, buka halaman - console
+    //const newPassword = "passwordBaru"; // Ganti dengan password baru
+    //const newPasswordHash = CryptoJS.SHA256(newPassword).toString(CryptoJS.enc.Hex);
+    //console.log(newPasswordHash); // Salin hash ini ke ADMIN_PASSWORD_HASH
