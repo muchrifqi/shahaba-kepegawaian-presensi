@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Presensi Peserta Didik</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      /* Global Styles */
+      :root {
+        --primary-color: #172e69; /* Warna biru shahaba sd */
+        --secondary-color: #2b2b2b;
+        --accent-color: #e15f0e;
+        --background-gradient: linear-gradient(-45deg, #2d58c4, #172e69); /* Gradien biru */
+        --text-color: white; /* Warna teks putih */
+        --error-color: #870900; /* Warna merah untuk pesan error */
+        --success-color: #006c04; /* Warna hijau untuk pesan sukses */
+        --button-hover-color: rgba(6, 158, 54, 0.758); /* Warna hijau saat hover */
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-gradient);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .curve {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: white;
+        border-radius: 0 0 50% 50%;
+        transform: scaleX(1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .curve h1 {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin: 0;
+        font-weight: bold;
+      }
+
+      .curve h2 {
+        color: var(--secondary-color);
+        font-size: 1rem;
+        margin: 0;
+        font-weight: normal;
+        text-align: center;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        border-radius: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+        margin-top: 4rem;
+        height: fit-content;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        color: var(--text-color);
+        font-size: 1rem;
+      }
+
+      #scanner {
+        width: 100%;
+        max-width: 400px;
+        height: 70%;
+        margin: auto auto;
+      }
+
+      video {
+        width: auto;
+        object-fit: cover;
+      }
+
+      .button {
+        background-color: var(--accent-color);
+        color: var(--text-color);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .button:hover {
+        background-color: var(--button-hover-color);
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: var(--text-color);
+      }
+
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .button-container {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="curve">
+      <h1>Shahaba</h1>
+      <h2>Sistem Pendataan Presensi</h2>
+    </div>
+
+    <div class="container">
+      <h1>Scan QR Peserta Didik</h1>
+      <div id="scanner">
+        <p>Arahkan kamera ke QR code di kartu siswa.</p>
+        <div id="qr-reader" style="width: 100%;"></div>
+      </div>
+      <div id="result"></div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 Presensi Peserta Didik Shahaba.</p>
+    </footer>
+
+    <script>
+      let isScanning = true;
+      const webAppUrl = 'https://script.google.com/macros/s/AKfycbwyYf2D42MHyKmAzywf6R_zWibg1B3Sius0Lcndfx25hd53ejxRgkerJrUvnJ6ZNZfb/exec'; // Ganti dengan URL Web App Anda
+
+      function playBeep() {
+        const audio = new Audio('beep-07a.mp3'); // Ganti dengan URL file bip
+        audio.play();
+      }
+
+      async function onScanSuccess(content) {
+        if (!isScanning) return;
+
+        isScanning = false;
+        document.getElementById('result').innerText = 'Memproses...';
+
+        try {
+          const response = await fetch(webAppUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'studentId=' + encodeURIComponent(content),
+          });
+          const result = await response.json();
+
+          if (result.status === 'success') {
+            playBeep();
+            Swal.fire({
+              title: 'Berhasil!',
+              text: result.message,
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              timer: 3000, // Notifikasi akan hilang setelah 3 detik
+              timerProgressBar: true, // Tampilkan progress bar
+            }).then(() => {
+              // Mulai ulang pemindaian setelah SweetAlert ditutup
+              startScan();
+            });
+            document.getElementById('result').innerText = result.message;
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text: result.message,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              timer: 2000,
+              timerProgressBar: true,
+            }).then(() => {
+              // Mulai ulang pemindaian setelah SweetAlert ditutup
+              startScan();
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Terjadi kesalahan saat memproses presensi.',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            timer: 2000,
+            timerProgressBar: true,
+          }).then(() => {
+            // Mulai ulang pemindaian setelah SweetAlert ditutup
+            startScan();
+          });
+        } finally {
+          html5QrCode.stop();
+        }
+      }
+
+      function startScan() {
+        isScanning = true;
+        html5QrCode.start(
+          { facingMode: "environment" },
+          { fps: 10, qrbox: 250 },
+          onScanSuccess
+        ).catch(err => {
+          document.getElementById('result').innerText = 'Error: ' + err;
+        });
+      }
+
+      const html5QrCode = new Html5Qrcode("qr-reader");
+      startScan();
+    </script>
+  </body>
+</html>
