@@ -17,14 +17,14 @@
   "screenshots": [
     {
       "src": "assets/screenshots/Screenshot_desktop.png",
-      "sizes": "1280x800",
+      "sizes": "1919x1079",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Desktop Screenshot"
     },
     {
       "src": "assets/screenshots/Screenshot_mobile.png",
-      "sizes": "750x1334",
+      "sizes": "591x1140",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Mobile Screenshot"
