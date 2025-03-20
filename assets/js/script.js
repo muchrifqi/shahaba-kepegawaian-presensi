@@ -139,7 +139,13 @@ async function presensi(nama) {
     });
 
     // Update tampilan tombol
-    const waktu = new Date().toLocaleTimeString();
+    // script sebelumnya const waktu = new Date().toLocaleTimeString();
+    const waktu = new Date().toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false // Gunakan format 24-jam
+    }); //script baru format waktu Indonesia
     button.innerText = `${nama} ✓`;
     confirmationMessage.innerText = `${nama} pukul ${waktu}`;
     confirmation.style.display = 'block';
