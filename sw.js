@@ -1,14 +1,14 @@
 const CACHE_NAME = 'presensi-app-v1';
 const ASSETS_TO_CACHE = [
-  '/shahaba-kepegawaian-presensi/index.html',
-  '/shahaba-kepegawaian-presensi/pages/pesertadidik.html',
-  '/shahaba-kepegawaian-presensi/pages/about.html',
-  '/shahaba-kepegawaian-presensi/pages/laporan.html',
-  '/shahaba-kepegawaian-presensi/assets/css/styles.css',
-  '/shahaba-kepegawaian-presensi/assets/js/script.js',
-  '/shahaba-kepegawaian-presensi/assets/icons/icon-72x72.png',
-  '/shahaba-kepegawaian-presensi/assets/icons/icon-192x192.png',
-  '/shahaba-kepegawaian-presensi/assets/icons/icon-512x512.png'
+  './index.html',
+  './pages/pesertadidik.html',
+  './pages/about.html',
+  './pages/laporan.html',
+  './assets/css/styles.css',
+  './assets/js/script.js',
+  './assets/icons/icon-72x72.png',
+  './assets/icons/icon-192x192.png',
+  './assets/icons/icon-512x512.png'
 ];
 
 // Install service worker

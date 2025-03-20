@@ -13,9 +13,9 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/shahaba-kepegawaian-presensi/index.html",
+  "start_url": "index.html",
   "background_color": "#172e69",
   "display": "standalone",
-  "scope": "/shahaba-kepegawaian-presensi/",
+  "scope": "./",
   "theme_color": "#172e69"
 }
