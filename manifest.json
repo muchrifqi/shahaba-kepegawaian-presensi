@@ -3,12 +3,12 @@
   "name": "Aplikasi Presensi Shahaba",
   "icons": [
     {
-      "src": "assets/icons/icon-72x72.png",
+      "src": "assets/icons/72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-192x192.png",
+      "src": "assets/icons/192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
