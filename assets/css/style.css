@@ -605,6 +605,7 @@ button.disabled-after-time:disabled {
         }
 
 .landing-button-container {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column; /* Membuat tombol dalam satu kolom */
     align-items: center; /* Pusatkan tombol secara horizontal */
