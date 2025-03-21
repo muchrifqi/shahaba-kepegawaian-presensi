@@ -339,7 +339,7 @@ async function presensi(nama) {
       getAnnouncement(); // Ambil pengumuman saat halaman dimuat
       setInterval(updateButtonStatus, 3000); // Periksa status tombol setiap 5 detik
     };
-
+        // FUNGSI INI KONFLIK DENGAN  FUNGSI UTAMA UPDATE STATUS TOMBOL DAN DISABLE TOMBOL SETELAH MELAKUKAN PRESENSI!!!!
         // Fungsi untuk memeriksa waktu dan menonaktifkan tombol
         //function disableButtonAfterTime() {
           // Ambil elemen tombol
