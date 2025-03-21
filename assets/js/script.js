@@ -341,31 +341,31 @@ async function presensi(nama) {
     };
 
         // Fungsi untuk memeriksa waktu dan menonaktifkan tombol
-        function disableButtonAfterTime() {
+        //function disableButtonAfterTime() {
           // Ambil elemen tombol
-          var button = document.getElementById("Disable645");
+          //var button = document.getElementById("Disable645");
   
           // Buat objek Date untuk waktu saat ini
-          var now = new Date();
+          //var now = new Date();
   
           // Set waktu batas (06:45)
-          var limitTime = new Date();
-          limitTime.setHours(6);
-          limitTime.setMinutes(45);
-          limitTime.setSeconds(0);
+          //var limitTime = new Date();
+          //limitTime.setHours(6);
+          //limitTime.setMinutes(45);
+          //limitTime.setSeconds(0);
   
           // Periksa apakah waktu saat ini sudah melewati batas waktu
-          if (now > limitTime) {
+          //if (now > limitTime) {
               // Nonaktifkan tombol
-              button.disabled = true;
+              //button.disabled = true;
               // Tambahkan kelas khusus untuk mengubah gaya tombol
-              button.classList.add("disabled-after-time");
-              button.textContent = "Tombol Dinonaktifkan";
-          }
-      }
+              //button.classList.add("disabled-after-time");
+              //button.textContent = "Tombol Dinonaktifkan";
+          //}
+      //}
   
       // Panggil fungsi saat halaman dimuat
-      window.onload = disableButtonAfterTime;
+      //window.onload = disableButtonAfterTime;
 
     //ganti password, buka halaman - console
     //const newPassword = "passwordBaru"; // Ganti dengan password baru
