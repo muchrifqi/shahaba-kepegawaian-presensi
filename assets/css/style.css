@@ -609,13 +609,12 @@ button.disabled-after-time:disabled {
             flex-direction: column; /* Membuat tombol dalam satu kolom */
             align-items: center; /* Pusatkan tombol secara horizontal */
             gap: 1rem; /* Jarak antar tombol */
-            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 1rem;
             border-radius: var(--border-radius);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             max-width: 100%;
-            width: 100%;
+            width: 90%;
             text-align: center;
             animation: fadeIn 1s ease-in-out;
             margin-top: 10px;
