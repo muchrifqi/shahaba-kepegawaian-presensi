@@ -229,7 +229,7 @@ async function presensi(nama) {
     
     // Fungsi-fungsi Pengumuman
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbx4zfI-4mYrQ5Wx5u6qYoJ4Z0bt2848P4pDh_MeufnwxPNi-1TBZNJjR7b02d3c9piK/exec';
-    const ADMIN_PASSWORD = "151951"; // Ganti dengan password admin Anda
+    //const ADMIN_PASSWORD_HASH = "b251b590aa7474295b09b586463278ef3032e9c75f1500d34458afb96b2fc7e1"; // Ganti dengan password admin Anda
 
     // Fungsi untuk mengambil pengumuman
     async function getAnnouncement() {
@@ -337,7 +337,7 @@ async function presensi(nama) {
     window.onload = async () => {
       await updateButtonStatus();
       getAnnouncement(); // Ambil pengumuman saat halaman dimuat
-      setInterval(updateButtonStatus, 3000); // Periksa status tombol setiap 5 detik
+      setInterval(updateButtonStatus, 3000); // Periksa status tombol setiap 3 detik
     };
         // FUNGSI INI KONFLIK DENGAN  FUNGSI UTAMA UPDATE STATUS TOMBOL DAN DISABLE TOMBOL SETELAH MELAKUKAN PRESENSI!!!!
         // Fungsi untuk memeriksa waktu dan menonaktifkan tombol

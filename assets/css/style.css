@@ -559,47 +559,61 @@ button.disabled-after-time:disabled {
             }
         }
     /* Styling untuk loading screen */
-.loading-screen {
-    position: fixed;
-    top: 100px; /* Mulai di bawah curve */
-    left: 0;
-    width: 100%;
-    height: calc(100% - 100px); /* Tinggi layar dikurangi tinggi curve */
-    background: var(--background-gradient);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Ubah ke flex-start agar konten bisa di-scroll */
-    z-index: 50; /* Di bawah curve */
-    overflow-y: auto; /* Aktifkan scrolling vertikal */
-}
+        .loading-screen {
+            position: fixed;
+            top: 100px; /* Mulai di bawah curve */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 100px); /* Tinggi layar dikurangi tinggi curve */
+            background: var(--background-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Ubah ke flex-start agar konten bisa di-scroll */
+            z-index: 50; /* Di bawah curve */
+            overflow-y: auto; /* Aktifkan scrolling vertikal */
+        }
 
-.loading-content {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    padding: 1rem;
-    border-radius: 25px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    max-width: 450px;
-    width: 100%;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin: 2rem ; /* Tambahkan margin atas dan bawah */
-    margin-bottom: 3rem;
-}
+        .loading-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 1rem;
+            border-radius: 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 2rem ; /* Tambahkan margin atas dan bawah */
+            margin-bottom: 3rem;
+        }
 
-.loading-content h1 {
-    font-size: 1.5rem; /* Ukuran font diperkecil */
-    margin-bottom: 0.5rem; /* Margin diperkecil */
-    color: var(--text-color);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efek shadow pada teks */
-}
+        .loading-content h1 {
+            font-size: 1.5rem; /* Ukuran font diperkecil */
+            margin-bottom: 0.5rem; /* Margin diperkecil */
+            color: var(--text-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efek shadow pada teks */
+        }
 
-.loading-content p {
-    font-size: 0.9rem; /* Ukuran font diperkecil */
-    color: var(--text-color);
-    margin-bottom: 0.7rem; /* Margin diperkecil */
-    line-height: 1.5; /* Jarak antar baris lebih rapat */
-}
+        .loading-content p {
+            font-size: 0.9rem; /* Ukuran font diperkecil */
+            color: var(--text-color);
+            margin-bottom: 0.7rem; /* Margin diperkecil */
+            line-height: 1.5; /* Jarak antar baris lebih rapat */
+        }
+
+        .admin-button-container {
+            display: block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 10px;
+        }
