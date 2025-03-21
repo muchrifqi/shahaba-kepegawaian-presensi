@@ -605,7 +605,6 @@ button.disabled-after-time:disabled {
         }
 
         .admin-button-container {
-            display: block;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 1rem;
