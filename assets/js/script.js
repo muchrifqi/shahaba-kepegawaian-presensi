@@ -41,7 +41,7 @@ function checkLocation() {
 
           // Cek apakah pengguna berada dalam radius 20 meter dari salah satu lokasi yang diizinkan
           const isWithinRadius = allowedLocations.some(
-            (loc) => calculateDistance(userLat, userLng, loc.lat, loc.lng) <= 20
+            (loc) => calculateDistance(userLat, userLng, loc.lat, loc.lng) <= 200
           );
 
           if (isWithinRadius) {
