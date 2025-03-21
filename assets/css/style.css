@@ -558,3 +558,33 @@ button.disabled-after-time:disabled {
                 padding: 8px 16px;
             }
         }
+        /* Gaya dasar tombol instalasi */
+        .install-button {
+            padding: 0.7rem;
+            font-size: 15px;
+            background: #8e44ad; /* Warna ungu */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold; /* Teks lebih tebal */
+            text-transform: uppercase; /* Huruf kapital */
+            display: none; /* Sembunyikan secara default */
+            margin-top: 10px; /* Jarak dari elemen di atasnya */
+            width: 100%; /* Lebar penuh */
+            text-align: center; /* Teks di tengah */
+        }
+
+        /* Efek hover */
+        .install-button:hover {
+            background: #9b59b6; /* Warna ungu lebih terang */
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan saat hover */
+        }
+
+        /* Icon di dalam tombol */
+        .install-button i {
+            margin-right: 8px; /* Jarak antara icon dan teks */
+        }
