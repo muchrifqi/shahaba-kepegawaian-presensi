@@ -604,20 +604,37 @@ button.disabled-after-time:disabled {
             line-height: 1.5; /* Jarak antar baris lebih rapat */
         }
 
-        .admin-button-container {
-            display: flex;
-            flex-direction: column; /* Membuat tombol dalam satu kolom */
-            align-items: center; /* Pusatkan tombol secara horizontal */
-            gap: 1rem; /* Jarak antar tombol */
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            width: 90%;
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
-            margin-top: 10px;
-        }
+.landing-button-container {
+    display: flex;
+    flex-direction: column; /* Membuat tombol dalam satu kolom */
+    align-items: center; /* Pusatkan tombol secara horizontal */
+    gap: 1rem; /* Jarak antar tombol */
+}
+
+.landing-button {
+    padding: 1rem;
+    font-size: 16px;
+    background: rgba(173, 173, 173, 0.468);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%; /* Lebar penuh */
+    max-width: 300px; /* Lebar maksimum tombol */
+}
+
+.landing-button:hover {
+    background: var(--button-hover-color);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-5px);
+}
+
+.landing-button i {
+    font-size: 20px;
+}
             
