@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba - Sistem Presensi</title>
+    <link rel="icon" href="../assets/icons/priority.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        /* Tambahkan CSS untuk banner notifikasi */
+        #installBanner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        #installBanner button {
+            background-color: #fff;
+            color: #4CAF50;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner Notifikasi -->
+    <div id="installBanner">
+        Aplikasi ini dapat diinstal di desktop Anda! 
+        <button id="installButton">Install</button>
+        <button id="closeBanner">Tutup</button>
+    </div>
+
+    <!-- Header dengan judul dan deskripsi -->
+    <div class="curve">
+        <h1>Shahaba</h1>
+        <h2>Sistem Pendataan Presensi</h2> 
+    </div>
+    <p class="landing-description">
+        Selamat datang di <strong>Sistem Presensi Shahaba</strong>. Pastikan Anda melakukan presensi sebelum pukul 06:45. 
+        Silakan pilih aplikasi yang sesuai:
+    </p>
+    <!-- Container untuk tombol-tombol -->
+    <div class="landing-button-container">
+        <h3><i class="fas fa-window-restore"></i> Pilih Aplikasi</h3>
+            <button onclick="window.location.href='../index.html'" class="landing-button">
+                <i class="fas fa-users"></i> App Presensi Pegawai
+            </button>
+            <button onclick="window.location.href='pesertadidik.html'" class="landing-button">
+                <i class="fas fa-qrcode"></i> App Scan QR Peserta Didik
+            </button>
+            <button id="adminButton" class="landing-button">
+                <i class="fas fa-user-lock"></i> Masuk sebagai Admin
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2025 Shahaba SD & Prasekolah
+    </footer>
+
+    <script>
+        const ADMIN_PASSWORD_HASH = "b251b590aa7474295b09b586463278ef3032e9c75f1500d34458afb96b2fc7e1"; // Hash SHA-256
+
+        function hashPassword(password) {
+            return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+        }
+
+        // Event listener untuk tombol Admin
+        document.getElementById('adminButton').addEventListener('click', async () => {
+            const { value: password } = await Swal.fire({
+                title: 'Masukkan Password Admin',
+                input: 'password',
+                inputPlaceholder: 'Ketik password...',
+                showCancelButton: true,
+                confirmButtonText: 'Masuk',
+                cancelButtonText: 'Batal',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Password tidak boleh kosong!';
+                    }
+                }
+            });
+
+            if (password) {
+                const enteredPasswordHash = hashPassword(password);
+                if (enteredPasswordHash === ADMIN_PASSWORD_HASH) {
+                    // Password benar, arahkan ke admin.html
+                    window.location.href = "../admin.html";
+                } else {
+                    // Password salah
+                    Swal.fire('Gagal!', 'Password salah.', 'error');
+                }
+            }
+        });
+
+        // Script untuk menampilkan banner notifikasi instalasi
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            const installBanner = document.getElementById('installBanner');
+            installBanner.style.display = 'block';
+
+            const installButton = document.getElementById('installButton');
+            installButton.addEventListener('click', () => {
+                event.prompt();
+                installBanner.style.display = 'none';
+            });
+
+            const closeBanner = document.getElementById('closeBanner');
+            closeBanner.addEventListener('click', () => {
+                installBanner.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
