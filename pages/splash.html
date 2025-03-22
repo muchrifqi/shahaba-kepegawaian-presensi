@@ -1,139 +1,163 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
-    <!-- GSAP Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <title>Splash Screen - Shahaba</title>
+    <link rel="icon" href="assets/icons/priority.svg">
     <style>
+        /* Reset CSS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
         }
+
+        /* Variabel CSS */
+        :root {
+            --primary-color: #172e69; /* Warna biru Shahaba */
+            --secondary-color: #2b2b2b;
+            --accent-color: #e15f0e;
+            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69); /* Gradien biru */
+            --text-color: white; /* Warna teks putih */
+            --error-color: #b82f25;
+            --success-color: #006c04;
+            --button-hover-color: #1e7637;
+            --border-radius: 25px;
+        }
+
+        /* Gaya dasar body */
         body {
-            background: #ffffff;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white; /* Latar belakang awal putih */
+            color: var(--text-color);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             height: 100vh;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; /* Mencegah scroll selama splash screen */
         }
+
+        /* Container splash screen */
         .splash-screen {
-            position: fixed;
+            text-align: center;
+            position: relative;
             width: 100%;
-            height: 100vh;
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
+            height: 100%;
         }
-        .ball {
-            width: 50px;
-            height: 50px;
-            background: #172e69;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 100px;
-        }
-        .particles {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-        }
-        .particle {
-            width: 12px;
-            height: 12px;
-            background: #172e69;
-            border-radius: 50%;
-            position: absolute;
-            opacity: 1;
-        }
-        .logo {
+
+        /* Animasi lingkaran biru */
+        .circle {
             width: 100px;
             height: 100px;
-            opacity: 0; /* Awalnya tersembunyi */
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            animation: dropAndExpand 2s ease-in-out forwards;
+            z-index: 1; /* Pastikan lingkaran di atas latar belakang */
+        }
+
+        /* Overlay untuk efek cat */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            opacity: 0;
+            animation: fadeInOverlay 2s ease-in-out 1s forwards; /* Muncul setelah lingkaran meluas */
+            z-index: 0; /* Di bawah lingkaran */
+        }
+
+        /* Teks dan ikon */
+        .splash-content {
+            margin-top: 200px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 2s forwards; /* Muncul setelah animasi lingkaran selesai */
+            z-index: 2; /* Di atas semua elemen */
+        }
+
+        .splash-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color); /* Warna teks putih */
+        }
+
+        .splash-content img {
+            width: 80px; /* Sesuaikan ukuran ikon */
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .splash-content p {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-color); /* Warna teks putih */
+        }
+
+        /* Animasi lingkaran jatuh dan meluas */
+        @keyframes dropAndExpand {
+            0% {
+                transform: translate(-50%, -100vh) scale(0.5); /* Lingkaran jatuh dari atas */
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1); /* Lingkaran mencapai tengah */
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(20); /* Lingkaran meluas memenuhi layar */
+                opacity: 0; /* Menghilang secara halus */
+            }
+        }
+
+        /* Animasi overlay (efek cat) */
+        @keyframes fadeInOverlay {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1; /* Overlay menjadi biru Shahaba */
+            }
+        }
+
+        /* Animasi teks dan ikon muncul */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-
+    <!-- Splash Screen -->
     <div class="splash-screen">
-        <div class="ball"></div>
-        <div class="particles"></div>
-        <img src="assets/icons/logo.png" alt="Logo" class="logo">
+        <!-- Lingkaran biru Shahaba -->
+        <div class="circle"></div>
+
+        <!-- Overlay untuk efek cat -->
+        <div class="overlay"></div>
+
+        <!-- Teks dan ikon -->
+        <div class="splash-content">
+            <img src="../assets/icons/192x192.png" alt="Icon"> <!-- Ikon lokal dari folder assets/icon -->
+            <h1>Shahaba</h1>
+            <p>Sistem Presensi Digital</p>
+        </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const ball = document.querySelector(".ball");
-            const particlesContainer = document.querySelector(".particles");
-            const logo = document.querySelector(".logo");
-
-            // Animasi bola memantul menggunakan GSAP
-            gsap.to(ball, {
-                y: -180,
-                duration: 0.5,
-                ease: "power1.out",
-                repeat: 3,
-                yoyo: true,
-                onComplete: () => {
-                    // Sembunyikan bola setelah selesai memantul
-                    gsap.to(ball, { opacity: 0, duration: 0.3 });
-
-                    // Tampilkan partikel
-                    gsap.to(particlesContainer, { opacity: 1, duration: 0.5 });
-
-                    // Animasi partikel menyebar
-                    for (let i = 0; i < 12; i++) {
-                        let particle = document.createElement("div");
-                        particle.classList.add("particle");
-
-                        let angle = (Math.PI * 2 * i) / 12;
-                        let x = Math.cos(angle) * 80;
-                        let y = Math.sin(angle) * 80;
-
-                        gsap.fromTo(particle, 
-                            { x: 0, y: 0, opacity: 1, scale: 1 },
-                            { 
-                                x: x,
-                                y: y,
-                                opacity: 0,
-                                scale: 0.3,
-                                duration: 0.6,
-                                ease: "power2.out",
-                                delay: i * 0.05
-                            }
-                        );
-
-                        particlesContainer.appendChild(particle);
-                    }
-
-                    // Animasi logo muncul
-                    gsap.to(logo, {
-                        opacity: 1,
-                        duration: 1,
-                        ease: "power2.out",
-                        delay: 0.5,
-                        onComplete: () => {
-                            // Setelah semua animasi selesai, pindah ke halaman index
-                            setTimeout(() => {
-                                window.location.href = "../index.html";
-                            }, 1000);
-                        }
-                    });
-                }
-            });
-        });
+        // Redirect ke halaman landing setelah 4 detik
+        setTimeout(() => {
+            window.location.href = "landing.html";
+        }, 4000); // 4000 milidetik = 4 detik
     </script>
-
 </body>
 </html>

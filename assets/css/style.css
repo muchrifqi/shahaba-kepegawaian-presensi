@@ -699,3 +699,13 @@ button.disabled-after-time:disabled {
             animation: fadeIn 1s ease-in-out;
             text-align: center;
         }
+        .landing-description {
+            color: var(--text-color);
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            max-width: 600px; /* Lebar maksimum deskripsi */
+            margin: 0 auto 2rem; /* Pusatkan dan beri jarak bawah */
+        }
