@@ -220,7 +220,7 @@ button.disabled-after-time:disabled {
         border-radius: var(--border-radius);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         margin-bottom: 20px;
-        margin-top: 110px;
+        margin-top: 1rem;
         text-align: center;
         animation: fadeIn 1s ease-in-out;
         color: var(--text-color);
@@ -603,39 +603,101 @@ button.disabled-after-time:disabled {
             margin-bottom: 0.7rem; /* Margin diperkecil */
             line-height: 1.5; /* Jarak antar baris lebih rapat */
         }
+        /* Gaya untuk landing page */
+        .landing-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .landing-buttoninner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
 
-.landing-button-container {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column; /* Membuat tombol dalam satu kolom */
-    align-items: center; /* Pusatkan tombol secara horizontal */
-    gap: 1rem; /* Jarak antar tombol */
-}
+        .landing-button-container h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
 
-.landing-button {
-    padding: 1rem;
-    font-size: 16px;
-    background: rgba(173, 173, 173, 0.468);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%; /* Lebar penuh */
-    max-width: 300px; /* Lebar maksimum tombol */
-}
+        .landing-button {
+            padding: 1rem;
+            font-size: 16px;
+            background: rgba(173, 173, 173, 0.468);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
 
-.landing-button:hover {
-    background: var(--button-hover-color);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-5px);
-}
+        .landing-button:hover {
+            background: var(--button-hover-color);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
 
-.landing-button i {
-    font-size: 20px;
-}
-            
+        .landing-button i {
+            font-size: 20px;
+        }
+
+        /* Responsif untuk perangkat kecil */
+        @media (max-width: 768px) {
+            .landing-button-container {
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+
+            .landing-button {
+                font-size: 14px;
+                padding: 0.8rem;
+            }
+
+            .landing-button-container h3 {
+                font-size: 1.2rem;
+            }
+        }
+        .time-check-message {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            margin-top: 100px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+            text-align: center;
+        }
