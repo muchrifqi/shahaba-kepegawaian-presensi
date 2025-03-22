@@ -709,3 +709,25 @@ button.disabled-after-time:disabled {
             max-width: 600px; /* Lebar maksimum deskripsi */
             margin: 0 auto 2rem; /* Pusatkan dan beri jarak bawah */
         }
+        /* Tambahkan CSS untuk banner notifikasi */
+        #installBanner {
+            position: fixed;
+            bottom: 5;
+            left: 0;
+            width: 100%;
+            background-color: #47974a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        #installBanner button {
+            background-color: #ffffff;
+            color: #47974a;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
