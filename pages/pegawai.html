@@ -1,0 +1,103 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presensi Shahaba</title>
+    <!--<link rel="manifest" href="manifest.json">
+    <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+              .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch((error) => {
+                console.error('Service Worker registration failed:', error);
+              });
+          }
+    </script>-->
+    <link rel="icon" href="assets/icons/priority.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/presensichecktime.js" defer></script>
+    <script src="assets/js/landingpegawai.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  </head>
+  <body>
+    <div class="curve">
+      <h1>Shahaba</h1>
+      <h2>Sistem Pendataan Presensi</h2>
+    </div>
+    <div id="timeCheckMessage" class="time-check-message">
+      <p>Memeriksa waktu...</p>
+  </div>
+  <div class="announcement-index">
+      <div id="announcementContent">
+          <h3><i class="fas fa-bullhorn"></i> Pengumuman</h3>
+          <p id="announcementText">Memuat...</p>
+      </div>
+      <button id="adminAnnouncementButton" class="admin-button">
+          <i class="fas fa-edit"></i> Edit Pengumuman (Admin)
+      </button>
+  </div>
+  <!-- Tombol Instalasi PWA
+  <button id="installButton" class="install-button" style="display: block;">
+    <i class="fas fa-download"></i> Install Aplikasi
+  </button> -->
+  <div class="container">
+      <!-- Tombol untuk menuju web app presensi peserta didik -->
+      <a href="pages/pesertadidik.html">
+        <i class="fas fa-qrcode"></i> Scan QR Peserta Didik
+      </a>
+
+      <h3><i class="fas fa-users"></i> Presensi Pegawai</h3>
+      <div class="button-container">
+        <div class="button-container">
+          <button onclick="presensichecktime('Deva Mandela')">Deva Mandela</button> <!-- untuk disable setelah 06:45 id="Disable645" tapi konflik dengan fungsi update tombol-->
+          <button onclick="presensichecktime('Dwi Indo')">Dwi Indo</button>
+          <button onclick="presensichecktime('Muchamad Rifqi Hermawan')" onclick="">Muchamad Rifqi Hermawan</button>
+          <button onclick="presensichecktime('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
+          <button onclick="presensichecktime('Nurhayati')">Nurhayati</button>
+          <button onclick="presensichecktime('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
+          <button onclick="presensichecktime('Nandar Sunandar')">Nandar Sunandar</button>
+          <button onclick="presensichecktime('Salma Satira Askar')">Salma Satira Askar</button>
+        </div>
+        </div>
+      </div>
+      <div id="loading">
+        <i class="fas fa-spinner"></i> Memproses...
+      </div>
+      <div id="confirmation" class="confirmation">
+        <h2><i class="fas fa-check-circle"></i> Pendataan Berhasil</h2>
+        <p id="confirmationMessage"></p>
+      </div>
+      <p id="statusMessage" style="margin-top: 1rem;"></p>
+    </div>
+
+    <!-- Tombol Melayang -->
+    <button id="floatingMenuButton" class="floating-button">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <!-- Menu yang muncul saat tombol diklik -->
+    <div id="floatingMenu" class="floating-menu">
+      <button id="floatingLocationButton" class="floating-menu-item">
+          <i class="fas fa-sync-alt"></i> Lokasi Presisi
+      </button>
+      <button onclick="window.location.href='pages/about.html'" class="floating-menu-item">
+        <i class="fas fa-info-circle"></i> Tentang
+      </button>
+      <button id="adminReportButton" class="floating-menu-item">
+        <i class="fas fa-chart-bar"></i> Laporan Admin
+      </button>
+    </div>
+
+  <br>
+    <footer class="footer">
+      &copy; 2025 Shahaba SD & Prasekolah
+    </footer>
+  <!--<script src="assets/js/install.js"></script>-->
+  </body>
+  </html>
