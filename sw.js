@@ -1,14 +1,17 @@
-const CACHE_NAME = 'presensi-app-v1';
+const CACHE_NAME = 'presensi-app-v2';
 const ASSETS_TO_CACHE = [
   './index.html',
   './pages/pesertadidik.html',
+  './pages/landing.html',
+  './pages/landingpegawai.html',
   './pages/about.html',
   './pages/laporan.html',
   './assets/css/styles.css',
   './assets/js/script.js',
-  './assets/icons/icon-72x72.png',
-  './assets/icons/icon-192x192.png',
-  './assets/icons/icon-512x512.png'
+  './assets/icons/priority_f32.png',
+  './assets/icons/priority_f72.png',
+  './assets/icons/priority_f192.png',
+  './assets/icons/priority_f512.png'
 ];
 
 // Install service worker
