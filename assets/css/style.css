@@ -96,7 +96,7 @@ h1 {
 
 .button-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 2fr));
     gap: 1rem;
 }
 
@@ -197,7 +197,7 @@ button.disabled-after-time:disabled {
     a {
         text-decoration: none;
         padding: 10px 20px;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgb(9, 168, 217);
         color: var(--text-color);
         border-radius: var(--border-radius);
         cursor: pointer;
@@ -206,11 +206,25 @@ button.disabled-after-time:disabled {
     }
 
     a:hover {
-        background-color: rgba(255, 251, 0, 0.251);
+        background-color: #172e69;
         transform: translateY(-5px);
     }
 
     /* Gaya untuk section pengumuman */
+    .announcement-index {
+        width: auto;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+        margin-top: px;
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+        color: var(--text-color);
+    }
     .announcement-section {
         width: auto;
         max-width: 500px;
@@ -220,7 +234,7 @@ button.disabled-after-time:disabled {
         border-radius: var(--border-radius);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         margin-bottom: 20px;
-        margin-top: 1rem;
+        margin-top: 100px;
         text-align: center;
         animation: fadeIn 1s ease-in-out;
         color: var(--text-color);
@@ -610,22 +624,6 @@ button.disabled-after-time:disabled {
             align-items: center;
             justify-content: center;
             gap: 1rem;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-in-out;
-        }
-        .landing-buttoninner-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
             width: 90%;
             max-width: 400px;
             margin: 0 auto;
@@ -659,7 +657,7 @@ button.disabled-after-time:disabled {
             gap: 10px;
             width: 100%;
             max-width: 300px;
-            margin: 0 auto;
+            margin:  0 auto;
         }
 
         .landing-button:hover {
@@ -689,12 +687,12 @@ button.disabled-after-time:disabled {
             }
         }
         .time-check-message {
-            background: rgba(255, 255, 255, 0.1);
+/*            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 1rem;
             border-radius: var(--border-radius);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);*/
+            max-width: 600px;
             width: 90%;
             margin-top: 100px;
             margin-bottom: 20px;

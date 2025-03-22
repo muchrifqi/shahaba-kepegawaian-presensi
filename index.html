@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/script.js" defer></script>
-    <!--<script src="assets/js/landingpegawai.js"></script>-->
+    <script src="assets/js/presensichecktime.js" defer></script>
+    <script src="assets/js/landingpegawai.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   </head>
   <body>
@@ -32,7 +33,7 @@
     <div id="timeCheckMessage" class="time-check-message">
       <p>Memeriksa waktu...</p>
   </div>
-  <div class="announcement-section">
+  <div class="announcement-index">
       <div id="announcementContent">
           <h3><i class="fas fa-bullhorn"></i> Pengumuman</h3>
           <p id="announcementText">Memuat...</p>
@@ -48,20 +49,20 @@
   <div class="container">
       <!-- Tombol untuk menuju web app presensi peserta didik -->
       <a href="pages/pesertadidik.html">
-        <i class="fas fa-users"></i> Aplikasi Presensi Peserta Didik
+        <i class="fas fa-qrcode"></i> Scan QR Peserta Didik
       </a>
 
       <h3><i class="fas fa-users"></i> Presensi Pegawai</h3>
       <div class="button-container">
         <div class="button-container">
-          <button onclick="presensi('Deva Mandela')">Deva Mandela</button> <!-- untuk disable setelah 06:45 id="Disable645"-->
-          <button onclick="presensi('Dwi Indo')">Dwi Indo</button>
-          <button onclick="presensi('Muchamad Rifqi Hermawan')">Muchamad Rifqi Hermawan</button>
-          <button onclick="presensi('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
-          <button onclick="presensi('Nurhayati')">Nurhayati</button>
-          <button onclick="presensi('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
-          <button onclick="presensi('Nandar Sunandar')">Nandar Sunandar</button>
-          <button onclick="presensi('Salma Satira Askar')">Salma Satira Askar</button>
+          <button onclick="presensichecktime('Deva Mandela')">Deva Mandela</button> <!-- untuk disable setelah 06:45 id="Disable645" tapi konflik dengan fungsi update tombol-->
+          <button onclick="presensichecktime('Dwi Indo')">Dwi Indo</button>
+          <button onclick="presensichecktime('Muchamad Rifqi Hermawan')" onclick="">Muchamad Rifqi Hermawan</button>
+          <button onclick="presensichecktime('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
+          <button onclick="presensichecktime('Nurhayati')">Nurhayati</button>
+          <button onclick="presensichecktime('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
+          <button onclick="presensichecktime('Nandar Sunandar')">Nandar Sunandar</button>
+          <button onclick="presensichecktime('Salma Satira Askar')">Salma Satira Askar</button>
         </div>
         </div>
       </div>

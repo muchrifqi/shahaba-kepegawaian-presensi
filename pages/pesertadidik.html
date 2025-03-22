@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Presensi Peserta Didik</title>
     <!--<link rel="manifest" href="manifest.json">-->
+    <link rel="stylesheet" href="../assets/icons/priority.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -53,7 +54,7 @@
     </div>
 
     <div class="container-scan">
-      <h1>Scan QR Peserta Didik</h1>
+      <h1><i class="fas fa-qrcode"></i> Scan QR Peserta Didik</h1>
       <div id="scanner">
         <p>Arahkan kamera ke QR code di kartu siswa.</p>
         <div id="qr-reader" style="width: 100%;"></div>
@@ -72,7 +73,7 @@
       const webAppUrl = 'https://script.google.com/macros/s/AKfycbwyYf2D42MHyKmAzywf6R_zWibg1B3Sius0Lcndfx25hd53ejxRgkerJrUvnJ6ZNZfb/exec'; // Ganti dengan URL Web App Anda
 
       function playBeep() {
-        const audio = new Audio('beep-07a.mp3'); // Ganti dengan URL file bip
+        const audio = new Audio('../assets/audio/beep-07a.mp3'); // Ganti dengan URL file bip
         audio.play();
       }
 
