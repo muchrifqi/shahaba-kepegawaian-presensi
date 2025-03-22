@@ -220,7 +220,7 @@ button.disabled-after-time:disabled {
         border-radius: var(--border-radius);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         margin-bottom: 20px;
-        margin-top: px;
+        margin-top: 100px;
         text-align: center;
         animation: fadeIn 1s ease-in-out;
         color: var(--text-color);
@@ -627,7 +627,7 @@ button.disabled-after-time:disabled {
             width: 90%;
             max-width: 400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
@@ -701,13 +701,13 @@ button.disabled-after-time:disabled {
         }
         .landing-description {
             color: var(--text-color);
-            font-size: 1rem;
+            font-size: 1.2rem;
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 3rem;
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            max-width: 600px; /* Lebar maksimum deskripsi */
-            margin: 0 auto 2rem; /* Pusatkan dan beri jarak bawah */
+            max-width: 500px; /* Lebar maksimum deskripsi */
+            margin: 90px auto 2rem; /* Pusatkan dan beri jarak bawah */
         }
         /* Tambahkan CSS untuk banner notifikasi */
         #installBanner {

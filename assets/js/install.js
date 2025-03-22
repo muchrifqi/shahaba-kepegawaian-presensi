@@ -7,11 +7,11 @@ window.addEventListener('beforeinstallprompt', (event) => {
 
   // Tampilkan SweetAlert2 untuk menawarkan instalasi
   Swal.fire({
-    title: 'Tambahkan ke Layar Utama?',
-    text: 'Anda dapat menambahkan aplikasi ini ke layar utama untuk pengalaman yang lebih baik.',
+    title: 'Install Aplikasi?',
+    text: 'Install aplikasi ini di perangkat anda untuk pengalaman yang lebih baik.',
     icon: 'question',
     showCancelButton: true,
-    confirmButtonText: 'Ya, Tambahkan',
+    confirmButtonText: 'Ya, Install',
     cancelButtonText: 'Nanti',
   }).then((result) => {
     if (result.isConfirmed) {
@@ -22,15 +22,15 @@ window.addEventListener('beforeinstallprompt', (event) => {
           console.log('Pengguna menerima instalasi');
           Swal.fire({
             icon: 'success',
-            title: 'Aplikasi Berhasil Ditambahkan',
-            text: 'Syukran telah menambahkan aplikasi ke layar utama!',
+            title: 'Aplikasi Berhasil Diinstall',
+            text: 'Syukran, telah menginstall aplikasi!',
           });
         } else {
           console.log('Pengguna menolak instalasi');
           Swal.fire({
             icon: 'info',
             title: 'Instalasi Dibatalkan',
-            text: 'Anda dapat menambahkan aplikasi ini nanti.',
+            text: 'Anda dapat menginstall aplikasi ini nanti.',
           });
         }
         deferredPrompt = null;

@@ -39,5 +39,5 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "./",
-  "theme_color": "#172e69"
+  "theme_color": "#ffffff"
 }
