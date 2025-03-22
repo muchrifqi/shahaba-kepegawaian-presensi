@@ -712,7 +712,7 @@ button.disabled-after-time:disabled {
         /* Tambahkan CSS untuk banner notifikasi */
         #installBanner {
             position: fixed;
-            bottom: 5;
+            bottom: 1;
             left: 0;
             width: 100%;
             background-color: #47974a;
