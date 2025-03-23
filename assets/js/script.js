@@ -372,11 +372,13 @@ async function presensi(nama) {
     //const newPasswordHash = CryptoJS.SHA256(newPassword).toString(CryptoJS.enc.Hex);
     //console.log(newPasswordHash); // Salin hash ini ke ADMIN_PASSWORD_HASH
     const CustomSwal = Swal.mixin({
-      width: 600,
+      width: 600, // Atur lebar default
       customClass: {
-        popup: 'custom-popup',
-        confirmButton: 'custom-confirm-button'
+        popup: 'custom-popup', // Kelas CSS untuk modal
+        confirmButton: 'custom-confirm-button', // Kelas CSS untuk tombol konfirmasi
+        cancelButton: 'custom-cancel-button', // Kelas CSS untuk tombol cancel
+        input: 'custom-input' // Kelas CSS untuk input
       },
-      buttonsStyling: false,
-      heightAuto: false
+      buttonsStyling: false, // Nonaktifkan styling default tombol
+      heightAuto: false // Nonaktifkan penyesuaian tinggi otomatis
     });

@@ -7,8 +7,140 @@
     --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
     --button-hover-color: #1e7637; /* Warna hijau saat hover */
-    --border-radius: 25px
-}
+    --border-radius: 25px;
+    /* Swal warna */
+    --swal-primary-color: #172e69; 
+    --swal-secondary-color: #ee9d15; 
+    --swal-accent-color: #e15f0e; 
+    --swal-text-color: #172e69; /* Warna teks utama */
+    --swal-text-secondary-color: #707070; /* Warna teks sekunder */
+    --swal-background-color: #ebebeb; /* Warna latar belakang modal */
+    --swal-border-color: #cccccc; /* Warna border input */
+    --swal-shadow-color: rgba(0, 0, 0, 0.15); /* Warna shadow */
+
+    /* Ukuran */
+    --swal-width: 80%; /* Lebar modal */
+    --swal-max-width: 600px; /* Maksimum lebar modal */
+    --swal-font-size: 14px; /* Ukuran font teks */
+    --swal-title-font-size: 20px; /* Ukuran font judul */
+    --swal-padding: 20px; /* Padding modal */
+    --swal-border-radius: 10px; /* Border radius modal */
+    --swal-button-padding: 10px 20px; /* Padding tombol */
+    --swal-button-border-radius: 5px; /* Border radius tombol */
+    --swal-input-width: 90%; /* Lebar input */
+    --swal-input-padding: 10px; /* Padding input */
+    --swal-icon-size: 60px; /* Ukuran ikon */
+    }
+
+    /* Style untuk modal SweetAlert2 */
+    .swal2-popup {
+    width: var(--swal-width) !important;
+    max-width: var(--swal-max-width) !important;
+    font-size: var(--swal-font-size) !important;
+    padding: var(--swal-padding) !important;
+    border-radius: var(--swal-border-radius) !important;
+    background-color: var(--swal-background-color) !important;
+    box-shadow: 0 4px 12px var(--swal-shadow-color) !important;
+    }
+
+    /* Style untuk judul modal */
+    .swal2-title {
+    font-size: var(--swal-title-font-size) !important;
+    font-weight: bold !important;
+    color: var(--swal-text-color) !important;
+    margin-bottom: 10px !important;
+    }
+
+    /* Style untuk teks modal */
+    .swal2-html-container {
+    font-size: var(--swal-font-size) !important;
+    color: var(--swal-text-secondary-color) !important;
+    margin-bottom: 20px !important;
+    }
+
+    /* Style untuk ikon modal */
+    .swal2-icon {
+    width: var(--swal-icon-size) !important;
+    height: var(--swal-icon-size) !important;
+    margin: 20px auto 10px !important;
+    }
+    .swal2-icon.swal2-success { color: var(--swal-primary-color) !important; }
+    .swal2-icon.swal2-error { color: var(--swal-secondary-color) !important; }
+    .swal2-icon.swal2-warning { color: #ff9800 !important; }
+    .swal2-icon.swal2-info { color: var(--swal-accent-color) !important; }
+    .swal2-icon.swal2-question { color: var(--swal-secondary-color) !important; }
+
+    /* Style untuk tombol konfirmasi */
+    .swal2-confirm {
+    background-color: #3693cc !important;
+    border-radius: var(--swal-button-border-radius) !important;
+    color: white !important;
+    font-size: var(--swal-font-size) !important;
+    padding: var(--swal-button-padding) !important;
+    margin: 0 5px !important;
+    border: none !important;
+    cursor: pointer !important;
+    }
+    .swal2-confirm:hover {
+    background-color: #172e69 !important; /* Warna saat hover */
+    }
+
+    /* Style untuk tombol cancel */
+    .swal2-cancel {
+    background-color: var(--swal-secondary-color) !important;
+    border-radius: var(--swal-button-border-radius) !important;
+    color: white !important;
+    font-size: var(--swal-font-size) !important;
+    padding: var(--swal-button-padding) !important;
+    margin: 0 5px !important;
+    border: none !important;
+    cursor: pointer !important;
+    }
+    .swal2-cancel:hover {
+    background-color: #707070 !important; /* Warna saat hover */
+    }
+
+    /* Style untuk input (text, password, dll.) */
+    .swal2-input {
+    width: var(--swal-input-width) !important;
+    padding: var(--swal-input-padding) !important;
+    border: 1px solid var(--swal-border-color) !important;
+    border-radius: var(--swal-button-border-radius) !important;
+    font-size: var(--swal-font-size) !important;
+    margin: 10px auto !important;
+    }
+    .swal2-input:focus {
+    border-color: var(--swal-primary-color) !important;
+    outline: none !important;
+    }
+
+    /* Style untuk gambar di modal */
+    .swal2-image {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 10px auto !important;
+    border-radius: var(--swal-button-border-radius) !important;
+    }
+
+    /* Style untuk footer modal */
+    .swal2-footer {
+    font-size: 12px !important;
+    color: var(--swal-text-secondary-color) !important;
+    margin-top: 10px !important;
+    }
+    /* Style untuk tombol pada layar kecil */
+@media (max-width: 600px) {
+    .swal2-actions {
+      flex-direction: column; /* Susun tombol secara vertikal */
+      gap: 10px; /* Jarak antara tombol */
+    }
+  
+    .swal2-confirm,
+    .swal2-cancel {
+      width: 100%; /* Lebar tombol 100% */
+      margin: 0 !important; /* Hapus margin default */
+    }
+  }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
