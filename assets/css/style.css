@@ -21,10 +21,10 @@
     /* Ukuran */
     --swal-width: 80%; /* Lebar modal */
     --swal-max-width: 600px; /* Maksimum lebar modal */
-    --swal-font-size: 14px; /* Ukuran font teks */
+    --swal-font-size: 12.5px; /* Ukuran font teks */
     --swal-title-font-size: 20px; /* Ukuran font judul */
     --swal-padding: 20px; /* Padding modal */
-    --swal-border-radius: 10px; /* Border radius modal */
+    --swal-border-radius: 25px; /* Border radius modal */
     --swal-button-padding: 10px 20px; /* Padding tombol */
     --swal-button-border-radius: 5px; /* Border radius tombol */
     --swal-input-width: 90%; /* Lebar input */
@@ -62,7 +62,7 @@
     .swal2-icon {
     width: var(--swal-icon-size) !important;
     height: var(--swal-icon-size) !important;
-    margin: 20px auto 10px !important;
+    margin: 10px auto 10px !important;
     }
     .swal2-icon.swal2-success { color: var(--swal-primary-color) !important; }
     .swal2-icon.swal2-error { color: var(--swal-secondary-color) !important; }
@@ -84,6 +84,7 @@
     .swal2-confirm:hover {
     background-color: #172e69 !important; /* Warna saat hover */
     }
+
 
     /* Style untuk tombol cancel */
     .swal2-cancel {
