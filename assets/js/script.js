@@ -224,7 +224,7 @@ async function presensi(nama) {
 
     // Di bagian event listeners floating menu
     document.getElementById('adminReportButton').addEventListener('click', async () => {
-          window.location.href = "pages/laporan.html";
+          window.location.href = "laporan.html";
           });
     
     // Fungsi-fungsi Pengumuman
@@ -371,3 +371,12 @@ async function presensi(nama) {
     //const newPassword = "passwordBaru"; // Ganti dengan password baru
     //const newPasswordHash = CryptoJS.SHA256(newPassword).toString(CryptoJS.enc.Hex);
     //console.log(newPasswordHash); // Salin hash ini ke ADMIN_PASSWORD_HASH
+    const CustomSwal = Swal.mixin({
+      width: 600,
+      customClass: {
+        popup: 'custom-popup',
+        confirmButton: 'custom-confirm-button'
+      },
+      buttonsStyling: false,
+      heightAuto: false
+    });
