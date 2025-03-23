@@ -1,50 +1,50 @@
 {
-  "short_name": "PresensiApp",
-  "name": "Aplikasi Presensi Shahaba",
+  "short_name": "Presensi",
+  "name": "Aplikasi Presensi by Shahaba",
   "description": "Aplikasi untuk mendata presensi peserta didik dan pegawai di Shahaba.",
   "icons": [
     {
-      "src": "icon-192x192.png",
+      "src": "logopresensi192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-192x192.png",
+      "src": "logopresensi72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "logopresensi512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icon-144x144.png",
+      "src": "logopresensi144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "icon-152x152.png",
+      "src": "logopresensi152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "icon-167x167.png",
+      "src": "logopresensi167.png",
       "sizes": "167x167",
       "type": "image/png"
     },
     {
-      "src": "icon-180x180.png",
+      "src": "logopresensi180.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "icon-256x256.png",
+      "src": "logopresensi256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "icon-384x384.png",
+      "src": "logopresensi384.png",
       "sizes": "384x384",
       "type": "image/png"
     }
