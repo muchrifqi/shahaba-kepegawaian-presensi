@@ -28,20 +28,13 @@
         /* Variabel CSS */
         :root {
             --primary-color: #172e69; /* Warna biru Shahaba */
-            --secondary-color: #2b2b2b;
-            --accent-color: #e15f0e;
-            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69); /* Gradien biru */
             --text-color: white; /* Warna teks putih */
-            --error-color: #b82f25;
-            --success-color: #006c04;
-            --button-hover-color: #1e7637;
-            --border-radius: 25px;
         }
 
         /* Gaya dasar body */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f0f0; /* Latar belakang abu-abu muda untuk kontras */
+            background: var(--primary-color); /* Latar belakang solid */
             color: var(--text-color);
             display: flex;
             align-items: center;
@@ -56,164 +49,105 @@
             position: relative;
             width: 100%;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Logo di tengah */
+            background: linear-gradient(-45deg, #3693cc, #172e69);
+            background-size: 200% 200%;
+            animation: gradientBackground 5s ease infinite; /* Animasi background gradient */
         }
 
-        /* Animasi lingkaran biru */
-        .circle {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            animation: dropAndExpand 2s ease-in-out forwards;
-            z-index: 1; /* Pastikan lingkaran di atas latar belakang */
-        }
-
-        /* Efek ripple */
-        .ripple {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+        /* Logo */
+        .splash-content img {
             width: 100px;
             height: 100px;
-            background: rgba(23, 46, 105, 0.3); /* Warna ripple lebih transparan */
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            animation: rippleEffect 1.5s ease-out 0.5s infinite;
-        }
-
-        /* Efek partikel */
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.8); /* Partikel lebih transparan */
-            border-radius: 50%;
-            animation: particleExplosion 1s ease-out 1s forwards;
+            margin-bottom: 5px; /* Jarak antara logo dan teks */
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.413)); /* Efek bayangan ikon */
             opacity: 0;
+            position: relative;
+            animation: logoAnimation 1.5s ease-in-out forwards; /* Animasi logo */
+            z-index: 3;
         }
 
-        /* Overlay untuk efek cat/air */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-color);
-            opacity: 0;
-            animation: fadeInOverlay 2s ease-in-out 1s forwards; /* Muncul setelah lingkaran meluas */
-            z-index: 0; /* Di bawah lingkaran */
-        }
-
-        /* Efek liquid/cat yang lebih realistis */
-        .liquid-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            height: 200px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            animation: liquidSpread 2s ease-in-out 1s forwards;
-            z-index: 1;
-        }
-
-        /* Teks dan ikon */
-        .splash-content {
-            margin-top: 350px;
-            opacity: 0;
-            animation: fadeIn 1s ease-in-out 2s forwards; /* Muncul setelah animasi lingkaran selesai */
-            z-index: 2; /* Di atas semua elemen */
-        }
-
-        .splash-content h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-            color: var(--text-color); /* Warna teks putih */
-            font-weight: 650; /* Tebal */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Efek bayangan teks */
-        }
-
-        .splash-content img {
-            width: 70px; 
-            height: 70px;
-            margin-bottom: 5px;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); /* Efek bayangan ikon */
-        }
-
-        .splash-content p {
-            font-size: 1.3rem; /* Ukuran font lebih besar */
-            font-weight: 300;
-            color: var(--text-color); /* Warna teks putih */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Efek bayangan teks */
-        }
-
-        /* Animasi lingkaran jatuh dan meluas */
-        @keyframes dropAndExpand {
+        @keyframes logoAnimation {
             0% {
-                transform: translate(-50%, -100vh) scale(0.5); /* Lingkaran jatuh dari atas */
+                transform: scale(0.5);
+                opacity: 0;
             }
             50% {
-                transform: translate(-50%, -50%) scale(1); /* Lingkaran mencapai tengah */
+                transform: scale(1.2);
+                opacity: 1;
             }
             100% {
-                transform: translate(-50%, -50%) scale(20); /* Lingkaran meluas memenuhi layar */
-                opacity: 0; /* Menghilang secara halus */
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
-        /* Animasi ripple */
-        @keyframes rippleEffect {
+        /* Judul "Presensi" */
+        .splash-content h1 {
+            font-size: 1.7rem;
+            font-weight: bold; /* Tebalkan teks */
+            color: var(--text-color);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.413);
+            margin-bottom: 10px; /* Jarak dari logo */
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1.5s forwards; /* Animasi teks */
+            z-index: 3;
+            position: absolute;
+        }
+
+        /* Footer "by Shahaba" */
+        .footer {
+            position: absolute;
+            bottom: 20px; /* Posisi di bagian bawah layar */
+            font-size: 1.1rem;
+            font-weight: lighter; /* Tebalkan teks */
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 2s forwards; /* Animasi teks */
+            z-index: 3;
+            position: absolute;
+        }
+
+        /* Efek gelombang air (ripple) */
+        .ripple-effect {
+            position: absolute;
+            top: 48%;
+            left: 50%;
+            width: 330px;
+            height: 330px;
+            background: rgba(255, 255, 255, 0.2); /* Warna ripple */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+            z-index: 1;
+            position: absolute;
+            animation: ripple 2s ease-out 1.5s forwards; /* Muncul setelah animasi logo selesai */
+        }
+
+        .ripple-effect:nth-child(2) {
+            animation-delay: 1.7s; /* Delay untuk ripple kedua */
+        }
+
+        .ripple-effect:nth-child(3) {
+            animation-delay: 1.9s; /* Delay untuk ripple ketiga */
+        }
+
+        @keyframes ripple {
             0% {
                 transform: translate(-50%, -50%) scale(0);
                 opacity: 1;
             }
             100% {
-                transform: translate(-50%, -50%) scale(3);
+                transform: translate(-50%, -50%) scale(4);
                 opacity: 0;
             }
         }
 
-        /* Animasi partikel */
-        @keyframes particleExplosion {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--x), var(--y)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* Animasi overlay (efek cat/air) */
-        @keyframes fadeInOverlay {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1; /* Overlay menjadi biru Shahaba */
-            }
-        }
-
-        /* Animasi efek liquid/cat */
-        @keyframes liquidSpread {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(10);
-                opacity: 0;
-            }
-        }
-
-        /* Animasi teks dan ikon muncul */
+        /* Animasi fade-in untuk teks */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -224,35 +158,37 @@
                 transform: translateY(0);
             }
         }
+
+        /* Animasi background gradient */
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Splash Screen -->
     <div class="splash-screen">
-        <!-- Lingkaran biru Shahaba -->
-        <div class="circle"></div>
-
-        <!-- Efek ripple -->
-        <div class="ripple"></div>
-
-        <!-- Efek partikel -->
-        <div class="particle" style="--x: -50px; --y: -50px;"></div>
-        <div class="particle" style="--x: 50px; --y: -50px;"></div>
-        <div class="particle" style="--x: -50px; --y: 50px;"></div>
-        <div class="particle" style="--x: 50px; --y: 50px;"></div>
-
-        <!-- Efek liquid/cat -->
-        <div class="liquid-effect"></div>
-
-        <!-- Overlay untuk efek cat/air -->
-        <div class="overlay"></div>
-
-        <!-- Teks dan ikon -->
+        <!-- Logo dan judul -->
         <div class="splash-content">
-            <img src="assets/icons/logopresensi192.png" alt="Icon"> <!-- Ikon lokal dari folder assets/icon -->
-            <h1>Aplikasi Presensi</h1>
-            <p>Sekolah Komunitas Shahaba</p> <!-- Teks deskripsi lebih deskriptif -->
+            <img src="assets/icons/logopresensi192.png" alt="Logo">
+            <h1>Presensi</h1>
         </div>
+
+        <!-- Footer "by Shahaba" -->
+        <div class="footer">by Shahaba</div>
+
+        <!-- Efek gelombang air (ripple) -->
+        <div class="ripple-effect"></div>
+        <div class="ripple-effect"></div>
+        <div class="ripple-effect"></div>
     </div>
 
     <script>
