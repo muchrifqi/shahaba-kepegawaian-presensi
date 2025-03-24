@@ -35,7 +35,7 @@ async function presensichecktime(nama) {
         await Swal.fire({
             icon: 'error',
             title: 'Waktu Presensi Habis',
-            text: 'Mohon maaf, waktu pendataan presensi sudah berakhir pada pukul 06.45.',
+            text: 'Mohon maaf, waktu pendataan presensi telah berakhir pada pukul 06:45.',
         });
         return; // Hentikan proses jika waktu sudah melewati 06:45
     }

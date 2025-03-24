@@ -13,7 +13,7 @@
     --swal-secondary-color: #ee9d15; 
     --swal-accent-color: #e15f0e; 
     --swal-text-color: #172e69; /* Warna teks utama */
-    --swal-text-secondary-color: #707070; /* Warna teks sekunder */
+    --swal-text-secondary-color: #484848; /* Warna teks sekunder */
     --swal-background-color: #ffffff; /* Warna latar belakang modal */
     --swal-border-color: #cccccc; /* Warna border input */
     --swal-shadow-color: rgba(0, 0, 0, 0.15); /* Warna shadow */
@@ -21,7 +21,7 @@
     /* Ukuran */
     --swal-width: 80%; /* Lebar modal */
     --swal-max-width: 600px; /* Maksimum lebar modal */
-    --swal-font-size: 12.5px; /* Ukuran font teks */
+    --swal-font-size: 14.5px; /* Ukuran font teks */
     --swal-title-font-size: 20px; /* Ukuran font judul */
     --swal-padding: 20px; /* Padding modal */
     --swal-border-radius: 25px; /* Border radius modal */
@@ -29,7 +29,7 @@
     --swal-button-border-radius: 5px; /* Border radius tombol */
     --swal-input-width: 90%; /* Lebar input */
     --swal-input-padding: 10px; /* Padding input */
-    --swal-icon-size: 60px; /* Ukuran ikon */
+    --swal-icon-size: 70px; /* Ukuran ikon */
     }
 
     /* Style untuk modal SweetAlert2 */
@@ -834,15 +834,25 @@ button.disabled-after-time:disabled {
             animation: fadeIn 1s ease-in-out;
             text-align: center;
         }
-        .landing-description {
+        .landing-content p {
             color: var(--text-color);
             font-size: 1.1rem;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 0;
             margin-bottom: 1.5rem;
             line-height: 1.6;
             max-width: 500px; /* Lebar maksimum deskripsi */
-            margin: 90px auto 2rem; /* Pusatkan dan beri jarak bawah */
+            margin: 1rem auto 1rem; /* Pusatkan dan beri jarak bawah */
+        }        
+        .landing-content h1 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            max-width: 500px; /* Lebar maksimum deskripsi */
+            margin: 6rem auto 1rem; /* Pusatkan dan beri jarak bawah */
         }
         /* Tambahkan CSS untuk banner notifikasi */
         #installBanner {
