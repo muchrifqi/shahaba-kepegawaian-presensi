@@ -1,21 +1,21 @@
 const CACHE_NAME = 'presensi-app-v2';
 const ASSETS_TO_CACHE = [
-  '/index.html',
-  '/pages/pesertadidik.html',
-  '/pages/landing.html',
-  '/pages/landingpegawai.html',
-  '/pages/about.html',
-  '/pages/laporan.html',
-  '/assets/css/styles.css',
-  '/assets/js/script.js',
-  '/assets/icons/logopresensi72.png',
-  '/logopresensi144.png',
-  '/assets/icons/logopresensi167.png',
-  '/assets/icons/logopresensi180.png',
-  '/assets/icons/logopresensi192.png',
-  '/assets/icons/logopresensi256.png',
-  '/assets/icons/logopresensi384.png',
-  '/assets/icons/logopresensi512.png'
+  '../shahaba-kepegawaian-presensi/index.html',
+  '../shahaba-kepegawaian-presensi/pages/pesertadidik.html',
+  '../shahaba-kepegawaian-presensi/pages/landing.html',
+  '../shahaba-kepegawaian-presensi/pages/landingpegawai.html',
+  '../shahaba-kepegawaian-presensi/pages/about.html',
+  '../shahaba-kepegawaian-presensi/pages/laporan.html',
+  '../shahaba-kepegawaian-presensi/assets/css/styles.css',
+  '../shahaba-kepegawaian-presensi/assets/js/script.js',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi72.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi144.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi167.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi180.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi192.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi256.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi384.png',
+  '../shahaba-kepegawaian-presensi/assets/icons/logopresensi512.png'
 ];
 
 // Install service worker
