@@ -58,7 +58,7 @@
       <div id="scanner">
         <p>Arahkan kamera ke QR code di kartu siswa.</p>
         <div id="qr-reader" style="width: 100%;"></div>
-      </div>
+      </div><hr>
       <div id="result"></div>
     </div>
     <a href="../index.html" class="back-button">
@@ -144,7 +144,8 @@
           { fps: 10, qrbox: 250 },
           onScanSuccess
         ).catch(err => {
-          document.getElementById('result').innerText = 'Error: ' + err;
+          console.error(err);
+          document.getElementById('result').innerText = 'User tidak mengizinkan penggunaan kamera. Muat ulang halaman ini dan izinkan akses kamera untuk mulai mendata presensi peserta didik.';
         });
       }
 
