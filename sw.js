@@ -8,10 +8,14 @@ const ASSETS_TO_CACHE = [
   './pages/laporan.html',
   './assets/css/styles.css',
   './assets/js/script.js',
-  './assets/icons/priority_f32.png',
-  './assets/icons/priority_f72.png',
-  './assets/icons/priority_f192.png',
-  './assets/icons/priority_f512.png'
+  './assets/icons/logopresensi72.png',
+  './assets/icons/logopresensi144.png',
+  './assets/icons/logopresensi167.png',
+  './assets/icons/logopresensi180.png',
+  './assets/icons/logopresensi192.png',
+  './assets/icons/logopresensi256.png',
+  './assets/icons/logopresensi384.png',
+  './assets/icons/logopresensi512.png'
 ];
 
 // Install service worker
