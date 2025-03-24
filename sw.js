@@ -1,6 +1,6 @@
 const CACHE_NAME = 'presensi-app-v2';
 const ASSETS_TO_CACHE = [
-  './shahaba-kepegawaian-presensi/index.html',
+  './index.html',
   './pages/pesertadidik.html',
   './pages/landing.html',
   './pages/landingpegawai.html',
@@ -9,7 +9,7 @@ const ASSETS_TO_CACHE = [
   './assets/css/styles.css',
   './assets/js/script.js',
   './assets/icons/logopresensi72.png',
-  './shahaba-kepegawaian-presensi/assets/icons/logopresensi144.png',
+  './logopresensi144.png',
   './assets/icons/logopresensi167.png',
   './assets/icons/logopresensi180.png',
   './assets/icons/logopresensi192.png',
