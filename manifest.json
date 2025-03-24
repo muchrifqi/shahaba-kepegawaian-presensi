@@ -68,6 +68,6 @@
   "start_url": "index.html",
   "background_color": "#ffffff",
   "display": "standalone",
-  "scope": "./shahaba-presensi-kepegawaian/",
+  "scope": "./",
   "theme_color": "#ffffff"
 }
