@@ -4,47 +4,47 @@
   "description": "Aplikasi untuk mendata presensi peserta didik dan pegawai di Shahaba.",
   "icons": [
     {
-      "src": "logopresensi192.png",
+      "src": "/assets/icons/logopresensi192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "logopresensi72.png",
+      "src": "/assets/icons/logopresensi72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "logopresensi512.png",
+      "src": "/assets/icons/logopresensi512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "logopresensi144.png",
+      "src": "/assets/icons/logopresensi144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "logopresensi152.png",
+      "src": "/assets/icons/logopresensi152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "logopresensi167.png",
+      "src": "/assets/icons/logopresensi167.png",
       "sizes": "167x167",
       "type": "image/png"
     },
     {
-      "src": "logopresensi180.png",
+      "src": "/assets/icons/logopresensi180.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "logopresensi256.png",
+      "src": "/assets/icons/logopresensi256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "logopresensi384.png",
+      "src": "/assets/icons/logopresensi384.png",
       "sizes": "384x384",
       "type": "image/png"
     }
