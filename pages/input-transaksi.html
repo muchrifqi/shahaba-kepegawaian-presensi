@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Transaksi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/payment.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="curve">
+        <h1>Shahaba</h1>
+        <h2>Input Pembayaran</h2>
+    </div>
+
+    <div class="form-container">
+        <h3><i class="fas fa-money-bill-wave"></i> Form Transaksi</h3>
+        
+        <div class="form-row">
+            <div class="form-group half-width">
+                <label for="tanggal"><i class="far fa-calendar-alt"></i> Tanggal:</label>
+                <input type="date" id="tanggal" required>
+            </div>
+
+            <div class="form-group half-width currency-input">
+                <label for="nominal"><i class="fas fa-coins"></i> Nominal:</label>
+                <input type="text" id="nominal" placeholder="0" inputmode="numeric" required>
+            </div>
+        </div>
+
+        <div class="form-group half-width">
+            <label for="filterJenjang"><i class="fas fa-filter"></i> Filter Jenjang:</label>
+            <select id="filterJenjang" onchange="filterStudents()">
+                <option value="">Semua Jenjang</option>
+                <option value="SD">SD</option>
+                <option value="Prasekolah">Prasekolah</option>
+            </select>
+        </div>
+
+        <div class="form-group autocomplete">
+            <label for="nama"><i class="fas fa-user-graduate"></i> Peserta Didik:</label>
+            <input type="text" id="nama" placeholder="Cari nama..." autocomplete="off">
+            <div class="loading-indicator" id="loadingNames">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div id="autocomplete-list" class="autocomplete-items"></div>
+            
+            <div id="selectedStudents" class="multi-input-container"></div>
+            
+            <div id="suggestedStudents" style="margin-top: 10px; display: none;">
+                <p style="font-size: 0.8rem; margin-bottom: 5px;">Anak lain dari orang tua yang sama:</p>
+                <div id="suggestionsList"></div>
+                <input type="hidden" id="hiddenJenjang" name="jenjang">
+            </div>
+        </div>
+
+            <div class="form-group half-width">
+                <label for="metode"><i class="fas fa-wallet"></i> Metode Pembayaran:</label>
+                <select id="metode" required>
+                    <option value="">Pilih Metode</option>
+                    <option value="Tunai">Tunai</option>
+                    <option value="Non-Tunai">Non-Tunai</option>
+                </select>
+            </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-tags"></i> Jenis Pembayaran:</label>
+            <div class="jenis-container" id="jenisContainer">
+                <div class="jenis-input">
+                    <input type="text" class="jenis-input-field" placeholder="Contoh: SPP Juli 2024" required>
+                    <button type="button" class="remove-row" onclick="removeJenisInput(this)"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <span class="add-row" onclick="addJenisInput()"><i class="fas fa-plus-circle"></i> Tambah Jenis Pembayaran</span>
+        </div>
+    </div>
+
+        <button class="admin-button" onclick="submitTransaction()">
+            <i class="fas fa-save"></i> Simpan Transaksi
+        </button>
+
+        <div id="paymentProof" class="payment-proof" style="display: none;">
+            <h4><i class="fas fa-receipt"></i> Bukti Transaksi:</h4>
+            <div id="proofDetails"></div>
+            <button class="admin-button whatsapp-button" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const SCRIPT_URL = 'URL_APPS_SCRIPT_ANDA';
+        const { jsPDF } = window.jspdf;
+        let transactionData = {
+            students: [],
+            jenisPembayaran: []
+        };
+        let studentsData = [];
+        let pdfBlob = null;
+        let currentParent = null;
+
+        // ... Fungsi formatRupiah, parseCurrency, formatCurrency tetap sama ...
+
+        // Ambil data siswa dari Spreadsheet
+        async function fetchStudents() {
+            try {
+                document.getElementById('loadingNames').style.display = 'block';
+                const response = await fetch(`${SCRIPT_URL}?action=getStudents`);
+                studentsData = await response.json();
+                document.getElementById('loadingNames').style.display = 'none';
+            } catch (error) {
+                console.error("Gagal mengambil data siswa:", error);
+                document.getElementById('loadingNames').style.display = 'none';
+            }
+        }
+
+        // Autocomplete nama siswa
+        function autocompleteName() {
+            const input = document.getElementById('nama');
+            const autocompleteList = document.getElementById('autocomplete-list');
+            
+            input.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                autocompleteList.innerHTML = '';
+                
+                if (val.length < 2) return;
+                
+                const matches = studentsData.filter(student => 
+                    student.nama.toLowerCase().includes(val) ||
+                    student.nis.toLowerCase().includes(val)
+                );
+                
+                matches.slice(0, 5).forEach(match => {
+                    const item = document.createElement('div');
+                    // Tampilkan format: [Nama - Jenjang]
+                    item.innerHTML = `${match.nama} <small>(${match.jenjang})</small>`;
+                    
+                    item.addEventListener('click', function() {
+                        // Auto-set jenjang saat memilih siswa
+                        document.getElementById('hiddenJenjang').value = match.jenjang; // Simpan di hidden field
+                        input.value = match.nama; // Hanya tampilkan nama saja
+                        autocompleteList.innerHTML = '';
+                    });
+                    autocompleteList.appendChild(item);
+                });
+            });
+        }
+
+        // Tambahkan siswa ke daftar
+        function addStudent(student) {
+            // Cek apakah siswa sudah ada
+            if(transactionData.students.some(s => s.nama === student.nama)) {
+                Swal.fire('Info', 'Siswa sudah ditambahkan', 'info');
+                return;
+            }
+            
+            transactionData.students.push(student);
+            currentParent = student.parent;
+            
+            // Tambahkan ke tampilan
+            const container = document.getElementById('selectedStudents');
+            const div = document.createElement('div');
+            div.className = 'multi-input-row';
+            div.innerHTML = `
+                <input type="text" value="${student.nama} - ${student.jenjang}" readonly>
+                <span class="remove-row" onclick="removeStudent(this, '${student.nama}')"><i class="fas fa-times"></i></span>
+            `;
+            container.appendChild(div);
+            
+            // Auto-set jenjang jika ini siswa pertama
+            if(transactionData.students.length === 1) {
+                document.getElementById('jenjang').value = student.jenjang;
+            }
+        }
+
+        // Tampilkan saran saudara kandung
+        function showSiblingSuggestions(parent) {
+            const suggestionsDiv = document.getElementById('suggestedStudents');
+            const suggestionsList = document.getElementById('suggestionsList');
+            
+            suggestionsList.innerHTML = '';
+            
+            const siblings = studentsData.filter(student => 
+                student.orangTua === parent && 
+                !transactionData.students.some(s => s.nama === student.nama)
+            );
+            
+            if(siblings.length > 0) {
+                siblings.forEach(sibling => {
+                    const btn = document.createElement('button');
+                    btn.className = 'admin-button small-button';
+                    btn.style.margin = '2px';
+                    btn.innerHTML = `<i class="fas fa-plus"></i> ${sibling.nama} - ${sibling.jenjang}`;
+                    btn.onclick = () => addStudent({
+                        nama: sibling.nama,
+                        jenjang: sibling.jenjang,
+                        parent: sibling.orangTua,
+                        phone: sibling.telepon
+                    });
+                    suggestionsList.appendChild(btn);
+                });
+                suggestionsDiv.style.display = 'block';
+            } else {
+                suggestionsDiv.style.display = 'none';
+            }
+        }
+
+        // Hapus siswa dari daftar
+        function removeStudent(element, nama) {
+            transactionData.students = transactionData.students.filter(s => s.nama !== nama);
+            element.parentElement.remove();
+            
+            // Update saran jika masih ada siswa dengan orang tua yang sama
+            if(transactionData.students.length > 0) {
+                showSiblingSuggestions(currentParent);
+            } else {
+                document.getElementById('suggestedStudents').style.display = 'none';
+                currentParent = null;
+            }
+        }
+
+        // Tambah input jenis pembayaran
+        function addJenisInput() {
+            const container = document.getElementById('jenisContainer');
+            const div = document.createElement('div');
+            div.className = 'jenis-input';
+            div.innerHTML = `
+                <input type="text" class="jenis-input-field" placeholder="Contoh: SPP Juli 2024" required>
+                <button type="button" class="remove-row" onclick="removeJenisInput(this)"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(div);
+        }
+
+        // Hapus input jenis pembayaran
+        function removeJenisInput(element) {
+            const container = document.getElementById('jenisContainer');
+            if(container.children.length > 1) {
+                element.parentElement.remove();
+            } else {
+                element.nextElementSibling.value = '';
+            }
+        }
+
+        // Generate PDF
+        function generatePDF(transaction) {
+            const doc = new jsPDF();
+            
+            // Judul
+            doc.setFontSize(18);
+            doc.text('BUKTI PEMBAYARAN', 105, 20, { align: 'center' });
+            
+            // Informasi Transaksi
+            doc.setFontSize(12);
+            doc.text(`No. Transaksi: ${transaction.id}`, 14, 40);
+            doc.text(`Tanggal: ${transaction.tanggal}`, 14, 50);
+            
+            // Daftar Siswa
+            doc.text('Peserta Didik:', 14, 60);
+            let yPos = 70;
+            transaction.students.forEach((student, index) => {
+                doc.text(`${index + 1}. ${student.nama} (${student.jenjang})`, 20, yPos);
+                yPos += 10;
+            });
+            
+            // Jenis Pembayaran
+            doc.text('Jenis Pembayaran:', 14, yPos + 10);
+            yPos += 20;
+            transaction.jenisPembayaran.forEach((jenis, index) => {
+                doc.text(`${index + 1}. ${jenis}`, 20, yPos);
+                yPos += 10;
+            });
+            
+            // Jumlah Pembayaran
+            doc.setFontSize(14);
+            doc.text(`Total Pembayaran: ${formatRupiah(transaction.nominal)}`, 14, yPos + 10);
+            
+            // Tanda Tangan
+            doc.setFontSize(10);
+            doc.text('Hormat Kami,', 140, yPos + 30);
+            doc.text('_________________________', 140, yPos + 40);
+            doc.text('Admin Keuangan', 140, yPos + 50);
+            
+            // Simpan sebagai blob
+            pdfBlob = doc.output('blob');
+            return doc.output('datauristring');
+        }
+
+        // Submit Transaksi
+        async function submitTransaction() {
+            if(!validateForm()) return;
+
+            // Kumpulkan jenis pembayaran
+            transactionData.jenisPembayaran = Array.from(document.querySelectorAll('.jenis-input-field'))
+                .map(input => input.value.trim())
+                .filter(value => value);
+            
+            const transaction = {
+                id: 'TRX-' + Utilities.getUuid().slice(0,8),
+                tanggal: document.getElementById('tanggal').value,
+                nominal: parseCurrency(document.getElementById('nominal').value),
+                students: transactionData.students,
+                jenisPembayaran: transactionData.jenisPembayaran,
+                metode: document.getElementById('metode').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Simpan ke Spreadsheet
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'saveTransaction',
+                        data: transaction
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if(result.success) {
+                    transaction.id = result.transactionId;
+                    showPaymentProof(transaction);
+                    
+                    // Upload PDF ke Google Drive
+                    await uploadPDF(transaction);
+                    
+                    Swal.fire('Sukses!', 'Transaksi berhasil dicatat', 'success');
+                }
+            } catch (error) {
+                Swal.fire('Error!', 'Gagal menyimpan transaksi', 'error');
+            }
+        }
+
+        // ... Fungsi uploadPDF, showPaymentProof tetap sama ...
+
+        // Kirim WhatsApp
+        async function sendWhatsApp() {
+            try {
+                if(transactionData.students.length === 0) {
+                    Swal.fire('Error', 'Tidak ada siswa yang dipilih', 'error');
+                    return;
+                }
+                
+                // Gabungkan nama siswa
+                const studentsList = transactionData.students
+                    .map(s => `- ${s.nama} (${s.jenjang})`)
+                    .join('\n');
+                
+                // Gabungkan jenis pembayaran
+                const paymentList = transactionData.jenisPembayaran
+                    .map((j, i) => `${i+1}. ${j}`)
+                    .join('\n');
+                
+                // Format pesan
+                const message = `Yth. Orang Tua/Wali,
+
+Berikut bukti pembayaran untuk:
+${studentsList}
+
+Tanggal: ${document.getElementById('tanggal').value}
+
+Detail Pembayaran:
+${paymentList}
+Total: ${formatRupiah(parseCurrency(document.getElementById('nominal').value))}
+
+Terima kasih.`;
+
+                // Ambil nomor telepon (ambil dari siswa pertama)
+                const phone = transactionData.students[0].phone;
+                
+                if(phone) {
+                    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+                } else {
+                    Swal.fire('Info', 'Nomor WhatsApp orang tua tidak ditemukan', 'info');
+                }
+            } catch (error) {
+                Swal.fire('Error', 'Gagal mengirim WhatsApp', 'error');
+            }
+        }
+
+        // Validasi Form
+        function validateForm() {
+            // Validasi siswa
+            if(transactionData.students.length === 0) {
+                Swal.fire('Peringatan!', 'Pilih minimal 1 peserta didik', 'warning');
+                return false;
+            }
+            
+            // Validasi nominal
+            if(!document.getElementById('nominal').value.trim()) {
+                Swal.fire('Peringatan!', 'Nominal harus diisi', 'warning');
+                return false;
+            }
+            
+            // Validasi jenis pembayaran
+            const jenisInputs = Array.from(document.querySelectorAll('.jenis-input-field'));
+            if(jenisInputs.some(input => !input.value.trim())) {
+                Swal.fire('Peringatan!', 'Semua jenis pembayaran harus diisi', 'warning');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Inisialisasi
+        window.onload = async function() {
+            await fetchStudents();
+            autocompleteName();
+            
+            // Set tanggal default ke hari ini
+            document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
+            
+            // Auto refresh data siswa setiap 30 detik
+            setInterval(fetchStudents, 30000);
+        };
+    </script>
+</body>
+</html>

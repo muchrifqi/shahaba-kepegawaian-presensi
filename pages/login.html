@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin Pembayaran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/payment.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="curve">
+        <h1>Shahaba</h1>
+        <h2>Pembayaran Peserta Didik</h2>
+    </div>
+
+    <div class="form-container">
+        <h3><i class="fas fa-lock"></i> Login Admin Pembayaran</h3>
+        
+        <div class="form-group">
+            <label for="username"><i class="fas fa-user"></i> Username:</label>
+            <input type="text" id="username" placeholder="Masukkan username">
+        </div>
+
+        <div class="form-group">
+            <label for="password"><i class="fas fa-key"></i> Password:</label>
+            <input type="password" id="password" placeholder="Masukkan password">
+        </div>
+
+        <button class="admin-button" onclick="login()">
+            <i class="fas fa-sign-in-alt"></i> Masuk
+        </button>
+
+        <p class="login-notice"><i class="fas fa-info-circle"></i> Hanya untuk admin keuangan yang berwenang</p>
+    </div>
+
+    <script>
+        const ADMIN_HASH = 'b251b590aa7474295b09b586463278ef3032e9c75f1500d34458afb96b2fc7e1';
+        
+        function hashPassword(password) {
+            return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+        }
+
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if(!username || !password) {
+                Swal.fire('Peringatan!', 'Username dan password harus diisi', 'warning');
+                return;
+            }
+
+            if(username === 'admin' && hashPassword(password) === ADMIN_HASH) {
+                window.location.href = 'input-transaksi.html';
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Gagal',
+                    text: 'Username atau password salah!'
+                });
+            }
+        }
+
+        // Submit form dengan Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
