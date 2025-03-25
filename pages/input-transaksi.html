@@ -94,7 +94,7 @@
 
     <script>
         // Konfigurasi
-        const SCRIPT_URL = 'URL_APPS_SCRIPT_ANDA';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpRaxd890JFJMCTgYnBCGdKb6TZUhr96Ij-G2D0YFhfAM4zpEG67ocbVnxBU7HZn6L/exec';
         const { jsPDF } = window.jspdf;
         let transactionData = {
             students: [],
@@ -110,7 +110,7 @@
         async function fetchStudents() {
             try {
                 document.getElementById('loadingNames').style.display = 'block';
-                const response = await fetch(`${SCRIPT_URL}?action=getStudents`);
+                const response = await fetch(`${'https://script.google.com/macros/s/AKfycbwpRaxd890JFJMCTgYnBCGdKb6TZUhr96Ij-G2D0YFhfAM4zpEG67ocbVnxBU7HZn6L/exec'}?action=getStudents`);
                 studentsData = await response.json();
                 document.getElementById('loadingNames').style.display = 'none';
             } catch (error) {
@@ -311,7 +311,7 @@
 
             try {
                 // Simpan ke Spreadsheet
-                const response = await fetch(SCRIPT_URL, {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwpRaxd890JFJMCTgYnBCGdKb6TZUhr96Ij-G2D0YFhfAM4zpEG67ocbVnxBU7HZn6L/exec', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
