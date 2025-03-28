@@ -1,5 +1,5 @@
 const CACHE_NAME = 'presensi-app-v3'; // Update versi cache
-const OFFLINE_PAGE = '/offline.html';
+const OFFLINE_PAGE = 'offline.html';
 const ASSETS_TO_CACHE = [
   // Core Assets
   '/',
