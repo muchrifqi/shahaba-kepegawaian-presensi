@@ -21,28 +21,6 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>
-        // Deteksi offline saat load
-        window.addEventListener('load', () => {
-          if (!navigator.onLine) {
-            window.location.href = "shahaba-kepegawaian-presensi/offline.html";
-          }
-        });
-        
-        // Listen for connection changes
-        window.addEventListener('online', () => {
-          Swal.fire({
-            title: 'Koneksi pulih',
-            text: 'Aplikasi sudah kembali online',
-            icon: 'success',
-            timer: 2000
-          });
-        });
-        
-        window.addEventListener('offline', () => {
-          window.location.href = "shahaba-kepegawaian-presensi/offline.html";
-        });
-        </script>
 </head>
 <body>
     <!-- Header dengan judul dan deskripsi -->
