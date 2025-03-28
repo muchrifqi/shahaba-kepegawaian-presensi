@@ -1,5 +1,5 @@
 const CACHE_NAME = 'shahaba-presensi-v4'; // Update versi cache
-const OFFLINE_PAGE = 'muchrifqi.github.io/shahaba-kepegawaian-presensi/offline.html';
+const OFFLINE_PAGE = 'shahaba-kepegawaian-presensi/offline.html';
 const ASSETS_TO_CACHE = [
   // Core Assets
   '/',
