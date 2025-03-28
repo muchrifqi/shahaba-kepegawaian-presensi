@@ -895,9 +895,10 @@ button.disabled-after-time:disabled {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-top: 50px;
 }
 
-#offlineContent .fa-wifi-slash {
+#offlineContent .offline-icon material-icons {
     color: var(--accent-color);
     margin-bottom: 15px;
     animation: pulse 1.5s infinite;
