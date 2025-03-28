@@ -7,7 +7,6 @@ const ASSETS_TO_CACHE = [
   OFFLINE_PAGE,
   
   // Halaman
-  '/pages/pegawai.html',
   '/pages/pesertadidik.html',
   '/pages/landing.html',
   
