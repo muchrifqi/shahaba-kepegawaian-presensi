@@ -86,7 +86,7 @@
     box-shadow: var(--box-shadow) !important;
     margin: 120px auto 80px !important;
     padding: 2rem !important;
-    width: 100%!important;
+    width: 90%!important;
     max-width: 600px!important;
     box-sizing: border-box !important;
     animation: fadeIn 1s ease-in-out !important;
