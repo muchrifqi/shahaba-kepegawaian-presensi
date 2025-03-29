@@ -28,7 +28,6 @@
                 });
         }
     </script>
-    <script src="offline-checker.js"></script>
     <link rel="icon" href="assets/icons/logopresensi167.svg">
     <style>
         /* Reset CSS */
@@ -101,8 +100,8 @@
 
         /* Judul "Presensi" */
         .splash-content h1 {
-            font-size: clamp(1.5rem, 5vw, 2rem); /* Ukuran responsif dengan batas minimum dan maksimum */
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: bold; /* Tebalkan teks */
             color: var(--text-color);
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.413);
             margin-bottom: 10px; /* Jarak dari logo */
@@ -110,9 +109,6 @@
             animation: fadeIn 1s ease-in-out 1.5s forwards; /* Animasi teks */
             z-index: 3;
             position: absolute;
-            display: inline-block; /* Membuat lebar sesuai konten */
-            padding: 0 20px; /* Padding horizontal untuk mencegah text overflow */
-            white-space: nowrap;
         }
 
         /* Footer "by Shahaba" */
@@ -188,17 +184,6 @@
                 background-position: 0% 50%;
             }
         }
-        @media (max-width: 480px) {
-         .splash-content h1 {
-        font-size: 1.8rem; /* Ukuran tetap untuk mobile kecil */
-            }
-        }
-
-        @media (min-width: 768px) {
-            .splash-content h1 {
-                font-size: 2rem; /* Ukuran tetap untuk tablet ke atas */
-            }
-        }
     </style>
 </head>
 <body>
@@ -207,9 +192,7 @@
         <!-- Logo dan judul -->
         <div class="splash-content">
             <img src="assets/icons/logopresensi192.png" alt="Logo">
-            <div class="title-container">
-                <h1>Presensi</h1>
-            </div>
+            <h1>Presensi</h1>
         </div>
 
         <!-- Footer "by Shahaba" -->
@@ -224,7 +207,7 @@
     <script>
         // Redirect ke halaman landing setelah 4 detik
         setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "pages/landing.html";
         }, 4000); // 4000 milidetik = 4 detik
     </script>
     <script src="assets/js/install.js"></script>
