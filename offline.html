@@ -35,18 +35,25 @@
         &copy; 2025 Shahaba SD & Prasekolah
     </footer>
 
-    <!--<script>
-        // Coba reconnect otomatis
-        let attempts = 0;
+    <script>
+        // Blokir notifikasi browser
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.ready.then(reg => {
+            reg.active.postMessage('force-offline');
+          });
+        }
+        
+        // Auto retry connection
+        let retryCount = 0;
         function checkConnection() {
-            if(navigator.onLine) {
-                window.location.reload();
-            } else if(attempts < 5) {
-                attempts++;
-                setTimeout(checkConnection, 10000);
-            }
+          if (navigator.onLine) {
+            window.location.href = '/';
+          } else if (retryCount < 5) {
+            retryCount++;
+            setTimeout(checkConnection, 3000);
+          }
         }
         checkConnection();
-    </script>-->
+        </script>
 </body>
 </html>
