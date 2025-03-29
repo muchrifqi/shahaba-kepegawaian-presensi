@@ -1,7 +1,7 @@
 const CACHE_NAME = 'presensi-app-v2';
 const ASSETS_TO_CACHE = [
   '/index.html',
-  '/offline.html',
+  '/pages/offline.html',
   '/pages/pesertadidik.html',
   '/pages/landing.html',
   '/pages/landingpegawai.html',
