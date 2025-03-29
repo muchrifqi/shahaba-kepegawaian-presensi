@@ -273,3 +273,59 @@
       font-size: 15px;
     }
   }
+  /* Gaya khusus untuk input tanggal */
+input[type="date"] {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sesuaikan dengan font body */
+    color: var(--text-color);
+  }
+  
+  /* Untuk browser WebKit (Chrome, Safari) */
+  input[type="date"]::-webkit-datetime-edit {
+    font-family: inherit;
+    color: inherit;
+  }
+  
+  input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    font-family: inherit;
+  }
+  
+  input[type="date"]::-webkit-datetime-edit-text {
+    color: inherit;
+    padding: 0 0.2em;
+  }
+  
+  /* Untuk Firefox */
+  input[type="date"]::-moz-focus-inner {
+    font-family: inherit;
+    color: inherit;
+  }
+  
+  /* Untuk IE/Edge */
+  input[type="date"]::-ms-clear {
+    font-family: inherit;
+  }
+  /* ================ TEXTAREA STYLES ================ */
+textarea.form-input {
+    font-family: inherit; /* Menggunakan font yang sama dengan body */
+    font-size: inherit; /* Ukuran font sama dengan elemen lain */
+    color: inherit; /* Warna teks sama */
+    min-height: 100px;
+    resize: vertical;
+    padding: 12px 15px;
+    border: 2px solid var(--input-border);
+    border-radius: var(--border-radius);
+    background: var(--input-bg);
+    transition: var(--transition);
+  }
+  
+  textarea.form-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(225, 95, 14, 0.3);
+  }
+  
+  textarea.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: inherit;
+    font-size: 0.9em;
+  }
