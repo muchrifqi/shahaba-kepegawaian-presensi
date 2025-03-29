@@ -2,12 +2,13 @@
 // CONFIGURASI AWAL
 // =============================================
 const whatsappConfig = {
-    defaultRecipient: '6281234567890', // Nomor admin default
+    defaultRecipient: '6285951589760', // Nomor admin default
     maxChars: 500, // Batas karakter pesan
     recipients: { // Daftar penerima
-      '6281234567890': 'Admin Sekolah (Bpk. Ahmad)',
-      '6289876543210': 'Wali Kelas (Ibu Siti)',
-      '6281122334455': 'Bendahara (Ibu Rina)'
+      '6285951589760': 'Admin',
+      '6285921101260': 'Admin Keuangan',
+      '6285710006577': 'Prasekolah (Ibu Nurhayati)',
+      '6281227122410': 'SD (Pak Dwi Indo)'
     }
   };
   

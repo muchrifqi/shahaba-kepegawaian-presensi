@@ -1,3 +1,17 @@
+.footer {
+    position:fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white !important;
+    text-align: center !important;
+    padding: 10px 0 !important;
+    font-size: 14px !important;
+    backdrop-filter: blur(5px) !important;
+    z-index: 1000 !important;
+    line-height: 0 !important;
+}
 /* Mobile First Design */
 .parent-dashboard {
     padding: 1rem;
@@ -442,7 +456,7 @@
 }
 
 #whatsappMessage {
-    width: 100%;
+    width: 95%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
