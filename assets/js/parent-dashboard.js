@@ -107,31 +107,31 @@ function showBankAccountInfo() {
         title: '<span style="color: var(--swal-text-color)">Rekening Sekolah</span>',
         html: `
             <div class="bank-info">
-                <div class="bank-item" style="border-left-color: #47974a;">
+                <div class="bank-item" style="border-left-color:rgb(253, 169, 0);">
                     <div class="bank-icon" style="background-color: #e8f5e9;">
-                        <i class="fas fa-university" style="color: #47974a;"></i>
+                        <i class="fas fa-university" style="color: rgb(253, 169, 0);"></i>
                     </div>
                     <div class="bank-details">
                         <h4>Bank Syariah Indonesia</h4>
-                        <p><strong>No. Rek:</strong> <span class="account-number">1234567890</span></p>
-                        <p><strong>a.n:</strong> SD Shahaba</p>
+                        <p><strong>No. Rek:</strong> <span class="account-number">8338228113</span></p>
+                        <p><strong>a.n:</strong> CV KLINIK EDUKASI SHAHABA</p>
                         <p><strong>Kode Bank:</strong> 451</p>
-                        <button class="copy-btn" data-account="1234567890">
+                        <button class="copy-btn" data-account="8338228113">
                             <i class="fas fa-copy"></i> Salin No. Rekening
                         </button>
                     </div>
                 </div>
                 
-                <div class="bank-item" style="border-left-color: #2196f3;">
+                <div class="bank-item" style="border-left-color:rgb(95, 50, 153);">
                     <div class="bank-icon" style="background-color: #e3f2fd;">
-                        <i class="fas fa-university" style="color: #2196f3;"></i>
+                        <i class="fas fa-university" style="color: rgb(95, 50, 153);"></i>
                     </div>
                     <div class="bank-details">
-                        <h4>Bank Mandiri</h4>
-                        <p><strong>No. Rek:</strong> <span class="account-number">0987654321</span></p>
-                        <p><strong>a.n:</strong> SD Shahaba</p>
-                        <p><strong>Kode Bank:</strong> 008</p>
-                        <button class="copy-btn" data-account="0987654321">
+                        <h4>Bank Muamalat</h4>
+                        <p><strong>No. Rek:</strong> <span class="account-number">1210092234</span></p>
+                        <p><strong>a.n:</strong> CV KLINIK EDUKASI SHAHABA</p>
+                        <p><strong>Kode Bank:</strong> 147</p>
+                        <button class="copy-btn" data-account="1210092234">
                             <i class="fas fa-copy"></i> Salin No. Rekening
                         </button>
                     </div>
