@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba Hub - Portal Orang Tua</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../assets/icons/logopresensi167.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/parent-dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="curve">
+        <h1>Shahaba Hub</h1>
+        <h2>Portal Orang Tua</h2>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="parent-dashboard">
+        <!-- Info Sekolah -->
+        <div class="info-card">
+            <div class="info-header">
+                <i class="fas fa-school" style="color: #ffffff; font-size: 1.6rem;"></i>
+                <h3>Assalamu'alaykum!</h3>
+            </div>
+            <p>Selamat datang di portal orang tua. Pilih menu di bawah untuk mengakses fitur.</p>
+        </div>
+
+        <!-- Menu Grid -->
+        <div class="menu-grid">
+            <!-- Jadwal -->
+            <a href="#" class="menu-item" style="--icon-color: #25bfd3;">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwal</span>
+            </a>
+            
+            <!-- Dokumentasi -->
+            <a href="#" class="menu-item" style="--icon-color: #f5bb56;">
+                <i class="fas fa-images"></i>
+                <span>Kegiatan</span>
+            </a>
+            
+            <!-- Rekening Sekolah -->
+            <a href="#" class="menu-item" style="--icon-color: #4ed325;" onclick="showBankAccountInfo()">
+                <div class="icon-wrapper">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <span>Rekening</span>
+            </a>
+            
+            <!-- Chat -->
+            <a href="#" class="menu-item" style="--icon-color: #ad25d3;" id="whatsappChatButton">
+                <div class="icon-wrapper">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <span>Chat Sekolah</span>
+            </a>
+            
+            <!-- Absensi -->
+            <a href="input-izin-pd.html" class="menu-item" style="--icon-color: #e8f04c;">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Absensi</span>
+            </a>
+            
+            <!-- Info -->
+            <a href="#" class="menu-item" style="--icon-color: #25d0d3;">
+                <i class="fas fa-info-circle"></i>
+                <span>Info</span>
+            </a>
+        </div>
+
+        <!-- Pengumuman -->
+        <div class="announcement-card">
+            <h3><i class="fas fa-bullhorn"></i> Pengumuman Terkini</h3>
+            <div class="announcement-item">
+                <p>Pembayaran SPP bulan Juni sudah dapat dilakukan via transfer</p>
+                <small>2 hari lalu</small>
+            </div>
+            <div class="announcement-item">
+                <p>Libur semester ganjil dimulai 15 Desember 2025</p>
+                <small>1 minggu lalu</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsappModal" class="whatsapp-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="header-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="header-text">
+                    <h4>Kirim Pesan ke Admin</h4>
+                    <p>Pesan akan dikirim via WhatsApp</p>
+                </div>
+                <button class="close-modal" aria-label="Tutup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="whatsappMessage">Isi Pesan:</label>
+                    <textarea 
+                        id="whatsappMessage" 
+                        placeholder="Contoh: Assalamu'alaikum, saya orang tua dari [Nama Siswa]..." 
+                        rows="5"
+                    ></textarea>
+                    <div class="character-count">
+                        <span id="charCount">0</span>/500 karakter
+                    </div>
+                </div>
+                
+                <div class="recipient-selector">
+                    <label for="recipient">Pilih Tujuan:</label>
+                    <select id="recipient">
+                        <option value="628123456789">Admin Sekolah (Bpk. Ahmad)</option>
+                        <option value="628987654321">Wali Kelas (Ibu Siti)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="cancelButton" class="btn-secondary">
+                    <i class="fas fa-times"></i> Batal
+                </button>
+                <button id="sendWhatsAppButton" class="btn-primary">
+                    <i class="fab fa-whatsapp"></i> Buka WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Shahaba</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/parent-dashboard.js"></script>
+    <script src="../assets/js/whatsapp.js"></script>
+</body>
+</html>
