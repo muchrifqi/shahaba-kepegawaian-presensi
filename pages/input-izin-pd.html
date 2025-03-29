@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Keterangan Peserta Didik</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../assets/icons/logopresensi167.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/input-izin-pd.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <!-- Header dengan judul dan deskripsi -->
+    <div class="curve">
+        <h1>Shahaba</h1>
+        <h2>Form Keterangan Peserta Didik</h2>
+    </div>
+    
+    <div class="container">
+        <h1><i class="fas fa-clipboard-list"></i> Input Ketidakhadiran Peserta Didik</h1>
+        
+        <form id="keteranganForm">
+            <div class="form-group">
+                <label for="tanggal"><i class="fas fa-calendar-alt"></i> Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" required class="form-input">
+            </div>
+            
+            <div class="form-row"> <!-- Container baru untuk satu baris -->
+            <div class="form-group nama-group"> <!-- Field Nama (75%) -->
+                <label for="nama"><i class="fas fa-user-graduate"></i> Nama Peserta Didik</label>
+                <input type="text" id="nama" name="nama" placeholder="Cari nama..." required class="form-input">
+                <div id="namaDropdown" class="dropdown"></div>
+            </div>
+            
+            <div class="form-group kelas-group"> <!-- Field Kelas (25%) -->
+                <label for="kelas"><i class="fas fa-chalkboard"></i> Kelas</label>
+                <input type="text" id="kelas" name="kelas" readonly class="form-input">
+            </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="keterangan"><i class="fas fa-sticky-note"></i> Keterangan</label>
+                <select id="keterangan" name="keterangan" required class="form-input">
+                    <option value="">Pilih Keterangan</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Tanpa Keterangan">Tanpa Keterangan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="catatan"><i class="fas fa-comment-alt"></i> Catatan (Opsional)</label>
+                <textarea id="catatan" name="catatan" placeholder="Tambahkan catatan jika perlu..." class="form-input"></textarea>
+            </div>
+            
+            <button type="submit" class="landing-button">
+                <i class="fas fa-paper-plane"></i> Kirim Data
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2025 Shahaba SD & Prasekolah
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/izin-pd.js"></script>
+</body>
+</html>

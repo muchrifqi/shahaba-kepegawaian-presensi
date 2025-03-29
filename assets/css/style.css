@@ -921,3 +921,149 @@ button.disabled-after-time:disabled {
     text-align: center;
     line-height: 1.6;
 }
+/* Form Group Styles - Updated to match transaction style */
+.form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.form-group label {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    width: 100%;
+}
+
+/* Container for Name and Class in one row - Transaction style */
+.student-info-wrapper {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    align-items: flex-end;
+}
+
+/* Name Field (larger) */
+#nama {
+    flex: 3;
+    position: relative;
+}
+
+/* Class Field (smaller) */
+#kelas {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Input Styles - Updated to match transaction forms */
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--input-border);
+    border-radius: var(--border-radius);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: var(--transition);
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(225, 95, 14, 0.3);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Dropdown Styles - Updated */
+.dropdown {
+    display: none;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 100;
+    margin-top: -5px;
+}
+
+.dropdown-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Select Dropdown - Updated to match transaction style */
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    padding-right: 35px;
+}
+
+select.form-input option {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+/* Textarea specific styles */
+.textarea-input {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Responsive Design - Matches transaction breakpoints */
+@media (max-width: 768px) {
+    .student-info-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    #nama, #kelas {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+    
+    .dropdown {
+        width: 100%;
+    }
+    
+    .form-input {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-input {
+        font-size: 0.9rem;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .dropdown-item {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+}
