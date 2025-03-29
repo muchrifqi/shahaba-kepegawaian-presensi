@@ -79,17 +79,17 @@
   
   /* ================ MAIN CONTAINER ================ */
   .container {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--input-border);
-    box-shadow: var(--box-shadow);
-    margin: 120px auto 80px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 600px;
-    box-sizing: border-box;
-    animation: fadeIn 1s ease-in-out;
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: var(--border-radius) !important;
+    border: 1px solid var(--input-border) !important;
+    box-shadow: var(--box-shadow) !important;
+    margin: 120px auto 80px !important;
+    padding: 2rem !important;
+    width: 100%!important;
+    max-width: 600px!important;
+    box-sizing: border-box !important;
+    animation: fadeIn 1s ease-in-out !important;
   }
   
   @keyframes fadeIn {

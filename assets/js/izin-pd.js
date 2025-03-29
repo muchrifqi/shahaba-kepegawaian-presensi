@@ -20,7 +20,18 @@ async function fetchPesertaDidik() {
       
     } catch (error) {
       console.error('Gagal memuat data:', error);
-      Swal.fire('Error', 'Gagal memuat data peserta didik', 'error');
+      // [SWAL 1] - Error saat load data peserta didik
+      Swal.fire({
+        title: 'Error',
+        text: 'Gagal memuat data peserta didik',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        customClass: {
+          popup: 'swal2-popup',
+          title: 'swal2-title',
+          confirmButton: 'swal2-confirm'
+        }
+      });
     }
   }
 
@@ -75,7 +86,7 @@ function setupAutocomplete() {
     });
 }
 
-// Fungsi untuk mengirim form
+// Fungsi untuk mengirim form dengan SweetAlert2 yang ditingkatkan
 function setupFormSubmission() {
     const form = document.getElementById('keteranganForm');
     
@@ -85,16 +96,34 @@ function setupFormSubmission() {
         // Validasi tanggal
         const tanggal = document.getElementById('tanggal').value;
         if (!tanggal) {
+            // [SWAL 2] - Validasi tanggal kosong
             Swal.fire({
                 title: 'Peringatan!',
                 text: 'Harap isi tanggal terlebih dahulu',
                 icon: 'warning',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'swal2-popup',
+                    title: 'swal2-title',
+                    confirmButton: 'swal2-confirm'
+                }
             });
             return;
         }
         
-        // Kirim data ke Google Sheets
+        // [SWAL 3] - Tampilkan loading saat mengirim data
+        Swal.fire({
+            title: 'Mengirim data...',
+            html: 'Harap tunggu sebentar',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+            customClass: {
+                popup: 'swal2-popup'
+            }
+        });
+        
         try {
             const formData = new FormData(form);
             
@@ -103,24 +132,38 @@ function setupFormSubmission() {
                 body: formData
             });
             
-            if (response.ok) {
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                // [SWAL 4] - Notifikasi sukses
                 Swal.fire({
                     title: 'Berhasil!',
                     text: 'Data keterangan berhasil dikirim',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        title: 'swal2-title',
+                        confirmButton: 'swal2-confirm'
+                    }
                 });
                 form.reset();
             } else {
-                throw new Error('Gagal mengirim data');
+                throw new Error(result.message || 'Gagal mengirim data');
             }
         } catch (error) {
             console.error('Error:', error);
+            // [SWAL 5] - Notifikasi error
             Swal.fire({
                 title: 'Gagal!',
-                text: 'Terjadi kesalahan saat mengirim data',
+                text: error.message || 'Terjadi kesalahan saat mengirim data',
                 icon: 'error',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'swal2-popup',
+                    title: 'swal2-title',
+                    confirmButton: 'swal2-confirm'
+                }
             });
         }
     });
