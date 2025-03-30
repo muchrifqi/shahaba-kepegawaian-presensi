@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba Hub - Jadwal</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../assets/icons/logopresensi167.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/jadwal.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="curve">
+        <h1>Shahaba Hub</h1>
+        <h2>Jadwal Kegiatan</h2>
+    </div>
+    
+   <!-- Main Content -->
+   <div class="parent-dashboard">
+    <!-- Info Card -->
+    <div class="info-card">
+        <div class="info-header">
+            <i class="fas fa-calendar-alt" style="color: #ffffff; font-size: 1.6rem;"></i>
+            <h3>Jadwal Mingguan</h3>
+        </div>
+        <p>Berikut adalah jadwal kegiatan siswa berdasarkan jenjang pendidikan.</p>
+    </div>
+
+    <!-- Level Selector -->
+    <div class="level-selector-container">
+        <label for="levelSelector">Pilih Jenjang Pendidikan:</label>
+        <select id="levelSelector">
+            <option value="prasekolah">Prasekolah</option>
+            <option value="sd1">SD Kelas 1</option>
+            <option value="sd2">SD Kelas 2</option>
+            <option value="sd3">SD Kelas 3</option>
+            <option value="sd5">SD Kelas 5</option>
+            <option value="sd6">SD Kelas 6</option>
+            <option value="smp9">SMP Kelas 9</option>
+        </select>
+    </div>
+
+    <!-- Schedule Container -->
+    <div class="schedule-section">
+        <h3 class="section-title">
+            <i class="fas fa-calendar-day"></i> Jadwal Harian
+        </h3>
+        <div class="schedule-container">
+            <!-- Jadwal akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Exam Schedule -->
+    <div class="exam-section">
+        <h3 class="section-title">
+            <i class="fas fa-clipboard-list"></i> Jadwal Ujian
+        </h3>
+        <div class="exam-container">
+            <!-- Jadwal ujian akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Uniform Schedule -->
+    <div class="uniform-section">
+        <h3 class="section-title">
+            <i class="fas fa-tshirt"></i> Jadwal Seragam
+        </h3>
+        <div class="uniform-container">
+            <!-- Jadwal seragam akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+    <!-- Important Notes -->
+    <div class="notes-card">
+        <div class="notes-header">
+            <i class="fas fa-exclamation-circle" style="color: #ffffff; font-size: 1.6rem;"></i>
+            <h3>Catatan Penting</h3>
+        </div>
+        <ul class="notes-list">
+            <li>Jadwal bersifat tetap kecuali ada pemberitahuan perubahan</li>
+            <li>Hadir 15 menit sebelum ujian dimulai</li>
+            <li>Seragam lengkap selama ujian berlangsung</li>
+        </ul>
+    </div>
+</div>
+
+    <!-- Back Button -->
+    <a href="parent-dashboard.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Shahaba</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jadwal.js"></script>
+</body>
+</html>

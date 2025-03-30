@@ -1,0 +1,97 @@
+/* gmeet.css - Tampilan 2 kolom untuk semua device */
+
+.gmeet-container {
+    margin-top: 1.5rem;
+    animation: fadeIn 0.5s ease-out;
+    padding: 0 10px; /* Padding untuk mobile */
+}
+
+.gmeet-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+}
+
+.gmeet-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem; /* Padding lebih kecil di mobile */
+    border-left: 3px solid var(--accent-color);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0; /* Memastikan konten tidak overflow */
+}
+
+.gmeet-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Gap lebih kecil di mobile */
+    flex-wrap: wrap;
+}
+
+.gmeet-icon {
+    font-size: 1.5rem; /* Ukuran lebih kecil */
+    width: 40px; /* Ukuran lebih kecil */
+    height: 40px; /* Ukuran lebih kecil */
+}
+
+.gmeet-details h4 {
+    font-size: 1rem; /* Ukuran lebih kecil */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gmeet-details p {
+    font-size: 0.8rem; /* Ukuran lebih kecil */
+    margin: 0.3rem 0 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gmeet-link {
+    padding: 0.5rem 0.8rem; /* Padding lebih kecil */
+    font-size: 0.8rem; /* Ukuran lebih kecil */
+}
+
+/* Penyesuaian untuk layar sangat kecil */
+@media (max-width: 480px) {
+    .gmeet-grid {
+        gap: 0.8rem;
+    }
+    
+    .gmeet-item {
+        padding: 0.8rem;
+    }
+    
+    .gmeet-icon {
+        font-size: 1.2rem;
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Tetap pertahankan 2 kolom di semua ukuran */
+@media (max-width: 768px) {
+    .gmeet-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Pastikan kolom tidak melebar */
+    }
+    
+    .gmeet-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .gmeet-details h4 {
+        white-space: normal;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

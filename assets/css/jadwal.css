@@ -1,0 +1,337 @@
+/* Schedule Specific Styles */
+.schedule-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.current-week {
+    font-weight: 500;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.schedule-container {
+    margin-bottom: 1.5rem;
+}
+
+.schedule-day {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.day-name {
+    font-weight: 600;
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.day-date {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+.time-badge {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    min-width: 80px;
+    text-align: center;
+    margin-right: 1rem;
+    color: white;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 500;
+    color: white;
+    margin: 0 0 0.3rem 0;
+    font-size: 0.95rem;
+}
+
+.activity-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.notes-card {
+    background: rgba(255, 212, 0, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1.2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 212, 0, 0.2);
+}
+
+.notes-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.notes-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.notes-list {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.notes-list li {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.notes-list li:last-child {
+    margin-bottom: 0;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 1.5rem auto;
+    max-width: 200px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Responsive untuk tablet */
+@media (min-width: 600px) {
+    .parent-dashboard {
+        max-width: 500px;
+    }
+    
+    .schedule-day {
+        padding: 1.2rem;
+    }
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.schedule-day {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.schedule-day:nth-child(1) { animation-delay: 0.1s; }
+.schedule-day:nth-child(2) { animation-delay: 0.2s; }
+.schedule-day:nth-child(3) { animation-delay: 0.3s; }
+.schedule-day:nth-child(4) { animation-delay: 0.4s; }
+.schedule-day:nth-child(5) { animation-delay: 0.5s; }
+/* Tambahan style untuk selector jenjang */
+.level-selector-container {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.level-selector-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+    font-size: 0.95rem;
+}
+
+#levelSelector {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.95rem;
+}
+
+/* Style untuk container ujian */
+.exam-container {
+    margin: 2rem 0;
+}
+
+.exam-section-title {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.exam-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    gap: 1rem;
+}
+
+.exam-date {
+    min-width: 180px;
+    font-weight: 500;
+    color: white;
+}
+
+.exam-subject {
+    margin: 0 0 0.3rem 0;
+    color: white;
+    font-size: 1rem;
+}
+
+.exam-time {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .exam-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .exam-date {
+        min-width: auto;
+    }
+}
+/* Style untuk section title */
+.section-title {
+    color: white;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.section-title i {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+/* Style untuk jadwal seragam */
+.uniform-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.uniform-day {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uniform-day:last-child {
+    border-bottom: none;
+}
+
+.uniform-day-name {
+    font-weight: 500;
+    color: white;
+    min-width: 100px;
+}
+
+.uniform-details {
+    flex: 1;
+}
+
+.uniform-type {
+    color: white;
+    margin-bottom: 0.3rem;
+}
+
+.uniform-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+}
