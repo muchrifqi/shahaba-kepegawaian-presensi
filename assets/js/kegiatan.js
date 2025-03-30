@@ -170,16 +170,15 @@ function updateLightbox() {
     if (currentIndex >= currentGallery.length) currentIndex = 0;
     
     const currentImage = currentGallery[currentIndex];
+    const today = new Date();
+    const formattedDate = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`;
+    const downloadFileName = `kegiatan_${currentImage.id}_${formattedDate}.jpg`;
     
-    lightboxImg.src = currentImage.image;
-    caption.textContent = currentImage.caption;
-    
-    // Perbaikan untuk download
     downloadBtn.onclick = function(e) {
         e.preventDefault();
         const link = document.createElement('a');
         link.href = currentImage.image;
-        link.download = `muchrifqi.github.io/shahaba-kepegawaian-presensi/assets/images${currentImage.id}.jpg`;
+        link.download = downloadFileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
