@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags untuk preview gambar di WhatsApp/sosial media -->
+    <meta property="og:title" content="Shahaba Hub">
+    <meta property="og:description" content="Versi pengembang">
+    <meta property="og:image" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/assets/icons/logoshahabahub.png">
+    <meta property="og:url" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shahaba Hub">
+    <meta name="twitter:description" content="Versi pengembang">
+    <meta name="twitter:image" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/assets/icons/logoshahabahub.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+    <link rel="icon" href="..assets/icons/logoshahabahub.svg">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variabel CSS */
+        :root {
+            --primary-color: linear-gradient(-45deg, #3693cc, #172e69, #3693cc); /* Warna biru Shahaba */
+            --text-color: white; /* Warna teks putih */
+        }
+
+        /* Gaya dasar body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-color); /* Latar belakang solid */
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            overflow: hidden; /* Mencegah scroll selama splash screen */
+        }
+
+        /* Container splash screen */
+        .splash-screen {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Logo di tengah */
+            background: var(--primary-color);
+            background-size: 200% 200%;
+        }
+
+        /* Logo */
+        .splash-content img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 5px; /* Jarak antara logo dan teks */
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.413)); /* Efek bayangan ikon */
+            opacity: 0;
+            position: relative;
+            animation: logoAnimation 1.5s ease-in-out forwards; /* Animasi logo */
+            z-index: 3;
+        }
+
+        @keyframes logoAnimation {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Judul "Presensi" */
+        .splash-content h1 {
+            font-size: 25px;
+            font-weight: bold; /* Tebalkan teks */
+            color: var(--text-color);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.413);
+            margin-bottom: 10px; /* Jarak dari logo */
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1.5s forwards; /* Animasi teks */
+            z-index: 3;
+            position: absolute;
+        }
+
+        /* Footer "by Shahaba" */
+        .footer {
+            position: absolute;
+            bottom: 20px; /* Posisi di bagian bawah layar */
+            font-size: 1.1rem;
+            font-weight: lighter; /* Tebalkan teks */
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 2s forwards; /* Animasi teks */
+            z-index: 3;
+            position: absolute;
+        }
+
+        /* Efek gelombang air (ripple) */
+        .ripple-effect {
+            position: absolute;
+            top: 48%;
+            left: 50%;
+            width: 330px;
+            height: 330px;
+            background: rgba(255, 255, 255, 0.2); /* Warna ripple */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+            z-index: 1;
+            position: absolute;
+            animation: ripple 2s ease-out 1.5s forwards; /* Muncul setelah animasi logo selesai */
+        }
+
+        .ripple-effect:nth-child(2) {
+            animation-delay: 1.7s; /* Delay untuk ripple kedua */
+        }
+
+        .ripple-effect:nth-child(3) {
+            animation-delay: 1.9s; /* Delay untuk ripple ketiga */
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Animasi fade-in untuk teks */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animasi background gradient */
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen">
+        <!-- Logo dan judul -->
+        <div class="splash-content">
+            <img src="../assets/icons/logoshahabahub.png" alt="Logo">
+        </div>
+
+        <!-- Footer "by Shahaba" -->
+        <div class="footer">by Shahaba</div>
+
+        <!-- Efek gelombang air (ripple) -->
+        <div class="ripple-effect"></div>
+        <div class="ripple-effect"></div>
+        <div class="ripple-effect"></div>
+    </div>
+
+    <script>
+        // Redirect ke halaman landing setelah 4 detik
+        setTimeout(() => {
+            window.location.href = "parent-dashboard.html";
+        }, 4000); // 4000 milidetik = 4 detik
+    </script>
+    <script src="assets/js/install.js"></script>
+</body>
+</html>
