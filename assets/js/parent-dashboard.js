@@ -156,7 +156,7 @@ const announcements = [
     {
         id: 1,
         title: "Pembayaran SPP bulan April 2025 sudah dapat dilakukan via transfer",
-        timestamp: "2025-03-31T10:00:00" // Format ISO 8601
+        timestamp: "2025-03-29T10:00:00"
     },
     {
         id: 2,
@@ -165,22 +165,27 @@ const announcements = [
     }
 ];
 
-// Fungsi menghitung waktu lalu
+let announcementInterval;
+
 function timeAgo(timestamp) {
     const now = new Date();
     const date = new Date(timestamp);
+    
+    if (isNaN(date.getTime())) return "Waktu tidak valid";
+
     const seconds = Math.floor((now - date) / 1000);
+    if (seconds < 0) return "Waktu mendatang";
     
-    const intervals = {
-        tahun: 31536000,
-        bulan: 2592000,
-        minggu: 604800,
-        hari: 86400,
-        jam: 3600,
-        menit: 60
-    };
+    const intervals = [
+        { unit: 'tahun', seconds: 31536000 },
+        { unit: 'bulan', seconds: 2592000 },
+        { unit: 'minggu', seconds: 604800 },
+        { unit: 'hari', seconds: 86400 },
+        { unit: 'jam', seconds: 3600 },
+        { unit: 'menit', seconds: 60 }
+    ];
     
-    for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+    for (const { unit, seconds: secondsInUnit } of intervals) {
         const interval = Math.floor(seconds / secondsInUnit);
         if (interval >= 1) {
             return `${interval} ${unit}${interval === 1 ? '' : ''} lalu`;
@@ -190,28 +195,57 @@ function timeAgo(timestamp) {
     return "Baru saja";
 }
 
-// Fungsi render pengumuman
+function validateAnnouncements() {
+    return announcements.every(ann => {
+        return ann.id && typeof ann.title === 'string' && 
+               !isNaN(new Date(ann.timestamp).getTime());
+    });
+}
+
 function renderAnnouncements() {
     const container = document.getElementById('announcementContainer');
-    container.innerHTML = '';
+    if (!container) return;
+    
+    if (!validateAnnouncements()) {
+        container.innerHTML = '<div class="announcement-item error">Data pengumuman tidak valid</div>';
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
     
     announcements.forEach(announcement => {
         const announcementEl = document.createElement('div');
         announcementEl.className = 'announcement-item';
-        announcementEl.innerHTML = `
-            <p>${announcement.title}</p>
-            <small>${timeAgo(announcement.timestamp)}</small>
-        `;
-        container.appendChild(announcementEl);
+        
+        const p = document.createElement('p');
+        p.textContent = announcement.title;
+        
+        const small = document.createElement('small');
+        small.textContent = timeAgo(announcement.timestamp);
+        
+        announcementEl.append(p, small);
+        fragment.appendChild(announcementEl);
     });
+    
+    container.innerHTML = '';
+    container.appendChild(fragment);
 }
 
-// Auto-update setiap 1 jam
 function setupAnnouncementAutoUpdate() {
     renderAnnouncements();
-    setInterval(renderAnnouncements, 3600000); // Update setiap jam
+    
+    if (announcementInterval) {
+        clearInterval(announcementInterval);
+    }
+    
+    announcementInterval = setInterval(renderAnnouncements, 3600000);
 }
 
-// Panggil saat halaman dimuat
 document.addEventListener('DOMContentLoaded', setupAnnouncementAutoUpdate);
+
+window.addEventListener('beforeunload', () => {
+    if (announcementInterval) {
+        clearInterval(announcementInterval);
+    }
+});
 
