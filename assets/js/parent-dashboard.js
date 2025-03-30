@@ -15,49 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMenuActions();
     // ... fungsi lainnya
 });
-document.addEventListener('DOMContentLoaded', function() {
-    // Simulasi data pengumuman
-    const announcements = [
-        {
-            title: "Pembayaran SPP bulan Juni sudah dapat dilakukan via transfer",
-            time: "2 hari lalu"
-        },
-        {
-            title: "Libur semester ganjil dimulai 15 Desember 2025",
-            time: "1 minggu lalu"
-        }
-    ];
-    
-    // Render pengumuman
-    renderAnnouncements(announcements);
-    
-    // Cek koneksi
-    checkConnection();
-    
-    // Event listener untuk offline/online
-    window.addEventListener('offline', showOfflineStatus);
-    window.addEventListener('online', showOnlineStatus);
-});
-
-function renderAnnouncements(announcements) {
-    const container = document.querySelector('.announcement-card');
-    if (!container) return;
-    
-    // Kosongkan konten setelah judul
-    const existingItems = container.querySelectorAll('.announcement-item');
-    existingItems.forEach(item => item.remove());
-    
-    // Tambahkan pengumuman baru
-    announcements.forEach(announcement => {
-        const item = document.createElement('div');
-        item.className = 'announcement-item';
-        item.innerHTML = `
-            <p>${announcement.title}</p>
-            <small>${announcement.time}</small>
-        `;
-        container.appendChild(item);
-    });
-}
 
 function checkConnection() {
     if (!navigator.onLine) {
@@ -194,3 +151,67 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// INPUT MANUAL DATA PENGUMUMAN DASHBOARD ORANG TUA
+const announcements = [
+    {
+        id: 1,
+        title: "Pembayaran SPP bulan April 2025 sudah dapat dilakukan via transfer",
+        timestamp: "2025-03-31T10:00:00" // Format ISO 8601
+    },
+    {
+        id: 2,
+        title: "Kegiatan Belajar dimulai kembali pada Rabu, 09 April 2025",
+        timestamp: "2025-03-30T12:30:00"
+    }
+];
+
+// Fungsi menghitung waktu lalu
+function timeAgo(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const seconds = Math.floor((now - date) / 1000);
+    
+    const intervals = {
+        tahun: 31536000,
+        bulan: 2592000,
+        minggu: 604800,
+        hari: 86400,
+        jam: 3600,
+        menit: 60
+    };
+    
+    for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+        const interval = Math.floor(seconds / secondsInUnit);
+        if (interval >= 1) {
+            return `${interval} ${unit}${interval === 1 ? '' : ''} lalu`;
+        }
+    }
+    
+    return "Baru saja";
+}
+
+// Fungsi render pengumuman
+function renderAnnouncements() {
+    const container = document.getElementById('announcementContainer');
+    container.innerHTML = '';
+    
+    announcements.forEach(announcement => {
+        const announcementEl = document.createElement('div');
+        announcementEl.className = 'announcement-item';
+        announcementEl.innerHTML = `
+            <p>${announcement.title}</p>
+            <small>${timeAgo(announcement.timestamp)}</small>
+        `;
+        container.appendChild(announcementEl);
+    });
+}
+
+// Auto-update setiap 1 jam
+function setupAnnouncementAutoUpdate() {
+    renderAnnouncements();
+    setInterval(renderAnnouncements, 3600000); // Update setiap jam
+}
+
+// Panggil saat halaman dimuat
+document.addEventListener('DOMContentLoaded', setupAnnouncementAutoUpdate);
+

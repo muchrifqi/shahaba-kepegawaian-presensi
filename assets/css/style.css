@@ -289,7 +289,10 @@ button.disabled-after-time:disabled {
     font-size: 14px !important;
     backdrop-filter: blur(5px) !important;
     z-index: 1000 !important;
-    line-height: 1.5 !important;
+    line-height: 0 !important;
+}
+.footer p{
+    line-height: 0;
 }
 
 .confirmation {
@@ -921,4 +924,100 @@ button.disabled-after-time:disabled {
 #offlineContent p {
     text-align: center;
     line-height: 1.6;
+}
+/* Admin Panel Styles */
+.admin-panel {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-submit {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.announcement-list {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.2rem;
+    border-radius: 10px;
+}
+
+.announcement-item-admin {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.announcement-item-admin p {
+    margin: 0;
+    flex: 1;
+}
+
+.announcement-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #2196F3;
+}
+
+.btn-delete:hover {
+    background: #f44336;
 }
