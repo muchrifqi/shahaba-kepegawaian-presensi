@@ -172,7 +172,7 @@ function updateLightbox() {
     const currentImage = currentGallery[currentIndex];
     const today = new Date();
     const formattedDate = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`;
-    const downloadFileName = `kegiatan_${currentImage.id}_${formattedDate}.jpg`;
+    const downloadFileName = `kegiatan_shahaba_${formattedDate}.jpg`;
     
     downloadBtn.onclick = function(e) {
         e.preventDefault();
