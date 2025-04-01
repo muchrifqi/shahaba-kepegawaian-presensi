@@ -459,8 +459,8 @@
 }
 
 #whatsappMessage {
-    width:90%;
-    padding: 12px;
+    width:94%;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     resize: none;
@@ -499,6 +499,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background: white;
+    color: #575757;
 }
 
 .modal-footer {
@@ -546,7 +547,7 @@
     to { opacity: 1; }
 }
 .announcement-card {
-    animation: fadeIn 0.5s ease-out, pulseHighlight 1.5s ease-in-out 0.5s 2;
+    animation: fadeIn 0.5s ease-out;
     transition: all 0.3s ease;
 }
 
