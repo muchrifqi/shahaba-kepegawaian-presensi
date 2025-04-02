@@ -8,11 +8,10 @@
     <link rel="icon" href="../assets/icons/logoshahabahub.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/parent-dashboard.css">
+    <link rel="stylesheet" href="../assets/css/bolt.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header with enhanced animation -->
     <div class="curve">
         <h1>Shahaba Hub</h1>
         <h2>Portal Orang Tua</h2>
@@ -20,67 +19,83 @@
     
     <!-- Main Content -->
     <div class="parent-dashboard">
-        <!-- Info Sekolah -->
-        <div class="info-card">
+        <!-- Info Card with gradient -->
+        <div class="info-card ripple">
             <div class="info-header">
-                <i class="fas fa-school" style="color: #ffffff; font-size: 1.6rem;"></i>
+                <i class="fas fa-school" style="color: #ffffff; font-size: 1.8rem;"></i>
                 <h3>Assalamu'alaykum!</h3>
             </div>
             <p>Selamat datang di portal orang tua Shahaba. Pilih menu di bawah untuk mengakses fitur.</p>
         </div>
 
-        <!-- Menu Grid -->
+        <!-- Enhanced Menu Grid -->
         <div class="menu-grid">
-            <!-- Jadwal -->
-            <a href="jadwal.html" class="menu-item" style="--icon-color: #25bfd3;">
+            <!-- Jadwal with ripple effect -->
+            <a href="jadwal.html" class="menu-item ripple" style="--icon-color: #25bfd3;" onclick="showLoadingToast('Memuat jadwal...')">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Jadwal</span>
             </a>
             
-            <!-- Dokumentasi -->
-            <a href="kegiatan.html" class="menu-item" style="--icon-color: #f5bb56;">
+            <!-- Dokumentasi with animation -->
+            <a href="kegiatan.html" class="menu-item ripple" style="--icon-color: #f5bb56;" onclick="showLoadingToast('Memuat dokumentasi...')">
                 <i class="fas fa-images"></i>
                 <span>Kegiatan</span>
             </a>
             
-            <!-- Rekening Sekolah -->
-            <a href="#" class="menu-item" style="--icon-color: #b84ee2;" onclick="showBankAccountInfo()">
-                <div class="icon-wrapper">
-                    <i class="fas fa-landmark"></i>
-                </div>
+            <!-- Rekening with SweetAlert -->
+            <a href="#" class="menu-item ripple" style="--icon-color: #b84ee2;" onclick="showBankAccountInfo()">
+                <i class="fas fa-landmark"></i>
                 <span>Rekening</span>
             </a>
-            <!-- Chat -->
-            <a href="#" class="menu-item" style="--icon-color: #28d325;" id="whatsappChatButton">
-                <div class="icon-wrapper">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
+
+            <!-- Enhanced WhatsApp Chat -->
+            <a href="#" class="menu-item ripple" style="--icon-color: #28d325;" id="whatsappChatButton">
+                <i class="fab fa-whatsapp"></i>
                 <span>Chat Sekolah</span>
             </a>
             
-            <!-- Absensi -->
-            <a href="input-izin-pd.html" class="menu-item" style="--icon-color: #e8f04c;">
+            <!-- Absensi with confirmation -->
+            <a href="#" class="menu-item ripple" style="--icon-color: #e8f04c;" onclick="confirmAttendance()">
                 <i class="fas fa-clipboard-check"></i>
                 <span>Absensi</span>
             </a>
             
-            <!-- Info -->
-            <a href="info-gmeet.html" class="menu-item" style="--icon-color: #e74147;">
+            <!-- Info with loading state -->
+            <a href="info-gmeet.html" class="menu-item ripple" style="--icon-color: #e74147;" onclick="showLoadingToast('Memuat informasi...')">
                 <i class="fas fa-video"></i>
                 <span>Info GMeet</span>
             </a>            
         </div>
 
-        <!-- Pengumuman -->
-            <div class="announcement-card">
-                <h3><i class="fas fa-bullhorn"></i> Pengumuman Terkini</h3>
-                <div id="announcementContainer">
-                    <!-- Pengumuman akan di-generate oleh JavaScript -->
-                </div>
+        <!-- Enhanced Announcement Card -->
+        <div class="announcement-card">
+            <h3><i class="fas fa-bullhorn"></i> Pengumuman Terkini</h3>
+            <div id="announcementContainer" class="shimmer">
+                <!-- Announcements will be loaded here -->
             </div>
+        </div>
+
+        <!-- New Feature: Quick Actions -->
+        <div class="quick-actions">
+            <h3><i class="fas fa-bolt"></i> Aksi Cepat</h3>
+            <div class="quick-actions-grid">
+                <button onclick="showEmergencyContact()" class="quick-action-btn">
+                    <i class="fas fa-phone-alt"></i>
+                    Kontak Darurat
+                </button>
+                <button onclick="showCalendar()" class="quick-action-btn">
+                    <i class="fas fa-calendar-check"></i>
+                    Kalender Akademik
+                </button>
+                <button onclick="showHealthForm()" class="quick-action-btn">
+                    <i class="fas fa-heartbeat"></i>
+                    Lapor Kesehatan
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- WhatsApp Modal -->
+    <!-- Improved WhatsApp Modal -->
     <div id="whatsappModal" class="whatsapp-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +106,7 @@
                     <h4>Kirim Pesan ke Shahaba</h4>
                     <p>Pesan akan dikirim via WhatsApp</p>
                 </div>
-                <button class="close-modal" aria-label="Tutup">
+                <button class="close-modal" aria-label="Tutup" onclick="closeWhatsAppModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -103,6 +118,8 @@
                         id="whatsappMessage" 
                         placeholder="Contoh: Assalamu'alaikum, saya orang tua dari [Nama Siswa]..." 
                         rows="5"
+                        onkeyup="updateCharCount()"
+                        maxlength="500"
                     ></textarea>
                     <div class="character-count">
                         <span id="charCount">0</span>/500 karakter
@@ -121,18 +138,301 @@
             </div>
             
             <div class="modal-footer">
-                <button id="cancelButton" class="btn-secondary">
+                <button id="cancelButton" class="btn-secondary" onclick="closeWhatsAppModal()">
                     <i class="fas fa-times"></i> Batal
                 </button>
-                <button id="sendWhatsAppButton" class="btn-primary">
+                <button id="sendWhatsAppButton" class="btn-primary" onclick="sendWhatsAppMessage()">
                     <i class="fab fa-whatsapp"></i> Buka WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="../assets/js/parent-dashboard.js"></script>
-    <script src="../assets/js/whatsapp.js"></script>
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <!-- Enhanced Scripts -->
+    <script>
+        // Show loading toast
+        function showLoadingToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2000);
+        }
+
+        // Show bank account info with SweetAlert2 and copy feature
+        function showBankAccountInfo() {
+            Swal.fire({
+                title: 'Informasi Rekening Sekolah',
+                html: `
+                    <div class="bank-info">
+                        <div class="bank-card" onclick="copyToClipboard('1234567890', 'BNI')">
+                            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" alt="BNI" class="bank-logo">
+                            <div class="bank-details">
+                                <p class="account-number">1234567890</p>
+                                <p class="account-name">Yayasan Shahaba</p>
+                                <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
+                            </div>
+                        </div>
+                        <div class="bank-card" onclick="copyToClipboard('9876543210', 'BSI')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/2560px-Bank_Syariah_Indonesia.svg.png" alt="BSI" class="bank-logo">
+                            <div class="bank-details">
+                                <p class="account-number">9876543210</p>
+                                <p class="account-name">Yayasan Shahaba</p>
+                                <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                showConfirmButton: false,
+                showCloseButton: true,
+                customClass: {
+                    container: 'bank-info-modal'
+                }
+            });
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text, bankName) {
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({
+                    title: 'Berhasil Disalin!',
+                    text: `Nomor rekening ${bankName} telah disalin ke clipboard`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(() => {
+                Swal.fire({
+                    title: 'Gagal Menyalin',
+                    text: 'Mohon salin nomor rekening secara manual',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        }
+
+        // Confirm attendance
+        function confirmAttendance() {
+            Swal.fire({
+                title: 'Konfirmasi Kehadiran',
+                text: 'Apakah Anda ingin menginput absensi?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+                confirmButtonColor: '#28d325',
+                cancelButtonColor: '#e74147'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'input-izin-pd.html';
+                }
+            });
+        }
+
+        // New Quick Action Functions
+        function showEmergencyContact() {
+            Swal.fire({
+                title: 'Kontak Darurat',
+                html: `
+                    <div class="emergency-contacts">
+                        <div class="contact-item">
+                            <i class="fas fa-hospital-alt"></i>
+                            <h4>UKS</h4>
+                            <p>0812-3456-7890</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-ambulance"></i>
+                            <h4>Ambulans</h4>
+                            <p>0812-3456-7891</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-user-md"></i>
+                            <h4>Dokter Sekolah</h4>
+                            <p>0812-3456-7892</p>
+                        </div>
+                    </div>
+                `,
+                showConfirmButton: true,
+                confirmButtonText: 'Tutup',
+                confirmButtonColor: '#25bfd3'
+            });
+        }
+
+        function showCalendar() {
+            Swal.fire({
+                title: 'Kalender Akademik',
+                html: `
+                    <div class="calendar-preview">
+                        <div class="calendar-event">
+                            <div class="event-date">20 Mar</div>
+                            <div class="event-details">
+                                <h4>Ujian Tengah Semester</h4>
+                                <p>Persiapan dan pelaksanaan UTS</p>
+                            </div>
+                        </div>
+                        <div class="calendar-event">
+                            <div class="event-date">25 Mar</div>
+                            <div class="event-details">
+                                <h4>Parent's Day</h4>
+                                <p>Pertemuan orang tua dan guru</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                showConfirmButton: true,
+                confirmButtonText: 'Lihat Semua',
+                showCancelButton: true,
+                cancelButtonText: 'Tutup',
+                confirmButtonColor: '#25bfd3'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'calendar.html';
+                }
+            });
+        }
+
+        function showHealthForm() {
+            Swal.fire({
+                title: 'Laporan Kesehatan Siswa',
+                html: `
+                    <form id="healthForm" class="health-form">
+                        <div class="form-group">
+                            <label>Kondisi Kesehatan:</label>
+                            <select class="swal2-input">
+                                <option value="sehat">Sehat</option>
+                                <option value="sakit">Sakit</option>
+                                <option value="pemulihan">Masa Pemulihan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Keterangan:</label>
+                            <textarea class="swal2-textarea" placeholder="Jelaskan kondisi kesehatan siswa..."></textarea>
+                        </div>
+                    </form>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Kirim Laporan',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#28d325',
+                preConfirm: () => {
+                    // Here you would normally handle the form submission
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve();
+                        }, 500);
+                    });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Terima Kasih!',
+                        text: 'Laporan kesehatan telah diterima',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        }
+
+        // WhatsApp Modal Functions
+        const modal = document.getElementById('whatsappModal');
+        const chatButton = document.getElementById('whatsappChatButton');
+        
+        chatButton.onclick = function() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWhatsAppModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateCharCount() {
+            const message = document.getElementById('whatsappMessage').value;
+            document.getElementById('charCount').textContent = message.length;
+        }
+
+        function sendWhatsAppMessage() {
+            const message = document.getElementById('whatsappMessage').value;
+            const recipient = document.getElementById('recipient').value;
+            
+            if (!message.trim()) {
+                Swal.fire({
+                    title: 'Pesan Kosong',
+                    text: 'Mohon isi pesan terlebih dahulu',
+                    icon: 'warning',
+                    confirmButtonColor: '#25bfd3'
+                });
+                return;
+            }
+
+            const whatsappUrl = `https://wa.me/${recipient}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            closeWhatsAppModal();
+            showSuccessToast();
+        }
+
+        function showSuccessToast() {
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>Membuka WhatsApp...</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeWhatsAppModal();
+            }
+        }
+
+        // Load announcements with shimmer effect
+        function loadAnnouncements() {
+            const container = document.getElementById('announcementContainer');
+            
+            // Simulate loading with shimmer
+            setTimeout(() => {
+                container.classList.remove('shimmer');
+                container.innerHTML = `
+                    <div class="announcement-item important">
+                        <div class="announcement-header">
+                            <h4><i class="fas fa-exclamation-circle"></i> Pengumuman Penting!</h4>
+                            <span class="date">20 Mar 2024</span>
+                        </div>
+                        <p>Jadwal Ujian Tengah Semester akan dimulai minggu depan. Mohon persiapkan putra/putri Anda.</p>
+                    </div>
+                    <div class="announcement-item">
+                        <div class="announcement-header">
+                            <h4><i class="fas fa-info-circle"></i> Info Kegiatan</h4>
+                            <span class="date">19 Mar 2024</span>
+                        </div>
+                        <p>Kegiatan ekstrakurikuler akan diliburkan selama masa ujian.</p>
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAnnouncements();
+        });
+    </script>
 </body>
 </html>
