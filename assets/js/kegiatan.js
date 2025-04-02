@@ -174,6 +174,11 @@ function updateLightbox() {
     const formattedDate = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`;
     const downloadFileName = `kegiatan_shahaba_${formattedDate}.jpg`;
     
+    // Update lightbox content
+    lightboxImg.src = currentImage.image;
+    lightboxImg.alt = currentImage.caption;
+    caption.textContent = currentImage.caption;
+    
     downloadBtn.onclick = function(e) {
         e.preventDefault();
         const link = document.createElement('a');
