@@ -7,7 +7,7 @@
     --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
     --button-hover-color: #1e7637; /* Warna hijau saat hover */
-    --border-radius: 25px;
+    --border-radius: 20px;
     /* Swal warna */
     --swal-primary-color: #172e69; 
     --swal-secondary-color: #ee9d15; 
