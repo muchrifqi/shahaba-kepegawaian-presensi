@@ -255,7 +255,7 @@ button {
     padding: 0.7rem;
     font-size: 14px;
     background: rgba(173, 173, 173, 0.468);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0);
     color: white;
     border-radius: 15px;
     cursor: pointer;
@@ -264,8 +264,8 @@ button {
 
 button:hover:not(:disabled) {
     background: var(--button-hover-color);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.993);
+    transform: translateY(-2px);
 }
 
 button:disabled {
