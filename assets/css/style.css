@@ -6,8 +6,8 @@
     --text-color: white; /* Warna teks putih */
     --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
-    --button-hover-color: #1e7637; /* Warna hijau saat hover */
-    --border-radius: 20px;
+    --button-hover-color: #41dfffa3; /* Warna hijau saat hover */
+    --border-radius: 25px;
     /* Swal warna */
     --swal-primary-color: #172e69; 
     --swal-secondary-color: #ee9d15; 
@@ -213,9 +213,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-        box-shadow: 
-        0 10px 25px rgba(23, 46, 105, 0.3), /* Bayangan biru */
-        0 4px 10px rgba(0, 0, 0, 0.226); /* Bayangan netral */
+    box-shadow: 
+    0 10px 25px rgba(23, 46, 105, 0.3), /* Bayangan biru */
+    0 4px 10px rgba(0, 0, 0, 0.226); /* Bayangan netral */
 }
 
 .curve h1 {
@@ -250,25 +250,22 @@ h1 {
 }
 
 button {
-    letter-spacing: 0.7px;
-    line-height: 1.3;
-    padding: 0.7rem 1.5rem; /* Lebih lebar */
+    letter-spacing: 0.7px; /* Mengatur jarak huruf */
+    line-height: 1.3;    /* Mengatur jarak baris */
+    padding: 0.7rem;
     font-size: 14px;
-    background: rgba(255, 255, 255, 0.1); /* Lebih transparan */
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Border lebih tebal */
+    background: rgba(173, 173, 173, 0.468);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
-    border-radius: 12px; /* Kurangi border-radius */
+    border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tambahkan shadow */
-    backdrop-filter: blur(5px); /* Efek blur modern */
 }
 
 button:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px); /* Efek hover lebih halus */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: var(--button-hover-color);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-5px);
 }
 
 button:disabled {
