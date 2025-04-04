@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags untuk preview gambar di WhatsApp/sosial media -->
-    <meta property="og:title" content="Applikasi Presensi">
-    <meta property="og:description" content="Versi pengembang">
-    <meta property="og:image" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/assets/icons/logopresensi192.png">
-    <meta property="og:url" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/">
+    <!-- Meta tags for social media preview -->
+    <meta property="og:title" content="Aplikasi Presensi">
+    <meta property="og:description" content="Pendataan presensi pegawai dan peserta didik Shahaba">
+    <meta property="og:image" content="https://shahaba-presensi.netlify.app/assets/icons/logopresensi192.png">
+    <meta property="og:url" content="https://shahaba-presensi.netlify.app/">
     <meta property="og:type" content="website">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Aplikasi Presensi">
-    <meta name="twitter:description" content="Versi pengembang">
-    <meta name="twitter:image" content="https://muchrifqi.github.io/shahaba-kepegawaian-presensi/assets/icons/logopresensi192.png">
+    <meta name="twitter:description" content="Pendataan presensi pegawai dan peserta didik Shahaba">
+    <meta name="twitter:image" content="https://shahaba-presensi.netlify.app/assets/icons/logopresensi192.png">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome!</title>
     <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
@@ -30,138 +33,200 @@
     </script>
     <link rel="icon" href="assets/icons/logopresensi167.svg">
     <style>
-        /* Reset CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Variabel CSS */
         :root {
-            --primary-color: #172e69; /* Warna biru Shahaba */
-            --text-color: white; /* Warna teks putih */
+            --primary-color: #172e69;
+            --secondary-color: #3693cc;
+            --accent-color: #4ade80;
+            --text-color: white;
+            --shadow-color: rgba(0, 0, 0, 0.2);
         }
 
-        /* Gaya dasar body */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-color); /* Latar belakang solid */
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: var(--text-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             height: 100vh;
-            overflow: hidden; /* Mencegah scroll selama splash screen */
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Container splash screen */
         .splash-screen {
-            text-align: center;
-            position: relative;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Logo di tengah */
-            background: linear-gradient(-45deg, #3693cc, #172e69, #3693cc);
-            background-size: 200% 200%;
-            /*animation: gradientBackground 5s ease infinite; /* Animasi background gradient */
-        }
-
-        /* Logo */
-        .splash-content img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 5px; /* Jarak antara logo dan teks */
-            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.413)); /* Efek bayangan ikon */
-            opacity: 0;
+            justify-content: center;
             position: relative;
-            animation: logoAnimation 1.5s ease-in-out forwards; /* Animasi logo */
-            z-index: 3;
+            z-index: 10;
         }
 
-        @keyframes logoAnimation {
-            0% {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 20;
         }
 
-        /* Judul "Presensi" */
-        .splash-content h1 {
-            font-size: 25px;
-            font-weight: bold; /* Tebalkan teks */
-            color: var(--text-color);
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.413);
-            margin-bottom: 10px; /* Jarak dari logo */
+        .logo-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px var(--shadow-color));
             opacity: 0;
-            animation: fadeIn 1s ease-in-out 1.5s forwards; /* Animasi teks */
-            z-index: 3;
-            position: absolute;
+            transform: scale(0.8);
+            animation: logoEntrance 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
         }
 
-        /* Footer "by Shahaba" */
+        .logo-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.4) 0%, rgba(74, 222, 128, 0) 70%);
+            opacity: 0;
+            animation: glowPulse 2s ease-in-out 1.5s infinite alternate;
+        }
+
+        .app-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 1s forwards;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .app-subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 1.2s forwards;
+            max-width: 80%;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
         .footer {
             position: absolute;
-            bottom: 20px; /* Posisi di bagian bawah layar */
-            font-size: 1.1rem;
-            font-weight: lighter; /* Tebalkan teks */
-            color: var(--text-color);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            bottom: 2rem;
+            font-size: 0.9rem;
+            font-weight: 300;
             opacity: 0;
-            animation: fadeIn 1s ease-in-out 2s forwards; /* Animasi teks */
-            z-index: 3;
-            position: absolute;
+            animation: fadeIn 0.8s ease-out 1.8s forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Efek gelombang air (ripple) */
-        .ripple-effect {
+        .footer i {
+            color: var(--accent-color);
+        }
+
+        .particles {
             position: absolute;
-            top: 48%;
-            left: 50%;
-            width: 330px;
-            height: 330px;
-            background: rgba(255, 255, 255, 0.2); /* Warna ripple */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 1;
-            z-index: 1;
+            animation: float linear infinite;
+        }
+
+        .ripple {
             position: absolute;
-            animation: ripple 2s ease-out 1.5s forwards; /* Muncul setelah animasi logo selesai */
+            top: 39%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rippleEffect 3s ease-out infinite;
+            z-index: 1;
         }
 
-        .ripple-effect:nth-child(2) {
-            animation-delay: 1.7s; /* Delay untuk ripple kedua */
+        .ripple:nth-child(2) {
+            animation-delay: 0.5s;
         }
 
-        .ripple-effect:nth-child(3) {
-            animation-delay: 1.9s; /* Delay untuk ripple ketiga */
+        .ripple:nth-child(3) {
+            animation-delay: 1s;
         }
 
-        @keyframes ripple {
+        .progress-bar {
+            position: absolute;
+            bottom: -2rem;
+            width: 80%;
+            max-width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.5s forwards;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--accent-color), #3b82f6);
+            border-radius: 2px;
+            animation: progressLoad 3s ease-out forwards;
+        }
+
+        @keyframes logoEntrance {
             0% {
-                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+                transform: scale(0.8) rotate(-15deg);
+            }
+            70% {
                 opacity: 1;
+                transform: scale(1.1) rotate(5deg);
             }
             100% {
-                transform: translate(-50%, -50%) scale(4);
-                opacity: 0;
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
             }
         }
 
-        /* Animasi fade-in untuk teks */
-        @keyframes fadeIn {
+        @keyframes fadeInUp {
             0% {
                 opacity: 0;
                 transform: translateY(20px);
@@ -172,16 +237,72 @@
             }
         }
 
-        /* Animasi background gradient */
-        @keyframes gradientBackground {
+        @keyframes fadeIn {
             0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
+                opacity: 0;
             }
             100% {
-                background-position: 0% 50%;
+                opacity: 1;
+            }
+        }
+
+        @keyframes rippleEffect {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes progressLoad {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .app-title {
+                font-size: 1.8rem;
+            }
+            
+            .app-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .logo-container {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -189,27 +310,82 @@
 <body>
     <!-- Splash Screen -->
     <div class="splash-screen">
-        <!-- Logo dan judul -->
+        <!-- Particles background -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Ripple effects -->
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        
+        <!-- Main content -->
         <div class="splash-content">
-            <img src="assets/icons/logopresensi192.png" alt="Logo">
-            <h1>Presensi</h1>
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <img src="assets/icons/logopresensi192.png" alt="Logo" class="logo">
+            </div>
+            
+            <h1 class="app-title">Presensi</h1>
+            <p class="app-subtitle">Aplikasi pendataan presensi pegawai dan peserta didik</p>
+            
+            <!-- Progress bar -->
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
         </div>
-
-        <!-- Footer "by Shahaba" -->
-        <div class="footer">by Shahaba</div>
-
-        <!-- Efek gelombang air (ripple) -->
-        <div class="ripple-effect"></div>
-        <div class="ripple-effect"></div>
-        <div class="ripple-effect"></div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <i class="fas fa-code"></i>
+            <span>by Shahaba</span>
+        </div>
     </div>
 
     <script>
-        // Redirect ke halaman landing setelah 4 detik
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = Math.floor(window.innerWidth / 10);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * window.innerWidth;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${window.innerHeight + 10}px`;
+                particle.style.opacity = Math.random() * 0.5;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        window.addEventListener('load', createParticles);
+        
+        // Redirect after animation completes
         setTimeout(() => {
-            window.location.href = "pages/landingortu.html";
-        }, 4000); // 4000 milidetik = 4 detik
+            window.location.href = "pages/landing.html";
+        }, 3500);
+        
+        // PWA installation prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+        });
     </script>
-    <script src="assets/js/install.js"></script>
 </body>
 </html>
