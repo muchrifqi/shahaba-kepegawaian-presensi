@@ -35,19 +35,20 @@ const guruData = [
 // Fungsi untuk menampilkan daftar guru
 function renderGuruList(filter = '') {
     const container = document.getElementById('guru-list');
+    if (!container) return;
+
     const searchTerm = filter.toLowerCase();
-    
     const filteredGuru = guruData.filter(guru => 
         guru.nama.toLowerCase().includes(searchTerm) ||
         guru.mapel.toLowerCase().includes(searchTerm) ||
         guru.kelas.toLowerCase().includes(searchTerm)
     );
-    
+
     if (filteredGuru.length === 0) {
         container.innerHTML = '<div class="text-center text-white opacity-70">Tidak ditemukan guru yang sesuai</div>';
         return;
     }
-    
+
     container.innerHTML = filteredGuru.map(guru => `
         <div class="guru-card">
             <div class="guru-info">
@@ -61,39 +62,70 @@ function renderGuruList(filter = '') {
                 <div class="gmeet-link" title="${guru.link}">
                     <i class="fas fa-link"></i> ${guru.link}
                 </div>
+                <button class="copy-btn" onclick="copyToClipboard('${guru.link}', 'Link Meet ${guru.nama}')">
+                    <i class="fas fa-copy"></i>
+                </button>
                 <button class="join-btn" onclick="window.open('${guru.link}', '_blank')">
                     <i class="fas fa-video"></i> Join Meet
                 </button>
             </div>
         </div>
     `).join('');
-    `<button class="copy-btn" onclick="copyToClipboard('${guru.link}', 'Link Meet ${guru.nama}')">
-    <i class="fas fa-copy"></i>
-</button>`
 }
 
 // Fungsi untuk filter guru
 function setupGuruFilter() {
     const filterInput = document.getElementById('guruFilter');
+    if (!filterInput) return;
+
+    let timeout;
     filterInput.addEventListener('input', function() {
-        renderGuruList(this.value);
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            renderGuruList(this.value);
+        }, 300);
     });
 }
 
-// Inisialisasi saat halaman GMeet dimuat
-document.getElementById('gmeet-page').addEventListener('DOMContentLoaded', function() {
-    renderGuruList();
-    setupGuruFilter();
+// Inisialisasi
+document.addEventListener('DOMContentLoaded', function() {
+    if (!guruData || guruData.length === 0) {
+        console.error('Data guru kosong!');
+        return;
+    }
+
+    // Jika halaman GMeet aktif, render daftar
+    if (document.getElementById('gmeet-page')?.classList.contains('active')) {
+        renderGuruList();
+        setupGuruFilter();
+    }
 });
 
+// Navigasi halaman
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
     });
-    document.getElementById(pageId).classList.add('active');
-    
-    // Jika halaman GMeet yang aktif, render daftar guru
+    document.getElementById(pageId)?.classList.add('active');
+
     if (pageId === 'gmeet-page') {
         renderGuruList();
+        setupGuruFilter();
     }
 }
+
+// Fungsi copy link (pastikan ada di global scope)
+window.copyToClipboard = function(text, context) {
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: `${context} telah disalin`,
+                icon: 'success',
+                timer: 2000
+            });
+        })
+        .catch(err => {
+            console.error('Gagal menyalin:', err);
+        });
+};
