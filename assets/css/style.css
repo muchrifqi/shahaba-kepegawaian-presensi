@@ -6,7 +6,7 @@
     --text-color: white; /* Warna teks putih */
     --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
-    --button-hover-color: #41dfffa3; /* Warna hijau saat hover */
+    --button-hover-color: #1e7637; /* Warna hijau saat hover */
     --border-radius: 25px;
     /* Swal warna */
     --swal-primary-color: #172e69; 
@@ -30,6 +30,15 @@
     --swal-input-width: 90%; /* Lebar input */
     --swal-input-padding: 10px; /* Padding input */
     --swal-icon-size: 70px; /* Ukuran ikon */
+
+    --swal-mobile-width: 80%; /* Lebar lebih besar untuk mobile */
+    --swal-mobile-max-width: 80%; /* Maksimum lebar untuk mobile */
+    --swal-mobile-font-size: 13px; /* Ukuran font lebih kecil untuk mobile */
+    --swal-mobile-title-font-size: 18px; /* Judul lebih kecil untuk mobile */
+    --swal-mobile-padding: 15px; /* Padding lebih kecil untuk mobile */
+    --swal-mobile-border-radius: 20px; /* Border radius lebih kecil untuk mobile */
+    --swal-mobile-icon-size: 40px; /* Ukuran ikon lebih kecil untuk mobile */
+
     }
 
     /* Style untuk modal SweetAlert2 */
@@ -56,6 +65,8 @@
     font-size: var(--swal-font-size) !important;
     color: var(--swal-text-secondary-color) !important;
     margin-bottom: 20px !important;
+    width: auto !important;
+    height: auto    !important;
     }
 
     /* Style untuk ikon modal */
@@ -130,18 +141,64 @@
     margin-top: 10px !important;
     }
     /* Style untuk tombol pada layar kecil */
-@media (max-width: 600px) {
-    .swal2-actions {
-      flex-direction: column; /* Susun tombol secara vertikal */
-      gap: 10px; /* Jarak antara tombol */
+    @media (max-width: 768px) {
+        .swal2-popup {
+            width: var(--swal-mobile-width) !important;
+            max-width: var(--swal-mobile-max-width) !important;
+            font-size: var(--swal-mobile-font-size) !important;
+            padding: var(--swal-mobile-padding) !important;
+            border-radius: var(--swal-mobile-border-radius) !important;
+        }
+        
+        .swal2-title {
+            font-size: var(--swal-mobile-title-font-size) !important;
+            margin-bottom: 8px !important;
+        }
+        
+        .swal2-html-container {
+            font-size: var(--swal-mobile-font-size) !important;
+            margin-bottom: 15px !important;
+        }
+        
+        .swal2-icon {
+            width: var(--swal-mobile-icon-size) !important;
+            height: var(--swal-mobile-icon-size) !important;
+            margin: 8px auto 8px !important;
+        }
+        
+        /* Sesuaikan padding tombol untuk mobile */
+        .swal2-confirm, 
+        .swal2-cancel {
+            padding: 8px 16px !important;
+            font-size: var(--swal-mobile-font-size) !important;
+        }
+        
+        /* Lebar input penuh untuk mobile */
+        .swal2-input {
+            width: 95% !important;
+        }
     }
-  
-    .swal2-confirm,
-    .swal2-cancel {
-      width: 100%; /* Lebar tombol 100% */
-      margin: 0 !important; /* Hapus margin default */
+    
+    /* Untuk perangkat sangat kecil (misalnya lebar <= 480px) */
+    @media (max-width: 480px) {
+        .swal2-popup {
+            width: 98% !important;
+            max-width: 98% !important;
+            padding: 12px !important;
+        }
+        
+        /* Susun tombol secara vertikal di perangkat sangat kecil */
+        .swal2-actions {
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .swal2-confirm,
+        .swal2-cancel {
+            width: 100%;
+            margin: 0 !important;
+        }
     }
-  }
     /* Sembunyikan scrollbar tapi tetap bisa di-scroll di seluruh halaman */
     html, body {
         overflow: auto; /* Tetap memungkinkan scrolling */
@@ -156,7 +213,7 @@
     }
 
 body {
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-gradient);
     background-size: 400% 400%;
     /*animation: gradientBG 15s ease infinite;*/
@@ -213,9 +270,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 
-    0 10px 25px rgba(23, 46, 105, 0.3), /* Bayangan biru */
-    0 4px 10px rgba(0, 0, 0, 0.226); /* Bayangan netral */
 }
 
 .curve h1 {
@@ -255,7 +309,7 @@ button {
     padding: 0.7rem;
     font-size: 14px;
     background: rgba(173, 173, 173, 0.468);
-    border: 1px solid rgba(255, 255, 255, 0);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
     border-radius: 15px;
     cursor: pointer;
@@ -264,8 +318,8 @@ button {
 
 button:hover:not(:disabled) {
     background: var(--button-hover-color);
-    border-color: rgba(255, 255, 255, 0.993);
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-5px);
 }
 
 button:disabled {
