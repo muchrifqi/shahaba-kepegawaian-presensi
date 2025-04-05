@@ -1,7 +1,7 @@
 // konsultasi.js
 document.addEventListener('DOMContentLoaded', function() {
     // URL Google Apps Script (Ganti dengan URL deploy Anda)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyklOL3QtIMlq0cfjwlhr4cPnNjrJnfbW7PbFk8ZqugctjQrt4MWUitvGB1tVdeOSYiRA/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrH7xTGYSjSkhwXe5lxRzCZFo-5OOMr8qpiUOJOygAEXM-SNq8Z_YjZ6G4JCnjOLTnlg/exec";
     
     // Inisialisasi Form
     initForm();
