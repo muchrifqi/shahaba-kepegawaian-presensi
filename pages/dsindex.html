@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba Hub - Portal Orang Tua</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../assets/icons/logoshahabahub.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #172e69;
+            --secondary-color: #2b2b2b;
+            --accent-color: #e15f0e;
+            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69, #3693cc);
+            --text-color: white;
+            --error-color: #b82f25;
+            --success-color: #006c04;
+            --button-hover-color: #1e7637;
+            --border-radius: 12px;
+            --swal-primary-color: #172e69;
+            --swal-secondary-color: #ee9d15;
+            --swal-accent-color: #e15f0e;
+            --swal-text-color: #172e69;
+            --swal-text-secondary-color: #484848;
+            --swal-background-color: #ffffff;
+            --swal-border-color: #cccccc;
+            --swal-shadow-color: rgba(0, 0, 0, 0.15);
+            --swal-width: 90%;
+            --swal-max-width: 600px;
+            --swal-font-size: 14.5px;
+            --swal-title-font-size: 20px;
+            --swal-padding: 20px;
+            --swal-border-radius: 12px;
+            --swal-button-padding: 10px 20px;
+            --swal-button-border-radius: 8px;
+            --swal-input-width: 90%;
+            --swal-input-padding: 10px;
+            --swal-icon-size: 70px;
+            --swal-mobile-width: 90%;
+            --swal-mobile-max-width: 90%;
+            --swal-mobile-font-size: 13px;
+            --swal-mobile-title-font-size: 18px;
+            --swal-mobile-padding: 15px;
+            --swal-mobile-border-radius: 10px;
+            --swal-mobile-icon-size: 40px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-gradient);
+            background-size: 400% 400%;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0.25rem 0 0;
+            font-weight: 500;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Card */
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0.5rem;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item span {
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Announcements */
+        .announcement-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-item h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .announcement-item p {
+            margin: 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .announcement-item small {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Page Specific Styles */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Schedule Page */
+        .schedule-day {
+            margin-bottom: 1.5rem;
+        }
+
+        .schedule-day h3 {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .schedule-item {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .schedule-time {
+            font-weight: 600;
+            min-width: 80px;
+            font-size: 0.85rem;
+        }
+
+        .schedule-details {
+            flex: 1;
+            padding-left: 0.75rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .schedule-details h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .schedule-details p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Activities Page */
+        .activity-item {
+            display: flex;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .activity-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .activity-details {
+            flex: 1;
+            padding: 0.75rem;
+        }
+
+        .activity-details h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .activity-details p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .activity-date {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.25rem;
+        }
+
+        /* Attendance Page */
+        .attendance-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        /* GMeet Info Page */
+        .gmeet-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .gmeet-card h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gmeet-card p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .gmeet-link {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .gmeet-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-item {
+                flex-direction: column;
+            }
+            
+            .activity-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+        /* SweetAlert Customizations */
+        .swal2-popup {
+            width: var(--swal-width) !important;
+            max-width: var(--swal-max-width) !important;
+            font-size: var(--swal-font-size) !important;
+            padding: var(--swal-padding) !important;
+            border-radius: var(--swal-border-radius) !important;
+            background-color: var(--swal-background-color) !important;
+            box-shadow: 0 4px 12px var(--swal-shadow-color) !important;
+        }
+
+        .swal2-title {
+            font-size: var(--swal-title-font-size) !important;
+            font-weight: bold !important;
+            color: var(--swal-text-color) !important;
+            margin-bottom: 10px !important;
+        }
+
+        .swal2-html-container {
+            font-size: var(--swal-font-size) !important;
+            color: var(--swal-text-secondary-color) !important;
+            margin-bottom: 20px !important;
+        }
+
+        .swal2-icon {
+            width: var(--swal-icon-size) !important;
+            height: var(--swal-icon-size) !important;
+            margin: 10px auto 10px !important;
+        }
+
+        .swal2-confirm {
+            background-color: var(--primary-color) !important;
+            border-radius: var(--swal-button-border-radius) !important;
+            color: white !important;
+            font-size: var(--swal-font-size) !important;
+            padding: var(--swal-button-padding) !important;
+            margin: 0 5px !important;
+            border: none !important;
+        }
+
+        .swal2-confirm:hover {
+            background-color: #0e1f4d !important;
+        }
+
+        .swal2-cancel {
+            background-color: var(--secondary-color) !important;
+            border-radius: var(--swal-button-border-radius) !important;
+            color: white !important;
+            font-size: var(--swal-font-size) !important;
+            padding: var(--swal-button-padding) !important;
+            margin: 0 5px !important;
+            border: none !important;
+        }
+
+        .swal2-cancel:hover {
+            background-color: #1a1a1a !important;
+        }
+
+        /* Bank Info Modal */
+        .bank-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bank-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .bank-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .bank-details {
+            flex: 1;
+        }
+
+        .account-number {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .account-name {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .copy-hint {
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Loading State */
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Shahaba Hub</h1>
+        <h2>Portal Orang Tua</h2>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <div class="dashboard-card">
+                <div class="flex items-center gap-3 mb-3">
+                    <i class="fas fa-school text-white text-2xl"></i>
+                    <h3 class="text-white text-lg font-semibold">Assalamu'alaykum!</h3>
+                </div>
+                <p class="text-white text-sm opacity-80">Selamat datang di portal orang tua Shahaba. Pilih menu di bawah untuk mengakses fitur.</p>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="menu-grid">
+                <a href="#" class="menu-item" onclick="showPage('schedule-page')">
+                    <i class="fas fa-calendar-alt" style="color: #25bfd3;"></i>
+                    <span>Jadwal</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('activities-page')">
+                    <i class="fas fa-images" style="color: #f5bb56;"></i>
+                    <span>Kegiatan</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showBankAccountInfo()">
+                    <i class="fas fa-landmark" style="color: #b84ee2;"></i>
+                    <span>Rekening</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showWhatsAppModal()">
+                    <i class="fab fa-whatsapp" style="color: #28d325;"></i>
+                    <span>Chat Sekolah</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('attendance-page')">
+                    <i class="fas fa-clipboard-check" style="color: #e8f04c;"></i>
+                    <span>Absensi</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
+                    <i class="fas fa-video" style="color: #e74147;"></i>
+                    <span>Info GMeet</span>
+                </a>
+            </div>
+
+            <!-- Announcements -->
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-bullhorn"></i>
+                    Pengumuman Terkini
+                </h3>
+                <div id="announcement-container" class="shimmer" style="min-height: 150px;"></div>
+            </div>
+        </div>
+
+        <!-- Schedule Page -->
+        <div id="schedule-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-calendar-alt"></i>
+                    Jadwal Pelajaran
+                </h3>
+                
+                <div class="schedule-day">
+                    <h3>Senin</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">07:30 - 08:15</div>
+                        <div class="schedule-details">
+                            <h4>Matematika</h4>
+                            <p>Pak Ahmad</p>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">08:15 - 09:00</div>
+                        <div class="schedule-details">
+                            <h4>Bahasa Indonesia</h4>
+                            <p>Bu Siti</p>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">09:00 - 09:45</div>
+                        <div class="schedule-details">
+                            <h4>IPA</h4>
+                            <p>Bu Rina</p>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">10:15 - 11:00</div>
+                        <div class="schedule-details">
+                            <h4>Agama</h4>
+                            <p>Pak Yusuf</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-day">
+                    <h3>Selasa</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">07:30 - 08:15</div>
+                        <div class="schedule-details">
+                            <h4>Bahasa Inggris</h4>
+                            <p>Bu Diana</p>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">08:15 - 09:00</div>
+                        <div class="schedule-details">
+                            <h4>IPS</h4>
+                            <p>Pak Budi</p>
+                        </div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">09:00 - 09:45</div>
+                        <div class="schedule-details">
+                            <h4>Seni Budaya</h4>
+                            <p>Bu Lina</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add more days as needed -->
+            </div>
+        </div>
+
+        <!-- Activities Page -->
+        <div id="activities-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-images"></i>
+                    Dokumentasi Kegiatan
+                </h3>
+                
+                <div class="activity-item">
+                    <img src="https://source.unsplash.com/random/300x300/?school,activity" alt="Kegiatan Sekolah" class="activity-image">
+                    <div class="activity-details">
+                        <h4>Field Trip ke Museum</h4>
+                        <p>Kegiatan belajar di luar kelas untuk menambah wawasan siswa tentang sejarah.</p>
+                        <div class="activity-date">15 Maret 2024</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <img src="https://source.unsplash.com/random/300x300/?school,sport" alt="Kegiatan Sekolah" class="activity-image">
+                    <div class="activity-details">
+                        <h4>Lomba Olahraga Antar Kelas</h4>
+                        <p>Acara tahunan untuk meningkatkan sportivitas dan kerjasama tim.</p>
+                        <div class="activity-date">10 Maret 2024</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <img src="https://source.unsplash.com/random/300x300/?school,science" alt="Kegiatan Sekolah" class="activity-image">
+                    <div class="activity-details">
+                        <h4>Eksperimen Sains</h4>
+                        <p>Praktikum kimia sederhana untuk memahami konsep dasar sains.</p>
+                        <div class="activity-date">5 Maret 2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Page -->
+        <div id="attendance-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-clipboard-check"></i>
+                    Formulir Absensi
+                </h3>
+                
+                <form class="attendance-form">
+                    <div class="form-group">
+                        <label for="student-name">Nama Siswa</label>
+                        <input type="text" id="student-name" placeholder="Masukkan nama siswa">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="student-class">Kelas</label>
+                        <select id="student-class">
+                            <option value="">Pilih kelas</option>
+                            <option value="1">Kelas 1</option>
+                            <option value="2">Kelas 2</option>
+                            <option value="3">Kelas 3</option>
+                            <option value="4">Kelas 4</option>
+                            <option value="5">Kelas 5</option>
+                            <option value="6">Kelas 6</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-date">Tanggal</label>
+                        <input type="date" id="attendance-date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-status">Status Kehadiran</label>
+                        <select id="attendance-status">
+                            <option value="present">Hadir</option>
+                            <option value="sick">Sakit</option>
+                            <option value="permit">Izin</option>
+                            <option value="absent">Alpa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-note">Keterangan (Opsional)</label>
+                        <textarea id="attendance-note" placeholder="Masukkan keterangan jika perlu"></textarea>
+                    </div>
+                    
+                    <button type="button" class="submit-btn" onclick="submitAttendance()">
+                        <i class="fas fa-paper-plane"></i> Kirim
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- GMeet Info Page -->
+        <div id="gmeet-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-video"></i>
+                    Informasi Google Meet
+                </h3>
+                
+                <div class="gmeet-card">
+                    <h3 class="flex items-center gap-2">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Kelas Reguler
+                    </h3>
+                    <p>Gunakan link berikut untuk mengikuti kelas online reguler:</p>
+                    <div class="flex items-center mt-2">
+                        <a href="#" class="gmeet-link" id="gmeet-link-regular">
+                            https://meet.google.com/abc-defg-hij
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('https://meet.google.com/abc-defg-hij', 'Link Google Meet Kelas Reguler')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gmeet-card">
+                    <h3 class="flex items-center gap-2">
+                        <i class="fas fa-users"></i>
+                        Pertemuan Orang Tua
+                    </h3>
+                    <p>Link untuk pertemuan orang tua dengan wali kelas:</p>
+                    <div class="flex items-center mt-2">
+                        <a href="#" class="gmeet-link" id="gmeet-link-parent">
+                            https://meet.google.com/klm-nopq-rst
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('https://meet.google.com/klm-nopq-rst', 'Link Google Meet Orang Tua')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="gmeet-card">
+                    <h3 class="flex items-center gap-2">
+                        <i class="fas fa-question-circle"></i>
+                        Panduan Penggunaan
+                    </h3>
+                    <p>1. Pastikan Anda memiliki akun Google untuk mengakses Google Meet</p>
+                    <p>2. Klik link di atas 5 menit sebelum waktu yang ditentukan</p>
+                    <p>3. Matikan mikrofon saat tidak berbicara untuk mengurangi gangguan suara</p>
+                    <p>4. Gunakan fitur chat untuk bertanya jika diperlukan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 Shahaba Hub - Portal Orang Tua</p>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsapp-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-md mx-4">
+            <div class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Kirim Pesan ke Sekolah</h3>
+                        <p class="text-sm opacity-90">Pesan akan dikirim via WhatsApp</p>
+                    </div>
+                </div>
+                <button onclick="hideWhatsAppModal()" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="mb-4">
+                    <label for="whatsapp-message" class="block text-gray-700 mb-2">Isi Pesan:</label>
+                    <textarea id="whatsapp-message" class="w-full border border-gray-300 rounded p-2 h-32" 
+                              placeholder="Contoh: Assalamu'alaikum, saya orang tua dari [Nama Siswa]..."></textarea>
+                    <p class="text-xs text-gray-500 mt-1 text-right">
+                        <span id="char-count">0</span>/500 karakter
+                    </p>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="recipient" class="block text-gray-700 mb-2">Pilih Tujuan:</label>
+                    <select id="recipient" class="w-full border border-gray-300 rounded p-2">
+                        <option value="6285951589760">Admin Sekolah</option>
+                        <option value="6285921101260">Admin Keuangan</option>
+                        <option value="6285710006577">Prasekolah (Ibu Nurhayati)</option>
+                        <option value="6281227122410">SD (Pak Dwi Indo)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end gap-2">
+                <button onclick="hideWhatsAppModal()" class="px-4 py-2 text-gray-600 rounded">
+                    Batal
+                </button>
+                <button onclick="sendWhatsAppMessage()" class="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Buka WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // WhatsApp Modal
+        function showWhatsAppModal() {
+            document.getElementById('whatsapp-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideWhatsAppModal() {
+            document.getElementById('whatsapp-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Character Count for WhatsApp Message
+        document.getElementById('whatsapp-message').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('char-count').textContent = count;
+            
+            if (count > 500) {
+                this.value = this.value.substring(0, 500);
+                document.getElementById('char-count').textContent = 500;
+            }
+        });
+
+        // Send WhatsApp Message
+        function sendWhatsAppMessage() {
+            const message = document.getElementById('whatsapp-message').value;
+            const recipient = document.getElementById('recipient').value;
+            
+            if (!message.trim()) {
+                Swal.fire({
+                    title: 'Pesan Kosong',
+                    text: 'Mohon isi pesan terlebih dahulu',
+                    icon: 'warning',
+                    confirmButtonColor: '#25bfd3'
+                });
+                return;
+            }
+            
+            const whatsappUrl = `https://wa.me/${recipient}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            hideWhatsAppModal();
+            
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Sedang membuka WhatsApp...',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // Bank Account Info
+        function showBankAccountInfo() {
+            Swal.fire({
+                title: 'Informasi Rekening Sekolah',
+                html: `
+                    <div class="bank-info">
+                        <div class="bank-card" onclick="copyToClipboard('1234567890', 'BNI')">
+                            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" alt="BNI" class="bank-logo">
+                            <div class="bank-details">
+                                <p class="account-number">1234567890</p>
+                                <p class="account-name">Yayasan Shahaba</p>
+                                <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
+                            </div>
+                        </div>
+                        <div class="bank-card" onclick="copyToClipboard('9876543210', 'BSI')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/2560px-Bank_Syariah_Indonesia.svg.png" alt="BSI" class="bank-logo">
+                            <div class="bank-details">
+                                <p class="account-number">9876543210</p>
+                                <p class="account-name">Yayasan Shahaba</p>
+                                <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text, context) {
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({
+                    title: 'Berhasil Disalin!',
+                    text: `${context} telah disalin ke clipboard`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(() => {
+                Swal.fire({
+                    title: 'Gagal Menyalin',
+                    text: 'Mohon salin secara manual',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        }
+
+        // Submit Attendance
+        function submitAttendance() {
+            const studentName = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const attendanceDate = document.getElementById('attendance-date').value;
+            const attendanceStatus = document.getElementById('attendance-status').value;
+            
+            if (!studentName || !studentClass || !attendanceDate) {
+                Swal.fire({
+                    title: 'Form Tidak Lengkap',
+                    text: 'Harap isi semua field yang wajib diisi',
+                    icon: 'warning',
+                    confirmButtonColor: '#25bfd3'
+                });
+                return;
+            }
+            
+            Swal.fire({
+                title: 'Konfirmasi',
+                html: `Apakah Anda yakin ingin mengirim absensi untuk:<br><b>${studentName}</b>?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Kirim',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#25bfd3'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Simulate API call
+                    setTimeout(() => {
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Absensi telah dikirim',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            showPage('dashboard-page');
+                        });
+                    }, 1000);
+                }
+            });
+        }
+
+        // Load Announcements
+        function loadAnnouncements() {
+            // Simulate API call delay
+            setTimeout(() => {
+                const container = document.getElementById('announcement-container');
+                container.classList.remove('shimmer');
+                container.innerHTML = `
+                    <div class="announcement-item">
+                        <h4 class="text-yellow-300">
+                            <i class="fas fa-exclamation-circle"></i> Pengumuman Penting!
+                        </h4>
+                        <p>Jadwal Ujian Tengah Semester akan dimulai minggu depan. Mohon persiapkan putra/putri Anda.</p>
+                        <small>20 Maret 2024</small>
+                    </div>
+                    <div class="announcement-item">
+                        <h4>
+                            <i class="fas fa-info-circle"></i> Info Kegiatan
+                        </h4>
+                        <p>Kegiatan ekstrakurikuler akan diliburkan selama masa ujian.</p>
+                        <small>19 Maret 2024</small>
+                    </div>
+                    <div class="announcement-item">
+                        <h4>
+                            <i class="fas fa-calendar-day"></i> Parent's Day
+                        </h4>
+                        <p>Pertemuan orang tua dengan wali kelas akan dilaksanakan pada tanggal 25 Maret 2024.</p>
+                        <small>18 Maret 2024</small>
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAnnouncements();
+            
+            // Set default date for attendance form
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendance-date').value = today;
+        });
+    </script>
+</body>
+</html>
