@@ -101,8 +101,15 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
-        /* Style untuk level selector */
+        .dashboard-card-catatan {
+            background: rgba(242, 255, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
         /* Style untuk level selector - Disesuaikan dengan tema */
 #levelSelector {
     background-color: rgba(255, 255, 255, 0.1);
@@ -474,6 +481,41 @@
             text-decoration: none;
             animation: pulse 2s infinite;
         }
+        /* WhatsApp Dropdown Style */
+        #recipient {
+            background-color: rgba(121, 121, 121, 0);
+            color: rgb(58, 58, 58);
+            border: 1px solid rgba(80, 80, 80, 0.683);
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+
+        #recipient:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        #recipient:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(145, 145, 145, 0.301);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        #recipient option {
+            background-color: white;
+            color: rgb(58, 58, 58);
+            padding: 0.5rem;
+        }
 
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -568,6 +610,14 @@
 
         .swal2-cancel:hover {
             background-color: #1a1a1a !important;
+        }
+        .swal2-popup-custom {
+            background: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .swal2-title-custom {
+            color: white !important;
         }
 
         /* Bank Info Modal */
@@ -958,6 +1008,59 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         justify-content: center;
     }
 }
+
+/* Konsultasi Form Styles */
+.topik-options {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.topik-category {
+    margin-bottom: 1rem;
+}
+
+.category-title {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    font-weight:620;
+}
+
+.option-item {
+    display: block;
+    padding: 0.75rem;
+    margin: 0.25rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.option-item input[type="radio"] {
+    margin-right: 0.75rem;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.25rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
     </style>
 </head>
 <body>
@@ -982,27 +1085,27 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             <!-- Menu Grid -->
             <div class="menu-grid">
                 <a href="#" class="menu-item" onclick="showPage('schedule-page')">
-                    <i class="fas fa-calendar-alt" style="color: #25bfd3;"></i>
+                    <i class="fas fa-calendar-alt" style="color: #51ebff;"></i>
                     <span>Jadwal</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('activities-page')">
-                    <i class="fas fa-images" style="color: #f5bb56;"></i>
+                    <i class="fas fa-images" style="color: #5659f5;"></i>
                     <span>Kegiatan</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showBankAccountInfo()">
-                    <i class="fas fa-landmark" style="color: #b84ee2;"></i>
+                    <i class="fa-solid fa-money-check-dollar" style="color: #fd8585;"></i>
                     <span>Rekening</span>
                 </a>
-                <a href="#" class="menu-item" onclick="showWhatsAppModal()">
-                    <i class="fab fa-whatsapp" style="color: #28d325;"></i>
-                    <span>Chat Sekolah</span>
+                <a href="#" class="menu-item" onclick="showPage('konsultasi-page')">
+                    <i class="fas fa-comments" style="color: #f8a355;"></i>
+                    <span>Konsultasi</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('attendance-page')">
                     <i class="fas fa-clipboard-check" style="color: #e8f04c;"></i>
                     <span>Absensi</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
-                    <i class="fas fa-video" style="color: #e74147;"></i>
+                    <i class="fas fa-video" style="color: #91e741;"></i>
                     <span>Info GMeet</span>
                 </a>
             </div>
@@ -1073,7 +1176,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 </div>
             </div>
                     <!-- Important Notes -->
-                    <div class="dashboard-card mt-4">
+                    <div class="dashboard-card-catatan mt-4">
                         <div class="flex items-center gap-3 mb-3">
                             <i class="fas fa-exclamation-circle text-white text-xl"></i>
                             <h3 class="text-white text-base font-semibold">Catatan Penting</h3>
@@ -1129,79 +1232,226 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         </div>
 
         <!-- Attendance Page -->
-<div id="attendance-page" class="page">
-    <button class="back-btn" onclick="showPage('dashboard-page')">
-        <i class="fas fa-arrow-left"></i> Kembali
-    </button>
-    
-    <div class="dashboard-card">
-        <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
-            <i class="fas fa-clipboard-list"></i> Input Ketidakhadiran Peserta Didik
-        </h1>
-        
-        <form id="keteranganForm">
-            <div class="form-group">
-                <label for="tanggal"><i class="fas fa-calendar-alt"></i> Tanggal</label>
-                <input type="date" id="tanggal" name="tanggal" required class="form-input">
-            </div>
+        <div id="attendance-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
             
-            <div class="flex gap-4 mb-4">
-                <div class="form-group flex-1">
-                    <label for="nama"><i class="fas fa-user-graduate"></i> Nama Peserta Didik</label>
-                    <input type="text" id="nama" name="nama" placeholder="Cari nama..." required class="form-input">
-                    <div id="namaDropdown" class="dropdown"></div>
+            <div class="dashboard-card">
+                <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
+                    <i class="fas fa-clipboard-list"></i> Input Ketidakhadiran Peserta Didik
+                </h1>
+                
+                <form id="keteranganForm">
+                    <div class="form-group">
+                        <label for="tanggal"><i class="fas fa-calendar-alt"></i> Tanggal</label>
+                        <input type="date" id="tanggal" name="tanggal" required class="form-input">
+                    </div>
+                    
+                    <div class="flex gap-4 mb-4">
+                        <div class="form-group flex-1">
+                            <label for="nama"><i class="fas fa-user-graduate"></i> Nama Peserta Didik</label>
+                            <input type="text" id="nama" name="nama" placeholder="Cari nama..." required class="form-input">
+                            <div id="namaDropdown" class="dropdown"></div>
+                        </div>
+                        
+                        <div class="form-group w-1/4">
+                            <label for="kelas"><i class="fas fa-chalkboard"></i> Kelas</label>
+                            <input type="text" id="kelas" name="kelas" readonly class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="keterangan"><i class="fas fa-sticky-note"></i> Keterangan</label>
+                        <select id="keterangan" name="keterangan" required class="form-input">
+                            <option value="">Pilih Keterangan</option>
+                            <option value="Izin">Izin</option>
+                            <option value="Sakit">Sakit</option>
+                            <option value="Tanpa Keterangan">Tanpa Keterangan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="catatan"><i class="fas fa-comment-alt"></i> Catatan (Opsional)</label>
+                        <textarea id="catatan" name="catatan" placeholder="Tambahkan catatan jika perlu..." class="form-input"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Kirim Data
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- GMeet Info Page -->
+        <div id="gmeet-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-video"></i>
+                    Daftar Guru & Google Meet
+                </h3>
+                
+                <div class="form-group mb-4">
+                    <label for="guruFilter"><i class="fas fa-filter"></i> Filter Guru/Kelas:</label>
+                    <input type="text" id="guruFilter" placeholder="Cari guru/mapel/kelas..." class="form-input">
                 </div>
                 
-                <div class="form-group w-1/4">
-                    <label for="kelas"><i class="fas fa-chalkboard"></i> Kelas</label>
-                    <input type="text" id="kelas" name="kelas" readonly class="form-input">
+                <div id="guru-list" class="space-y-4">
+                    <!-- Daftar guru akan diisi oleh JavaScript -->
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label for="keterangan"><i class="fas fa-sticky-note"></i> Keterangan</label>
-                <select id="keterangan" name="keterangan" required class="form-input">
-                    <option value="">Pilih Keterangan</option>
-                    <option value="Izin">Izin</option>
-                    <option value="Sakit">Sakit</option>
-                    <option value="Tanpa Keterangan">Tanpa Keterangan</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="catatan"><i class="fas fa-comment-alt"></i> Catatan (Opsional)</label>
-                <textarea id="catatan" name="catatan" placeholder="Tambahkan catatan jika perlu..." class="form-input"></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-paper-plane"></i> Kirim Data
-            </button>
-        </form>
-    </div>
-</div>
+        </div>
 
-<!-- GMeet Info Page -->
-<div id="gmeet-page" class="page">
-    <button class="back-btn" onclick="showPage('dashboard-page')">
-        <i class="fas fa-arrow-left"></i> Kembali
-    </button>
-    
-    <div class="dashboard-card">
-        <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-            <i class="fas fa-video"></i>
-            Daftar Guru & Google Meet
-        </h3>
-        
-        <div class="form-group mb-4">
-            <label for="guruFilter"><i class="fas fa-filter"></i> Filter Guru/Kelas:</label>
-            <input type="text" id="guruFilter" placeholder="Cari guru/mapel/kelas..." class="form-input">
+        <!-- Konsultasi Page -->
+        <div id="konsultasi-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
+                    <i class="fas fa-comments"></i> Form Konsultasi Orang Tua
+                </h1>
+                
+                <form id="konsultasiForm" onsubmit="handleSubmit(event)">
+                    <!-- 1. Orang Tua Dari -->
+                    <div class="form-group">
+                        <label for="orangtuaDari"><i class="fas fa-user-friends"></i> Orang Tua Dari</label>
+                        <input type="text" id="orangtuaDari" name="orangtuaDari" placeholder="Nama anak dan Jenjang (contoh: Ahmad - Prasekolah)" required class="form-input">
+                    </div>
+                    
+                    <!-- 2. Topik Konsultasi -->
+                    <div class="form-group">
+                        <label><i class="fas fa-clipboard-list"></i> Topik Konsultasi/Diskusi</label>
+                        <div class="topik-options">
+                            <!-- Kategori A: Perkembangan & Pembelajaran -->
+                            <div class="topik-category">
+                                <h3 class="category-title">A. Perkembangan & Pembelajaran</h3>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Perkembangan motorik/kognitif anak" required>
+                                    <span>Perkembangan motorik/kognitif anak</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Kemampuan sosial-emosional">
+                                    <span>Kemampuan sosial-emosional (interaksi, kepercayaan diri)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Kesiapan belajar">
+                                    <span>Kesiapan belajar (baca-tulis-hitung)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Kesulitan belajar">
+                                    <span>Kesulitan belajar</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Penyesuaian metode belajar">
+                                    <span>Penyesuaian metode belajar di sekolah vs rumah</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Kategori B: Perilaku & Kesehatan -->
+                            <div class="topik-category">
+                                <h3 class="category-title">B. Perilaku & Kesehatan</h3>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Pola disiplin dan aturan sekolah">
+                                    <span>Pola disiplin dan aturan sekolah</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Penanganan tantrum/agresivitas atau bullying">
+                                    <span>Penanganan tantrum/agresivitas (TK) atau bullying (SD)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Kesehatan, nutrisi, dan kebiasaan makan">
+                                    <span>Kesehatan, nutrisi, dan kebiasaan makan di sekolah</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Manajemen screen time">
+                                    <span>Manajemen screen time & aktivitas fisik</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Kategori C: Kebijakan & Fasilitas Sekolah -->
+                            <div class="topik-category">
+                                <h3 class="category-title">C. Kebijakan & Fasilitas Sekolah</h3>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Kurikulum dan sistem evaluasi">
+                                    <span>Kurikulum dan sistem evaluasi (PR, ujian, laporan)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Biaya sekolah dan transparansi">
+                                    <span>Biaya sekolah dan transparansi administrasi</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Fasilitas pendukung">
+                                    <span>Fasilitas pendukung (perpustakaan, lab, taman bermain)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Program ekstrakurikuler">
+                                    <span>Program ekstrakurikuler/pengayaan</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Kategori D: Komunikasi & Kolaborasi -->
+                            <div class="topik-category">
+                                <h3 class="category-title">D. Komunikasi & Kolaborasi</h3>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Laporan perkembangan anak">
+                                    <span>Laporan perkembangan anak (harian/mingguan/bulanan)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Media komunikasi">
+                                    <span>Media komunikasi sekolah-orang tua (grup WA, portal)</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Peran orang tua">
+                                    <span>Peran orang tua dalam kegiatan sekolah</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Kategori E: Transisi & Lainnya -->
+                            <div class="topik-category">
+                                <h3 class="category-title">E. Transisi & Lainnya</h3>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Persiapan transisi">
+                                    <span>Persiapan transisi TK-SD atau kenaikan kelas</span>
+                                </label>
+                                <label class="option-item">
+                                    <input type="radio" name="topik" value="Lainnya">
+                                    <span>Lainnya (sebutkan di deskripsi)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Deskripsi Singkat -->
+                    <div class="form-group">
+                        <label for="deskripsi"><i class="fas fa-align-left"></i> Deskripsi Singkat</label>
+                        <textarea id="deskripsi" name="deskripsi" placeholder="Jelaskan secara singkat pertanyaan/konsultasi Anda (maks. 500 karakter)" class="form-input" maxlength="500"></textarea>
+                        <div class="char-counter"><span id="charCount">0</span>/500 karakter</div>
+                    </div>
+                    
+                    <!-- 3. Tanggal dan Jam -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tanggal"><i class="fas fa-calendar-day"></i> Tanggal</label>
+                            <input type="date" id="tanggal" name="tanggal" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="jam"><i class="fas fa-clock"></i> Jam</label>
+                            <input type="time" id="jam" name="jam" required class="form-input">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Kirim Konsultasi
+                    </button>
+                </form>
+            </div>
         </div>
-        
-        <div id="guru-list" class="space-y-4">
-            <!-- Daftar guru akan diisi oleh JavaScript -->
-        </div>
-    </div>
-</div>
 
     <!-- WhatsApp Float Button -->
     <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
@@ -1459,6 +1709,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
         <script src="../assets/js/gmeet.js"></script>
+        <script src="../assets/js/konsultasi.js"></script>
         
 </body>
 </html>
