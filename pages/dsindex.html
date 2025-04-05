@@ -873,6 +873,91 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
 .accordion.active .accordion-icon {
     transform: rotate(180deg);
 }
+
+/* GMeet Teacher Card */
+.guru-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.guru-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.guru-info {
+    margin-bottom: 0.75rem;
+}
+
+.guru-nama {
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.25rem;
+}
+
+.guru-detail {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    gap: 1rem;
+}
+
+.guru-mapel, .guru-kelas {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.gmeet-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.gmeet-link {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.join-btn {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.join-btn:hover {
+    background: #0d5bcd;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gmeet-actions {
+        flex-direction: column;
+    }
+    
+    .join-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
     </style>
 </head>
 <body>
@@ -1095,63 +1180,28 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
     </div>
 </div>
 
-        <!-- GMeet Info Page -->
-        <div id="gmeet-page" class="page">
-            <button class="back-btn" onclick="showPage('dashboard-page')">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </button>
-            
-            <div class="dashboard-card">
-                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-                    <i class="fas fa-video"></i>
-                    Informasi Google Meet
-                </h3>
-                
-                <div class="gmeet-card">
-                    <h3 class="flex items-center gap-2">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        Kelas Reguler
-                    </h3>
-                    <p>Gunakan link berikut untuk mengikuti kelas online reguler:</p>
-                    <div class="flex items-center mt-2">
-                        <a href="#" class="gmeet-link" id="gmeet-link-regular">
-                            https://meet.google.com/abc-defg-hij
-                        </a>
-                        <button class="copy-btn" onclick="copyToClipboard('https://meet.google.com/abc-defg-hij', 'Link Google Meet Kelas Reguler')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="gmeet-card">
-                    <h3 class="flex items-center gap-2">
-                        <i class="fas fa-users"></i>
-                        Pertemuan Orang Tua
-                    </h3>
-                    <p>Link untuk pertemuan orang tua dengan wali kelas:</p>
-                    <div class="flex items-center mt-2">
-                        <a href="#" class="gmeet-link" id="gmeet-link-parent">
-                            https://meet.google.com/klm-nopq-rst
-                        </a>
-                        <button class="copy-btn" onclick="copyToClipboard('https://meet.google.com/klm-nopq-rst', 'Link Google Meet Orang Tua')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="gmeet-card">
-                    <h3 class="flex items-center gap-2">
-                        <i class="fas fa-question-circle"></i>
-                        Panduan Penggunaan
-                    </h3>
-                    <p>1. Pastikan Anda memiliki akun Google untuk mengakses Google Meet</p>
-                    <p>2. Klik link di atas 5 menit sebelum waktu yang ditentukan</p>
-                    <p>3. Matikan mikrofon saat tidak berbicara untuk mengurangi gangguan suara</p>
-                    <p>4. Gunakan fitur chat untuk bertanya jika diperlukan</p>
-                </div>
-            </div>
+<!-- GMeet Info Page -->
+<div id="gmeet-page" class="page">
+    <button class="back-btn" onclick="showPage('dashboard-page')">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+    
+    <div class="dashboard-card">
+        <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+            <i class="fas fa-video"></i>
+            Daftar Guru & Google Meet
+        </h3>
+        
+        <div class="form-group mb-4">
+            <label for="guruFilter"><i class="fas fa-filter"></i> Filter Guru/Kelas:</label>
+            <input type="text" id="guruFilter" placeholder="Cari guru/mapel/kelas..." class="form-input">
+        </div>
+        
+        <div id="guru-list" class="space-y-4">
+            <!-- Daftar guru akan diisi oleh JavaScript -->
         </div>
     </div>
+</div>
 
     <!-- WhatsApp Float Button -->
     <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
@@ -1408,5 +1458,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
+        <script src="../assets/js/gmeet.js"></script>
+        
 </body>
 </html>
