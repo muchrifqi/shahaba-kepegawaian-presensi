@@ -102,6 +102,67 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
+        /* Style untuk level selector */
+        /* Style untuk level selector - Disesuaikan dengan tema */
+#levelSelector {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+#levelSelector:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+#levelSelector:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#levelSelector option {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem;
+}
+
+/* Untuk browser WebKit */
+#levelSelector::-webkit-scrollbar {
+    width: 8px;
+}
+
+#levelSelector::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#levelSelector::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    #levelSelector {
+        font-size: 0.9rem;
+        padding: 0.65rem;
+        background-position: right 0.5rem center;
+    }
+}
         /* Menu Grid */
         .menu-grid {
             display: grid;
@@ -585,6 +646,233 @@
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
+
+        /* Add to the existing style section */
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    color: white;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.list-disc {
+    list-style-type: disc;
+}
+
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+/* Form Input Attendance */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.form-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+textarea.form-input {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Dropdown Autocomplete */
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    max-width: calc(100% - 1.5rem);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-top: -0.25rem;
+}
+
+.dropdown-item {
+    padding: 0.75rem;
+    cursor: pointer;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Flex Layout */
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.w-1\/4 {
+    width: 25%;
+}
+
+/* Dropdown Select */
+select.form-input, 
+#keterangan {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+select.form-input option {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Placeholder */
+::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1 !important;
+}
+
+:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Dropdown Autocomplete */
+.dropdown {
+    background-color: var(--primary-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.dropdown-item {
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+/* Input Date */
+input[type="date"].form-input {
+    color-scheme: dark;
+}
+
+input[type="date"].form-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* Accordion Styles */
+.accordion {
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.accordion-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-header:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.accordion-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    flex-grow: 1;
+}
+
+.accordion-icon {
+    transition: transform 0.3s ease;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+    padding: 0 1rem;
+}
+
+.accordion.active .accordion-content {
+    max-height: 1000px; /* Nilai cukup besar untuk menampung konten */
+    padding: 1rem;
+}
+
+.accordion.active .accordion-icon {
+    transform: rotate(180deg);
+}
     </style>
 </head>
 <body>
@@ -651,71 +939,68 @@
             </button>
             
             <div class="dashboard-card">
-                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-                    <i class="fas fa-calendar-alt"></i>
-                    Jadwal Pelajaran
-                </h3>
-                
-                <div class="schedule-day">
-                    <h3>Senin</h3>
-                    <div class="schedule-item">
-                        <div class="schedule-time">07:30 - 08:15</div>
-                        <div class="schedule-details">
-                            <h4>Matematika</h4>
-                            <p>Pak Ahmad</p>
-                        </div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">08:15 - 09:00</div>
-                        <div class="schedule-details">
-                            <h4>Bahasa Indonesia</h4>
-                            <p>Bu Siti</p>
-                        </div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">09:00 - 09:45</div>
-                        <div class="schedule-details">
-                            <h4>IPA</h4>
-                            <p>Bu Rina</p>
-                        </div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">10:15 - 11:00</div>
-                        <div class="schedule-details">
-                            <h4>Agama</h4>
-                            <p>Pak Yusuf</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="schedule-day">
-                    <h3>Selasa</h3>
-                    <div class="schedule-item">
-                        <div class="schedule-time">07:30 - 08:15</div>
-                        <div class="schedule-details">
-                            <h4>Bahasa Inggris</h4>
-                            <p>Bu Diana</p>
-                        </div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">08:15 - 09:00</div>
-                        <div class="schedule-details">
-                            <h4>IPS</h4>
-                            <p>Pak Budi</p>
-                        </div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">09:00 - 09:45</div>
-                        <div class="schedule-details">
-                            <h4>Seni Budaya</h4>
-                            <p>Bu Lina</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Add more days as needed -->
+                <div class="form-group">
+                    <label for="levelSelector">Pilih Jenjang Pendidikan:</label>
+                    <select id="levelSelector" class="form-input">
+                    <option value="prasekolah">Prasekolah</option>
+                    <option value="sd1">SD Kelas 1</option>
+                    <option value="sd2">SD Kelas 2</option>
+                    <option value="sd3">SD Kelas 3</option>
+                    <option value="sd5">SD Kelas 5</option>
+                    <option value="sd6">SD Kelas 6</option>
+                    <option value="smp9">SMP Kelas 9</option>
+                </select>
             </div>
+    
+            <!-- Jadwal Harian Accordion -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <i class="fas fa-calendar-day"></i>
+                    <h3>Jadwal Harian</h3>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </div>
+                <div class="accordion-content" id="daily-schedule">
+                    <!-- Konten akan diisi oleh JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Jadwal Ujian Accordion -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Jadwal Ujian</h3>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </div>
+                <div class="accordion-content" id="exam-schedule">
+                    <!-- Konten akan diisi oleh JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Jadwal Seragam Accordion -->
+            <div class="accordion">
+                <div class="accordion-header">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Jadwal Seragam</h3>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </div>
+                <div class="accordion-content" id="uniform-schedule">
+                    <!-- Konten akan diisi oleh JavaScript -->
+                </div>
+            </div>
+                    <!-- Important Notes -->
+                    <div class="dashboard-card mt-4">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-exclamation-circle text-white text-xl"></i>
+                            <h3 class="text-white text-base font-semibold">Catatan Penting</h3>
+                        </div>
+                        <ul class="list-disc pl-5 text-white text-sm space-y-2">
+                            <li>Jadwal bersifat tetap kecuali ada pemberitahuan perubahan</li>
+                            <li>Hadir 15 menit sebelum ujian dimulai</li>
+                            <li>Seragam lengkap selama ujian berlangsung</li>
+                        </ul>
+                    </div>
         </div>
+    </div>
 
         <!-- Activities Page -->
         <div id="activities-page" class="page">
@@ -759,62 +1044,56 @@
         </div>
 
         <!-- Attendance Page -->
-        <div id="attendance-page" class="page">
-            <button class="back-btn" onclick="showPage('dashboard-page')">
-                <i class="fas fa-arrow-left"></i> Kembali
-            </button>
-            
-            <div class="dashboard-card">
-                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-                    <i class="fas fa-clipboard-check"></i>
-                    Formulir Absensi
-                </h3>
-                
-                <form class="attendance-form">
-                    <div class="form-group">
-                        <label for="student-name">Nama Siswa</label>
-                        <input type="text" id="student-name" placeholder="Masukkan nama siswa">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="student-class">Kelas</label>
-                        <select id="student-class">
-                            <option value="">Pilih kelas</option>
-                            <option value="1">Kelas 1</option>
-                            <option value="2">Kelas 2</option>
-                            <option value="3">Kelas 3</option>
-                            <option value="4">Kelas 4</option>
-                            <option value="5">Kelas 5</option>
-                            <option value="6">Kelas 6</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="attendance-date">Tanggal</label>
-                        <input type="date" id="attendance-date">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="attendance-status">Status Kehadiran</label>
-                        <select id="attendance-status">
-                            <option value="present">Hadir</option>
-                            <option value="sick">Sakit</option>
-                            <option value="permit">Izin</option>
-                            <option value="absent">Alpa</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="attendance-note">Keterangan (Opsional)</label>
-                        <textarea id="attendance-note" placeholder="Masukkan keterangan jika perlu"></textarea>
-                    </div>
-                    
-                    <button type="button" class="submit-btn" onclick="submitAttendance()">
-                        <i class="fas fa-paper-plane"></i> Kirim
-                    </button>
-                </form>
+<div id="attendance-page" class="page">
+    <button class="back-btn" onclick="showPage('dashboard-page')">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+    
+    <div class="dashboard-card">
+        <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
+            <i class="fas fa-clipboard-list"></i> Input Ketidakhadiran Peserta Didik
+        </h1>
+        
+        <form id="keteranganForm">
+            <div class="form-group">
+                <label for="tanggal"><i class="fas fa-calendar-alt"></i> Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" required class="form-input">
             </div>
-        </div>
+            
+            <div class="flex gap-4 mb-4">
+                <div class="form-group flex-1">
+                    <label for="nama"><i class="fas fa-user-graduate"></i> Nama Peserta Didik</label>
+                    <input type="text" id="nama" name="nama" placeholder="Cari nama..." required class="form-input">
+                    <div id="namaDropdown" class="dropdown"></div>
+                </div>
+                
+                <div class="form-group w-1/4">
+                    <label for="kelas"><i class="fas fa-chalkboard"></i> Kelas</label>
+                    <input type="text" id="kelas" name="kelas" readonly class="form-input">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="keterangan"><i class="fas fa-sticky-note"></i> Keterangan</label>
+                <select id="keterangan" name="keterangan" required class="form-input">
+                    <option value="">Pilih Keterangan</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Tanpa Keterangan">Tanpa Keterangan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="catatan"><i class="fas fa-comment-alt"></i> Catatan (Opsional)</label>
+                <textarea id="catatan" name="catatan" placeholder="Tambahkan catatan jika perlu..." class="form-input"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Kirim Data
+            </button>
+        </form>
+    </div>
+</div>
 
         <!-- GMeet Info Page -->
         <div id="gmeet-page" class="page">
@@ -1127,5 +1406,7 @@
             document.getElementById('attendance-date').value = today;
         });
     </script>
+        <script src="../assets/js/jadwal.js"></script>
+        <script src="../assets/js/izin-pd.js"></script>
 </body>
 </html>
