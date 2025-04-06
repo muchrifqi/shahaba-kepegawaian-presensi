@@ -542,9 +542,22 @@
         /* Responsive Adjustments */
         @media (max-width: 480px) {
             .menu-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr); /* Ubah dari 1fr menjadi 3 kolom */
+                gap: 0.5rem; /* Perkecil gap untuk tampilan mobile */
+            }
+            .menu-item {
+                padding: 0.75rem 0.25rem;
             }
             
+            .menu-item i {
+                font-size: 1.2rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            .menu-item span {
+                font-size: 0.7rem;
+            }
+
             .activity-item {
                 flex-direction: column;
             }
@@ -1065,6 +1078,190 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
 .option-item input[type="checkbox"] {
     margin-right: 10px;
 }
+/* GALERI FOTO & DESKRIPSI */
+.gallery-container {
+    width: 100%;
+    height: 90%;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* Foto Besar (Slider) */
+.featured-slider {
+    position: relative;
+    width: 100%;
+    height: 300px !important;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 3px solid white;
+    aspect-ratio: 16/9;
+    transition: all 0.3s ease;
+}
+
+.featured-slider:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.featured-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featured-slide.active {
+    opacity: 1;
+}
+
+.featured-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 5s ease-out;
+}
+
+.featured-slide.active img {
+    transform: scale(1.05);
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Container Foto Kecil */
+.small-photos-container {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.small-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.small-photo {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-photo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+.small-photo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.small-photo:hover::after {
+    background: rgba(0,0,0,0);
+}
+
+.small-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.small-photo:hover img {
+    transform: scale(1.08);
+}
+
+/* Deskripsi Kegiatan */
+
+#current-activity {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .featured-slider {
+        aspect-ratio: 3/2;
+    }
+    
+    .slide-caption {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .activity-description {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .featured-slider {
+        aspect-ratio: 4/3;
+    }
+    
+    .small-photo {
+        aspect-ratio: 1/1;
+    }
+    
+    .activity-description p:first-child {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-slider {
+        aspect-ratio: 1/1;
+        height: 200px !important;
+    }
+    
+    .slide-caption {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .activity-description {
+        padding: 0.8rem;
+    }
+    
+    .activity-description p:first-child {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .activity-description p:first-child::before {
+        margin-bottom: 4px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1085,6 +1282,47 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 </div>
                 <p class="text-white text-sm opacity-80">Selamat datang di portal orang tua Shahaba. Pilih menu di bawah untuk mengakses fitur.</p>
             </div>
+
+        <!-- Tambahkan setelah dashboard-card pertama dan sebelum menu-grid -->
+        <div class="gallery-container mb-4">
+            <!-- Slider Foto Besar -->
+            <div class="featured-slider relative overflow-hidden rounded-lg shadow-md" style="height: 200px;">
+                <!-- Foto 1 -->
+                <div class="featured-slide active">
+                    <img src="../assets/images/prasekolah_belajar1.jpg" alt="Kegiatan Sekolah" class="w-full h-full object-cover">
+                    <div class="slide-caption">Field Trip ke Museum Nasional</div>
+                </div>
+                <!-- Foto 2 -->
+                <div class="featured-slide">
+                    <img src="../assets/images/sd_outing1.jpg" alt="Kegiatan Olahraga" class="w-full h-full object-cover">
+                    <div class="slide-caption">Lomba Olahraga Antar Kelas</div>
+                </div>
+                <!-- Foto 3 -->
+                <div class="featured-slide">
+                    <img src="../assets/images/sd_karya1.jpg" alt="Kegiatan Sains" class="w-full h-full object-cover">
+                    <div class="slide-caption">Praktikum Sains Kelas 5</div>
+                </div>
+            </div>
+            
+            <!-- Deskripsi Kegiatan -->
+            <div class="activity-description bg-white bg-opacity-90 rounded-lg p-3 mt-2 text-gray-800 text-sm">
+                <p><span class="font-semibold">Kegiatan Terkini:</span> <span id="current-activity">Field Trip ke Museum Nasional</span></p>
+                <p class="mt-1 text-xs text-gray-600">Lihat lebih banyak foto di menu <strong>Kegiatan</strong></p>
+            </div>
+
+            <!-- Dua Foto Kecil -->
+            <div class="small-photos-container bg-white p-2 rounded-lg shadow-sm mt-2">
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="small-photo">
+                        <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1" class="w-full h-full object-cover rounded">
+                    </div>
+                    <div class="small-photo">
+                        <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2" class="w-full h-full object-cover rounded">
+                    </div>
+                </div>
+            </div>
+    </div>
+
 
             <!-- Menu Grid -->
             <div class="menu-grid">
@@ -1113,17 +1351,16 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                     <span>Info GMeet</span>
                 </a>
             </div>
-
-            <!-- Announcements -->
+                <!-- Announcements -->
             <div class="dashboard-card">
-                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-                    <i class="fas fa-bullhorn"></i>
-                    Pengumuman Terkini
-                </h3>
-                <div id="announcement-container" class="shimmer" style="min-height: 150px;"></div>
+                    <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                        <i class="fas fa-bullhorn"></i>
+                        Pengumuman Terkini
+                    </h3>
+            <div id="announcement-container" class="shimmer" style="min-height: 150px;"></div>
             </div>
-        </div>
-
+        </div> <!--penutup halaman awal-->
+        
         <!-- Schedule Page -->
         <div id="schedule-page" class="page">
             <button class="back-btn" onclick="showPage('dashboard-page')">
@@ -1191,8 +1428,8 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <li>Seragam lengkap selama ujian berlangsung</li>
                         </ul>
                     </div>
+                    </div>
         </div>
-    </div>
 
         <!-- Activities Page -->
         <div id="activities-page" class="page">
@@ -1829,6 +2066,42 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('deskripsi').closest('.form-group').style.display = 'none';
   });
+
+  // Slider Otomatis untuk Foto Besar
+let currentSlide = 0;
+const slides = document.querySelectorAll('.featured-slide');
+const activityTexts = [
+    "Field Trip ke Museum Nasional",
+    "Lomba Olahraga Antar Kelas", 
+    "Praktikum Sains Kelas 5"
+];
+
+function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    document.getElementById('current-activity').textContent = activityTexts[currentSlide];
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+// Mulai slider otomatis (berganti setiap 5 detik)
+let slideInterval = setInterval(nextSlide, 5000);
+
+// Hentikan slider saat hover
+document.querySelector('.featured-slider').addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+});
+
+// Lanjutkan slider saat mouse leave
+document.querySelector('.featured-slider').addEventListener('mouseleave', () => {
+    slideInterval = setInterval(nextSlide, 3000);
+});
+
+// Inisialisasi slider pertama
+showSlide(0);
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
