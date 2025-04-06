@@ -7,6 +7,7 @@
     <link rel="manifest" href="../manifest.json">
     <link rel="icon" href="../assets/icons/logoshahabahub.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -1042,7 +1043,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.option-item input[type="radio"] {
+.option-item input[type="checkbox"] {
     margin-right: 0.75rem;
 }
 
@@ -1060,6 +1061,9 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
 
 .form-row .form-group {
     flex: 1;
+}
+.option-item input[type="checkbox"] {
+    margin-right: 10px;
 }
     </style>
 </head>
@@ -1321,8 +1325,18 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                     <!-- 1. Orang Tua Dari -->
                     <div class="form-group">
                         <label for="orangtuaDari"><i class="fas fa-user-friends"></i> Orang Tua Dari</label>
-                        <input type="text" id="orangtuaDari" name="orangtuaDari" placeholder="Nama anak dan Jenjang (contoh: Ahmad - Prasekolah)" required class="form-input">
-                    </div>
+                        <input 
+                          type="text" 
+                          id="orangtuaDari" 
+                          name="orangtuaDari" 
+                          placeholder="Nama anak dan Jenjang (contoh: Ahmad - Prasekolah)" 
+                          required 
+                          class="form-input"
+                          pattern=".+ - .+"
+                          title="Format: Nama Anak - Jenjang Pendidikan"
+                        >
+                        <small class="form-hint">Contoh: Ahmad - Prasekolah</small>
+                      </div>
                     
                     <!-- 2. Topik Konsultasi -->
                     <div class="form-group">
@@ -1332,23 +1346,23 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <div class="topik-category">
                                 <h3 class="category-title">A. Perkembangan & Pembelajaran</h3>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Perkembangan motorik/kognitif anak" required>
+                                    <input type="checkbox" name="topik" value="Perkembangan motorik/kognitif anak">
                                     <span>Perkembangan motorik/kognitif anak</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Kemampuan sosial-emosional">
+                                    <input type="checkbox" name="topik" value="Kemampuan sosial-emosional">
                                     <span>Kemampuan sosial-emosional (interaksi, kepercayaan diri)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Kesiapan belajar">
+                                    <input type="checkbox" name="topik" value="Kesiapan belajar">
                                     <span>Kesiapan belajar (baca-tulis-hitung)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Kesulitan belajar">
+                                    <input type="checkbox" name="topik" value="Kesulitan belajar">
                                     <span>Kesulitan belajar</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Penyesuaian metode belajar">
+                                    <input type="checkbox" name="topik" value="Penyesuaian metode belajar">
                                     <span>Penyesuaian metode belajar di sekolah vs rumah</span>
                                 </label>
                             </div>
@@ -1357,19 +1371,19 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <div class="topik-category">
                                 <h3 class="category-title">B. Perilaku & Kesehatan</h3>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Pola disiplin dan aturan sekolah">
+                                    <input type="checkbox" name="topik" value="Pola disiplin dan aturan sekolah">
                                     <span>Pola disiplin dan aturan sekolah</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Penanganan tantrum/agresivitas atau bullying">
+                                    <input type="checkbox" name="topik" value="Penanganan tantrum/agresivitas atau bullying">
                                     <span>Penanganan tantrum/agresivitas (TK) atau bullying (SD)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Kesehatan, nutrisi, dan kebiasaan makan">
+                                    <input type="checkbox" name="topik" value="Kesehatan, nutrisi, dan kebiasaan makan">
                                     <span>Kesehatan, nutrisi, dan kebiasaan makan di sekolah</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Manajemen screen time">
+                                    <input type="checkbox" name="topik" value="Manajemen screen time">
                                     <span>Manajemen screen time & aktivitas fisik</span>
                                 </label>
                             </div>
@@ -1378,19 +1392,19 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <div class="topik-category">
                                 <h3 class="category-title">C. Kebijakan & Fasilitas Sekolah</h3>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Kurikulum dan sistem evaluasi">
+                                    <input type="checkbox" name="topik" value="Kurikulum dan sistem evaluasi">
                                     <span>Kurikulum dan sistem evaluasi (PR, ujian, laporan)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Biaya sekolah dan transparansi">
+                                    <input type="checkbox" name="topik" value="Biaya sekolah dan transparansi">
                                     <span>Biaya sekolah dan transparansi administrasi</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Fasilitas pendukung">
+                                    <input type="checkbox" name="topik" value="Fasilitas pendukung">
                                     <span>Fasilitas pendukung (perpustakaan, lab, taman bermain)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Program ekstrakurikuler">
+                                    <input type="checkbox" name="topik" value="Program ekstrakurikuler">
                                     <span>Program ekstrakurikuler/pengayaan</span>
                                 </label>
                             </div>
@@ -1399,15 +1413,15 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <div class="topik-category">
                                 <h3 class="category-title">D. Komunikasi & Kolaborasi</h3>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Laporan perkembangan anak">
+                                    <input type="checkbox" name="topik" value="Laporan perkembangan anak">
                                     <span>Laporan perkembangan anak (harian/mingguan/bulanan)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Media komunikasi">
+                                    <input type="checkbox" name="topik" value="Media komunikasi">
                                     <span>Media komunikasi sekolah-orang tua (grup WA, portal)</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Peran orang tua">
+                                    <input type="checkbox" name="topik" value="Peran orang tua">
                                     <span>Peran orang tua dalam kegiatan sekolah</span>
                                 </label>
                             </div>
@@ -1416,11 +1430,11 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <div class="topik-category">
                                 <h3 class="category-title">E. Transisi & Lainnya</h3>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Persiapan transisi">
+                                    <input type="checkbox" name="topik" value="Persiapan transisi">
                                     <span>Persiapan transisi TK-SD atau kenaikan kelas</span>
                                 </label>
                                 <label class="option-item">
-                                    <input type="radio" name="topik" value="Lainnya">
+                                    <input type="checkbox" name="topik" value="Lainnya">
                                     <span>Lainnya (sebutkan di deskripsi)</span>
                                 </label>
                             </div>
@@ -1446,9 +1460,9 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                         </div>
                     </div>
                     
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Kirim Konsultasi
-                    </button>
+                      </button>
                 </form>
             </div>
         </div>
@@ -1705,11 +1719,120 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('attendance-date').value = today;
         });
+
+  // Inisialisasi EmailJS
+  emailjs.init('XCyDgWPI6c1YEq8Hg'); // Ganti dengan User ID EmailJS Anda
+
+  // Fungsi Handle Submit
+  function handleSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const submitBtn = document.getElementById('submitBtn');
+    const deskripsiField = document.getElementById('deskripsi');
+    
+    // 1. Validasi Form
+    const checkedTopics = Array.from(form.elements['topik'])
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+    
+    if(checkedTopics.length === 0) {
+      Swal.fire({
+        title: 'Peringatan!',
+        text: 'Pilih minimal 1 topik konsultasi',
+        icon: 'warning'
+      });
+      return;
+    }
+    
+    // Validasi khusus jika memilih "Lainnya"
+    const isLainnyaSelected = checkedTopics.includes('Lainnya');
+    if(isLainnyaSelected && !deskripsiField.value.trim()) {
+      Swal.fire({
+        title: 'Peringatan!',
+        text: 'Harap isi deskripsi untuk opsi "Lainnya"',
+        icon: 'warning'
+      });
+      deskripsiField.focus();
+      return;
+    }
+
+    // 2. Siapkan Data Email
+    const templateParams = {
+    orangtuaDari: document.getElementById('orangtuaDari').value,
+    topik: "• " + checkedTopics.join('\n• '),
+    deskripsi: isLainnyaSelected ? deskripsiField.value : '',
+    tanggal: new Date(document.getElementById('tanggal').value).toLocaleDateString('id-ID', { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    }),
+    jam: document.getElementById('jam').value + ' WIB',
+    current_year: new Date().getFullYear().toString()
+};
+
+    // 3. Kirim Email
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mengirim...`;
+
+    emailjs.send('service_wnjhl7q', 'template_egp0vsz', templateParams)
+      .then(() => {
+        Swal.fire({
+          title: 'Berhasil!',
+          text: 'Konsultasi telah dikirim ke sekolah',
+          icon: 'success'
+        });
+        form.reset();
+        document.getElementById('charCount').textContent = 0;
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Gagal!',
+          text: `Error: ${error.text || 'Gagal mengirim email'}`,
+          icon: 'error'
+        });
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Kirim Konsultasi`;
+      });
+  }
+
+  // Fungsi untuk toggle required pada deskripsi
+  document.querySelectorAll('input[name="topik"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const deskripsiGroup = document.getElementById('deskripsi').closest('.form-group');
+      const isLainnyaChecked = document.querySelector('input[name="topik"][value="Lainnya"]:checked');
+      
+      if(isLainnyaChecked) {
+        deskripsiGroup.style.display = 'block';
+        document.getElementById('deskripsi').setAttribute('required', '');
+      } else {
+        deskripsiGroup.style.display = 'none';
+        document.getElementById('deskripsi').removeAttribute('required');
+      }
+    });
+  });
+
+  // Hitung karakter deskripsi
+  document.getElementById('deskripsi').addEventListener('input', function() {
+    const count = this.value.length;
+    document.getElementById('charCount').textContent = count;
+    if(count > 500) {
+      this.value = this.value.substring(0, 500);
+      document.getElementById('charCount').textContent = 500;
+    }
+  });
+
+  // Sembunyikan deskripsi saat load
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('deskripsi').closest('.form-group').style.display = 'none';
+  });
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
         <script src="../assets/js/gmeet.js"></script>
-        <script src="../assets/js/konsultasi.js"></script>
         
 </body>
 </html>

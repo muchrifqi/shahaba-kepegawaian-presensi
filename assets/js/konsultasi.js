@@ -1,132 +1,144 @@
-// konsultasi.js
-document.addEventListener('DOMContentLoaded', function() {
-    // URL Google Apps Script (Ganti dengan URL deploy Anda)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrH7xTGYSjSkhwXe5lxRzCZFo-5OOMr8qpiUOJOygAEXM-SNq8Z_YjZ6G4JCnjOLTnlg/exec";
-    
-    // Inisialisasi Form
-    initForm();
-    
-    // Setup karakter counter
-    setupCharCounter();
-});
-
-function initForm() {
+// Configuration
+const CONFIG = {
+    scriptUrl: "https://script.google.com/macros/s/AKfycbxd1hoFgltmOrityjQPPqbXNRVxZkWSpZfy9Mco48A3PTouv0oJU__fs_U7MJ-kLENLtA/exec",
+    maxDescLength: 500,
+    defaultTime: "09:00"
+  };
+  
+  // Main initialization
+  document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('konsultasiForm');
     if (!form) return;
-    
-    // Set nilai default tanggal dan jam
-    setDefaultDateTime();
-    
-    // Handle form submission
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        await submitFormData(this);
+  
+    // Convert radio buttons to checkboxes if any
+    document.querySelectorAll('.topik-options input[type="radio"]').forEach(radio => {
+      radio.type = 'checkbox';
+      radio.removeAttribute('required');
     });
-}
-
-function setDefaultDateTime() {
-    // Set tanggal hari ini
+  
+    // Set default date and time
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggal').value = today;
-    
-    // Set jam default (09:00)
-    document.getElementById('jam').value = '09:00';
-}
-
-function setupCharCounter() {
+    document.getElementById('jam').value = CONFIG.defaultTime;
+  
+    // Setup character counter
     const textarea = document.getElementById('deskripsi');
     const counter = document.getElementById('charCount');
-    
-    if (!textarea || !counter) return;
-    
-    textarea.addEventListener('input', function() {
-        counter.textContent = this.value.length;
-    });
-}
-
-async function submitFormData(form) {
-    const formData = new FormData(form);
-    
-    // Tampilkan loading
-    showLoading();
+    if (textarea && counter) {
+      textarea.addEventListener('input', () => {
+        counter.textContent = textarea.value.length;
+        counter.style.color = textarea.value.length > CONFIG.maxDescLength ? 'red' : '';
+      });
+      counter.textContent = textarea.value.length; // Initialize counter
+    }
+  });
+  
+  // Form submission handler
+  window.handleSubmit = async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
     
     try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: formData
-        });
-        
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const result = await response.json();
-        
-        if (result.status === 'success') {
-            showSuccessMessage(result.refId);
-            form.reset();
-            document.getElementById('charCount').textContent = '0';
-        } else {
-            throw new Error(result.message || 'Unknown error occurred');
-        }
-    } catch (error) {
-        showErrorMessage(error);
-    }
-}
-
-function showLoading() {
-    Swal.fire({
-        title: 'Mengirim Konsultasi',
-        html: 'Harap tunggu sebentar...',
+      // Validate form
+      const requiredFields = ['orangtuaDari', 'deskripsi', 'tanggal', 'jam'];
+      const missingFields = requiredFields.filter(id => !form[id]?.value?.trim());
+      
+      if (missingFields.length > 0) {
+        throw new Error(`Harap isi semua field wajib: ${missingFields.join(', ')}`);
+      }
+      
+      if (form.deskripsi.value.length > CONFIG.maxDescLength) {
+        throw new Error(`Deskripsi terlalu panjang (maks ${CONFIG.maxDescLength} karakter)`);
+      }
+  
+      // Disable button during submission
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+  
+      // Prepare form data
+      const formData = {
+        orangtuaDari: form.orangtuaDari.value.trim(),
+        topics: Array.from(document.querySelectorAll('.topik-options input[type="checkbox"]:checked'))
+                .map(cb => cb.value)
+                .join("; ") || "Tidak ada topik dipilih",
+        deskripsi: form.deskripsi.value.trim(),
+        tanggal: form.tanggal.value,
+        jam: form.jam.value
+      };
+  
+      // Show loading indicator
+      const swalInstance = Swal.fire({
+        title: 'Mengirim data...',
         allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        },
+        didOpen: () => Swal.showLoading(),
         background: 'var(--primary-color)',
         color: 'white'
-    });
-}
-
-function showSuccessMessage(refId) {
-    Swal.fire({
-        title: 'Berhasil Dikirim!',
+      });
+  
+      // Send data to Google Apps Script
+      const response = await fetch(CONFIG.scriptUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(formData)
+      });
+  
+      // Handle JSON parsing carefully
+      let result;
+      try {
+        result = await response.json();
+      } catch (jsonError) {
+        console.error('JSON parsing error:', jsonError);
+        throw new Error('Invalid response from server');
+      }
+  
+      if (!response.ok || result.status !== 'success') {
+        throw new Error(result?.message || 'Gagal mengirim formulir');
+      }
+  
+      // Show success message
+      await Swal.fire({
+        title: 'Berhasil!',
         html: `
-            <div style="text-align:left;line-height:1.6">
-                <p>Konsultasi Anda telah terkirim ke tim Shahaba.</p>
-                <p><strong>Nomor Referensi:</strong> ${refId}</p>
-                <p>Anda akan menerima balasan via email dalam 1-2 hari kerja.</p>
-            </div>
+          <div style="text-align:left">
+            <p>Konsultasi Anda telah terkirim.</p>
+            <p><strong>Nomor Referensi:</strong> ${result.refId}</p>
+            <p>Anda akan menerima balasan via email dalam 1-2 hari kerja.</p>
+          </div>
         `,
         icon: 'success',
         confirmButtonText: 'Mengerti',
         background: 'var(--primary-color)',
-        color: 'white',
-        customClass: {
-            title: 'swal2-title-custom',
-            content: 'swal2-content-custom'
-        }
-    });
-}
-
-function showErrorMessage(error) {
-    console.error('Error:', error);
-    
-    Swal.fire({
+        color: 'white'
+      });
+  
+      // Reset form
+      form.reset();
+      document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
+      document.getElementById('jam').value = CONFIG.defaultTime;
+      document.getElementById('charCount').textContent = '0';
+      document.querySelectorAll('.topik-options input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+  
+    } catch (error) {
+      console.error('Submission error:', error);
+      Swal.fire({
         title: 'Gagal Mengirim',
-        html: `
-            <div style="text-align:left">
-                <p>Terjadi kesalahan saat mengirim form:</p>
-                <p><em>${error.message}</em></p>
-                <p>Silakan coba lagi atau hubungi admin sekolah.</p>
-            </div>
-        `,
+        text: error.message || 'Terjadi kesalahan saat mengirim formulir',
         icon: 'error',
         confirmButtonText: 'Coba Lagi',
         background: 'var(--primary-color)',
         color: 'white'
-    });
-}
-
-// Pastikan fungsi ini tersedia di global scope
-window.handleSubmit = async function(e) {
-    e.preventDefault();
-    await submitFormData(e.target);
-};
+      });
+    } finally {
+      // Re-enable button
+      const submitBtn = document.querySelector('#konsultasiForm button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Konsultasi';
+      }
+    }
+  };
