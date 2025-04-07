@@ -1334,6 +1334,31 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* Article Item Styling */
+.article-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.article-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Article Container */
+#article-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Iframe */
+@media (max-width: 768px) {
+    #article-frame {
+        height: 300px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1421,6 +1446,10 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
                     <i class="fas fa-video" style="color: #e74c3c  ;"></i>
                     <span>Info GMeet</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('articles-page')">
+                    <i class="fas fa-newspaper" style="color: #9b59b6;"></i>
+                    <span>Artikel</span>
                 </a>
             </div>
                 <!-- Announcements -->
@@ -1813,7 +1842,45 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 </form>
             </div>
         </div>
-
+        <!-- Articles Page -->
+        <div id="articles-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-newspaper"></i>
+                    Artikel Pendidikan
+                </h3>
+                
+                <div class="space-y-4">
+                    <a href="https://shahaba.com/persiapan-jelang-masuk-sekolah-langkah-awal-menuju-aktivitas-yang-produktif" target="_blank" 
+                    class="article-item bg-white bg-opacity-10 rounded-lg p-4 block cursor-pointer hover:bg-opacity-20 transition">
+                     <h4 class="font-semibold text-white">Persiapan Jelang Masuk Sekolah</h4>
+                     <p class="text-sm text-white text-opacity-80 mt-1">Langkah awal menuju aktivitas yang produktif</p>
+                 </a>
+                 
+                 <a href="https://shahaba.com/sekolah-sd-dengan-kelas-intensif" target="_blank" 
+                    class="article-item bg-white bg-opacity-10 rounded-lg p-4 block cursor-pointer hover:bg-opacity-20 transition">
+                     <h4 class="font-semibold text-white">Sekolah SD dengan Kelas Intensif</h4>
+                     <p class="text-sm text-white text-opacity-80 mt-1">Pendekatan pembelajaran yang lebih fokus</p>
+                 </a>
+                 
+                </div>
+                
+                <div id="article-container" class="mt-6 hidden">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 id="article-title" class="font-semibold text-white"></h4>
+                        <button onclick="closeArticle()" class="text-white text-opacity-70 hover:text-opacity-100">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <iframe id="article-frame" class="w-full h-96 bg-white rounded-lg" 
+                            frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
     <!-- WhatsApp Float Button -->
     <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
         <i class="fas fa-comment-dots"></i>
