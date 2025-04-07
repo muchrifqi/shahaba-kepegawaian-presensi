@@ -365,6 +365,8 @@
             font-size: 0.9rem;
         }
 
+        
+
         .form-group textarea {
             min-height: 100px;
             resize: vertical;
@@ -653,8 +655,8 @@
         }
 
         .bank-logo {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
         }
 
@@ -1806,7 +1808,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                     </div>
                     
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Kirim Konsultasi
+                        <i class="fas fa-paper-plane"></i> Kirim
                       </button>
                 </form>
             </div>
@@ -1831,7 +1833,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                         <i class="fab fa-whatsapp text-white"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold">Kirim Pesan ke Sekolah</h3>
+                        <h3 class="font-bold">Kirim Pesan ke Shahaba</h3>
                         <p class="text-sm opacity-90">Pesan akan dikirim via WhatsApp</p>
                     </div>
                 </div>
@@ -1843,7 +1845,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             <div class="p-4">
                 <div class="mb-4">
                     <label for="whatsapp-message" class="block text-gray-700 mb-2">Isi Pesan:</label>
-                    <textarea id="whatsapp-message" class="w-full border border-gray-300 rounded p-2 h-32" 
+                    <textarea id="whatsapp-message" style="color: #4a4a4a;" class="w-full border border-gray-300 rounded p-2 h-32" 
                               placeholder="Contoh: Assalamu'alaikum, saya orang tua dari [Nama Siswa]..."></textarea>
                     <p class="text-xs text-gray-500 mt-1 text-right">
                         <span id="char-count">0</span>/500 karakter
@@ -1853,7 +1855,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 <div class="mb-4">
                     <label for="recipient" class="block text-gray-700 mb-2">Pilih Tujuan:</label>
                     <select id="recipient" class="w-full border border-gray-300 rounded p-2">
-                        <option value="6285951589760">Admin Sekolah</option>
+                        <option value="6285951589760">Admin Utama</option>
                         <option value="6285921101260">Admin Keuangan</option>
                         <option value="6285710006577">Prasekolah (Ibu Nurhayati)</option>
                         <option value="6281227122410">SD (Pak Dwi Indo)</option>
@@ -1934,14 +1936,14 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         // Bank Account Info
         function showBankAccountInfo() {
             Swal.fire({
-                title: 'Informasi Rekening Sekolah',
+                title: 'Informasi Rekening Shahaba',
                 html: `
                     <div class="bank-info">
                         <div class="bank-card" onclick="copyToClipboard('1234567890', 'BNI')">
-                            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" alt="BNI" class="bank-logo">
+                           <img src="https://www.bankmuamalat.co.id/assets/frontend/images/logo.jpg" alt="Bank Muamalat" class="bank-logo">
                             <div class="bank-details">
                                 <p class="account-number">1234567890</p>
-                                <p class="account-name">Yayasan Shahaba</p>
+                                <p class="account-name">CV Klinik Edukasi Shahaba</p>
                                 <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
                             </div>
                         </div>
@@ -1949,7 +1951,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/2560px-Bank_Syariah_Indonesia.svg.png" alt="BSI" class="bank-logo">
                             <div class="bank-details">
                                 <p class="account-number">9876543210</p>
-                                <p class="account-name">Yayasan Shahaba</p>
+                                <p class="account-name">CV Klinik Edukasi Shahaba</p>
                                 <span class="copy-hint"><i class="fas fa-copy"></i> Klik untuk menyalin</span>
                             </div>
                         </div>
@@ -2125,7 +2127,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
       .then(() => {
         Swal.fire({
           title: 'Berhasil!',
-          text: 'Konsultasi telah dikirim ke sekolah',
+          text: 'Penjadwalan Konsultasi telah dikirim ke Shahaba',
           icon: 'success'
         });
         form.reset();
@@ -2140,7 +2142,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
       })
       .finally(() => {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Kirim Konsultasi`;
+        submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Kirim`;
       });
   }
 
