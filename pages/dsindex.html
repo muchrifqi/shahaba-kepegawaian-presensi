@@ -103,12 +103,11 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .dashboard-card-catatan {
-            background: rgba(242, 255, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0);
             border-radius: var(--border-radius);
             padding: 1.25rem;
             margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.32);
+            border: 2px solid rgba(255, 255, 255, 0.491);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         /* Style untuk level selector - Disesuaikan dengan tema */
@@ -206,7 +205,7 @@
         }
 
         .menu-item i {
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
         }
 
@@ -550,7 +549,7 @@
             }
             
             .menu-item i {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
                 margin-bottom: 0.25rem;
             }
             
@@ -1262,6 +1261,77 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         margin-bottom: 4px;
     }
 }
+/* iPhone Gallery Style */
+.iphone-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Kolom fleksibel */
+  grid-auto-rows: 150px; /* Tinggi dasar */
+  grid-gap: 8px;
+  grid-auto-flow: dense; /* Penempatan otomatis padat */
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+/* Atur span item berdasarkan rasio gambar */
+.gallery-item:nth-child(3n+1) {
+  grid-row: span 2; /* Item ke-1, 4, 7... lebih tinggi */
+}
+
+.gallery-item:nth-child(5n+2) {
+  grid-column: span 2; /* Item ke-2, 7, 12... lebih lebar */
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Pastikan gambar memenuhi area tanpa terdistorsi */
+  transition: transform 0.3s;
+}
+
+/* Caption */
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+/* Filter Album */
+.album-filter-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.album-filter-btn.active {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .iphone-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
     </style>
 </head>
 <body>
@@ -1327,27 +1397,27 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         <!-- Menu Grid -->
             <div class="menu-grid">
                 <a href="#" class="menu-item" onclick="showPage('schedule-page')">
-                    <i class="fas fa-calendar-alt" style="color: #51ebff;"></i>
+                    <i class="fas fa-calendar-days" style="color: #172e69;"></i>
                     <span>Jadwal</span>
-                </a>
+                  </a>
                 <a href="#" class="menu-item" onclick="showPage('activities-page')">
-                    <i class="fas fa-images" style="color: #5659f5;"></i>
+                    <i class="fas fa-photo-film" style="color: #ece75d ;"></i>
                     <span>Kegiatan</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showBankAccountInfo()">
-                    <i class="fa-solid fa-money-check-dollar" style="color: #fd8585;"></i>
+                    <i class="fas fa-landmark" style="color: #8fb9aa ;"></i>
                     <span>Rekening</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('konsultasi-page')">
-                    <i class="fas fa-comments" style="color: #f8a355;"></i>
+                    <i class="fas fa-comments" style="color: #ee9d15 ;"></i>
                     <span>Konsultasi</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('attendance-page')">
-                    <i class="fas fa-clipboard-check" style="color: #e8f04c;"></i>
+                    <i class="fas fa-user-check" style="color: #27ae60 ;"></i>
                     <span>Absensi</span>
                 </a>
                 <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
-                    <i class="fas fa-video" style="color: #91e741;"></i>
+                    <i class="fas fa-video" style="color: #e74c3c  ;"></i>
                     <span>Info GMeet</span>
                 </a>
             </div>
@@ -1387,7 +1457,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                     <i class="fas fa-calendar-day"></i>
                     <h3>Jadwal Harian</h3>
                     <i class="fas fa-chevron-down accordion-icon"></i>
-                </div>
+                  </div>
                 <div class="accordion-content" id="daily-schedule">
                     <!-- Konten akan diisi oleh JavaScript -->
                 </div>
@@ -1434,43 +1504,83 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         <!-- Activities Page -->
         <div id="activities-page" class="page">
             <button class="back-btn" onclick="showPage('dashboard-page')">
-                <i class="fas fa-arrow-left"></i> Kembali
+              <i class="fas fa-arrow-left"></i> Kembali
             </button>
             
             <div class="dashboard-card">
-                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
-                    <i class="fas fa-images"></i>
-                    Dokumentasi Kegiatan
-                </h3>
-                
-                <div class="activity-item">
-                    <img src="https://source.unsplash.com/random/300x300/?school,activity" alt="Kegiatan Sekolah" class="activity-image">
-                    <div class="activity-details">
-                        <h4>Field Trip ke Museum</h4>
-                        <p>Kegiatan belajar di luar kelas untuk menambah wawasan siswa tentang sejarah.</p>
-                        <div class="activity-date">15 Maret 2024</div>
+              <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                <i class="fas fa-images"></i>
+                Album Kegiatan
+              </h3>
+              
+              <!-- Filter Album -->
+              <div class="flex gap-2 mb-4 overflow-x-auto py-2">
+                <button class="album-filter-btn active" data-category="all">Semua</button>
+                <button class="album-filter-btn" data-category="prasekolah">Prasekolah</button>
+                <button class="album-filter-btn" data-category="sd">SD</button>
+                <button class="album-filter-btn" data-category="smp">SMP</button>
+                <button class="album-filter-btn" data-category="event">Event</button>
+              </div>
+              
+              <!-- Grid Galeri -->
+                <div class="iphone-gallery">
+                    <!-- Item dengan rasio aspek berbeda (landscape, portrait, square) -->
+                    <div class="gallery-item" data-category="prasekolah">
+                    <img src="../assets/images/prasekolah_belajar1.jpg" alt="Kegiatan 1" loading="lazy">
+                    <div class="caption">Field Trip</div>
                     </div>
-                </div>
-                
-                <div class="activity-item">
-                    <img src="https://source.unsplash.com/random/300x300/?school,sport" alt="Kegiatan Sekolah" class="activity-image">
-                    <div class="activity-details">
-                        <h4>Lomba Olahraga Antar Kelas</h4>
-                        <p>Acara tahunan untuk meningkatkan sportivitas dan kerjasama tim.</p>
-                        <div class="activity-date">10 Maret 2024</div>
+                    
+                    <div class="gallery-item" data-category="prasekolah">
+                    <img src="../assets/images/prasekolah_karya1.jpg" alt="Kegiatan 2" loading="lazy">
+                    <div class="caption">Praktikum Sains</div>
                     </div>
-                </div>
-                
-                <div class="activity-item">
-                    <img src="https://source.unsplash.com/random/300x300/?school,science" alt="Kegiatan Sekolah" class="activity-image">
-                    <div class="activity-details">
-                        <h4>Eksperimen Sains</h4>
-                        <p>Praktikum kimia sederhana untuk memahami konsep dasar sains.</p>
-                        <div class="activity-date">5 Maret 2024</div>
+                    
+                    <div class="gallery-item" data-category="prasekolah">
+                        <img src="../assets/images/prasekolah_belajar2.jpg" alt="Kegiatan 1" loading="lazy">
+                        <div class="caption">Field Trip</div>
                     </div>
+                    
+                    <div class="gallery-item" data-category="prasekolah">
+                        <img src="../assets/images/prasekolah_outing1.jpg" alt="Kegiatan 2" loading="lazy">
+                        <div class="caption">Praktikum Sains</div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prasekolah">
+                        <img src="../assets/images/prasekolah_outing2.jpg" alt="Kegiatan 1" loading="lazy">
+                        <div class="caption">Field Trip</div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="../assets/images/sd_karya2.jpg" alt="Kegiatan 2" loading="lazy">
+                        <div class="caption">Praktikum Sains</div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prasekolah">
+                        <img src="../assets/images/prasekolah_outing3.jpg" alt="Kegiatan 1" loading="lazy">
+                        <div class="caption">Field Trip</div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="sd">
+                        <img src="../assets/images/sd_karya1.jpg" alt="Kegiatan 2" loading="lazy">
+                        <div class="caption">Praktikum Sains</div>
+                    </div>
+
+                    <div class="gallery-item" data-category="sd">
+                        <img src="../assets/images/sd_karya2.jpg" alt="Kegiatan 1" loading="lazy">
+                        <div class="caption">Field Trip</div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="sd">
+                        <img src="../assets/images/sd_outing1.jpg" alt="Kegiatan 2" loading="lazy">
+                        <div class="caption">Praktikum Sains</div>
+                    </div>
+
+                    <div class="gallery-item" data-category="sd">
+                        <img src="../assets/images/sd_karya3.jpg" alt="Kegiatan 2" loading="lazy">
+                        <div class="caption">Praktikum Sains</div>
+                    </div>
+                    <!-- Tambahkan lebih banyak item -->
                 </div>
-            </div>
-        </div>
 
         <!-- Attendance Page -->
         <div id="attendance-page" class="page">
@@ -1706,7 +1816,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
 
     <!-- WhatsApp Float Button -->
     <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
-        <i class="fab fa-whatsapp"></i>
+        <i class="fas fa-comment-dots"></i>
     </a>
 
     <!-- Footer -->
@@ -1877,7 +1987,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         function submitAttendance() {
             const studentName = document.getElementById('student-name').value;
             const studentClass = document.getElementById('student-class').value;
-            const attendanceDate = document.getElementById('attendance-date').value;
+            const attendanceDate = document.getElementById('tanggal').value;
             const attendanceStatus = document.getElementById('attendance-status').value;
             
             if (!studentName || !studentClass || !attendanceDate) {
@@ -1954,7 +2064,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             
             // Set default date for attendance form
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('attendance-date').value = today;
+            document.getElementById('tanggal').value = today;
         });
 
   // Inisialisasi EmailJS
@@ -2102,6 +2212,49 @@ document.querySelector('.featured-slider').addEventListener('mouseleave', () => 
 
 // Inisialisasi slider pertama
 showSlide(0);
+
+// Filter Album activity-page
+
+// Filter Album
+document.querySelectorAll('.album-filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Hapus active state dari semua button
+    document.querySelectorAll('.album-filter-btn').forEach(b => b.classList.remove('active'));
+    // Tambahkan active state ke button yang diklik
+    this.classList.add('active');
+    
+    const category = this.dataset.category;
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    galleryItems.forEach(item => {
+      if (category === 'all' || item.dataset.category === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  
+  galleryItems.forEach(item => {
+    const img = item.querySelector('img');
+    
+    img.onload = function() {
+      const aspectRatio = img.naturalWidth / img.naturalHeight;
+      
+      // Sesuaikan grid span berdasarkan rasio aspek
+      if (aspectRatio > 1.5) {
+        item.style.gridColumn = 'span 2'; // Gambar landscape (lebar)
+      } else if (aspectRatio < 0.8) {
+        item.style.gridRow = 'span 2'; // Gambar portrait (tinggi)
+      }
+      // Gambar square tetap 1x1
+    };
+  });
+});
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
