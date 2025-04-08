@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba Hub - Portal Orang Tua</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-color: #172e69;
+            --secondary-color: #2b2b2b;
+            --accent-color: #e15f0e;
+            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69, #3693cc);
+            --text-color: white;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-gradient);
+            background-size: 400% 400%;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .embed-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .embed-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <img src="https://via.placeholder.com/150x50/172e69/FFFFFF?text=Shahaba+Hub" alt="Shahaba Hub Logo" class="mx-auto mb-4">
+            <h1 class="text-3xl font-bold text-white mb-2">Portal Orang Tua</h1>
+            <p class="text-white opacity-80">Akses mudah semua fitur Shahaba Hub dalam satu tempat</p>
+        </div>
+
+        <!-- Main Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Jadwal -->
+            <div class="embed-card p-6 cursor-pointer" onclick="showScheduleModal()">
+                <div class="feature-icon text-blue-300">
+                    <i class="fas fa-calendar-days"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Jadwal Sekolah</h3>
+                <p class="text-white opacity-80">Lihat jadwal harian, ujian, dan seragam putra/putri Anda</p>
+            </div>
+
+            <!-- Kegiatan -->
+            <div class="embed-card p-6 cursor-pointer" onclick="showActivitiesModal()">
+                <div class="feature-icon text-yellow-300">
+                    <i class="fas fa-photo-film"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Kegiatan Sekolah</h3>
+                <p class="text-white opacity-80">Album foto kegiatan dan acara sekolah</p>
+            </div>
+
+            <!-- Absensi -->
+            <div class="embed-card p-6 cursor-pointer" onclick="showAttendanceModal()">
+                <div class="feature-icon text-green-300">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Lapor Absensi</h3>
+                <p class="text-white opacity-80">Kirim keterangan ketidakhadiran siswa</p>
+            </div>
+
+            <!-- Konsultasi -->
+            <div class="embed-card p-6 cursor-pointer" onclick="showConsultationModal()">
+                <div class="feature-icon text-orange-300">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Konsultasi</h3>
+                <p class="text-white opacity-80">Jadwalkan konsultasi dengan guru/wali kelas</p>
+            </div>
+        </div>
+
+        <!-- Quick Access -->
+        <div class="embed-card p-6 mb-8">
+            <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <i class="fas fa-bolt"></i> Akses Cepat
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="showBankInfo()" class="py-2 px-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition flex items-center gap-2">
+                    <i class="fas fa-landmark text-blue-200"></i> Rekening
+                </button>
+                <button onclick="showGMeetInfo()" class="py-2 px-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition flex items-center gap-2">
+                    <i class="fas fa-video text-red-200"></i> GMeet
+                </button>
+                <button onclick="showArticles()" class="py-2 px-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition flex items-center gap-2">
+                    <i class="fas fa-newspaper text-purple-200"></i> Artikel
+                </button>
+                <button onclick="showWhatsAppModal()" class="py-2 px-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition flex items-center gap-2">
+                    <i class="fab fa-whatsapp text-green-200"></i> WhatsApp
+                </button>
+            </div>
+        </div>
+
+        <!-- Full Access Button -->
+        <div class="text-center">
+            <a href="https://shahabahub.com" target="_blank" class="inline-block bg-white text-blue-800 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition shadow-lg">
+                Buka Aplikasi Lengkap <i class="fas fa-external-link-alt ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsapp-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-md mx-4">
+            <div class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Kirim Pesan ke Shahaba</h3>
+                        <p class="text-sm opacity-90">Pesan akan dikirim via WhatsApp</p>
+                    </div>
+                </div>
+                <button onclick="hideWhatsAppModal()" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="mb-4">
+                    <label for="whatsapp-message" class="block text-gray-700 mb-2">Isi Pesan:</label>
+                    <textarea id="whatsapp-message" class="w-full border border-gray-300 rounded p-2 h-32 form-input" 
+                              placeholder="Contoh: Assalamu'alaikum, saya orang tua dari [Nama Siswa]..."></textarea>
+                    <p class="text-xs text-gray-500 mt-1 text-right">
+                        <span id="char-count">0</span>/500 karakter
+                    </p>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="recipient" class="block text-gray-700 mb-2">Pilih Tujuan:</label>
+                    <select id="recipient" class="w-full border border-gray-300 rounded p-2 form-input">
+                        <option value="6285951589760">Admin Utama</option>
+                        <option value="6285921101260">Admin Keuangan</option>
+                        <option value="6285710006577">Prasekolah (Ibu Nurhayati)</option>
+                        <option value="6281227122410">SD (Pak Dwi Indo)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end gap-2">
+                <button onclick="hideWhatsAppModal()" class="px-4 py-2 text-gray-600 rounded">
+                    Batal
+                </button>
+                <button onclick="sendWhatsAppMessage()" class="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Buka WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div id="schedule-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-calendar-days"></i> Jadwal Sekolah
+                </h3>
+                <button onclick="hideModal('schedule-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="mb-4">
+                    <label for="schedule-level" class="block text-gray-700 mb-2">Pilih Jenjang:</label>
+                    <select id="schedule-level" class="w-full border border-gray-300 rounded p-2 form-input">
+                        <option value="prasekolah">Prasekolah</option>
+                        <option value="sd1">SD Kelas 1</option>
+                        <option value="sd2">SD Kelas 2</option>
+                        <option value="sd3">SD Kelas 3</option>
+                        <option value="sd5">SD Kelas 5</option>
+                        <option value="sd6">SD Kelas 6</option>
+                        <option value="smp9">SMP Kelas 9</option>
+                    </select>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-600 mb-2 flex items-center gap-2">
+                            <i class="fas fa-calendar-day"></i> Jadwal Harian
+                        </h4>
+                        <div id="daily-schedule" class="text-gray-700">
+                            <p class="text-sm">Pilih jenjang untuk melihat jadwal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-600 mb-2 flex items-center gap-2">
+                            <i class="fas fa-clipboard-list"></i> Jadwal Ujian
+                        </h4>
+                        <div id="exam-schedule" class="text-gray-700">
+                            <p class="text-sm">Pilih jenjang untuk melihat jadwal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-600 mb-2 flex items-center gap-2">
+                            <i class="fas fa-tshirt"></i> Jadwal Seragam
+                        </h4>
+                        <div id="uniform-schedule" class="text-gray-700">
+                            <p class="text-sm">Pilih jenjang untuk melihat jadwal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end">
+                <button onclick="hideModal('schedule-modal')" class="px-4 py-2 bg-blue-600 text-white rounded">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div id="attendance-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div class="bg-green-600 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-user-check"></i> Lapor Absensi
+                </h3>
+                <button onclick="hideModal('attendance-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <form id="attendance-form">
+                    <div class="mb-4">
+                        <label for="attendance-date" class="block text-gray-700 mb-2">
+                            <i class="fas fa-calendar-alt mr-1"></i> Tanggal
+                        </label>
+                        <input type="date" id="attendance-date" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="student-name" class="block text-gray-700 mb-2">
+                            <i class="fas fa-user-graduate mr-1"></i> Nama Siswa
+                        </label>
+                        <input type="text" id="student-name" placeholder="Nama lengkap siswa" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="student-class" class="block text-gray-700 mb-2">
+                            <i class="fas fa-chalkboard mr-1"></i> Kelas
+                        </label>
+                        <input type="text" id="student-class" placeholder="Kelas siswa" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="attendance-reason" class="block text-gray-700 mb-2">
+                            <i class="fas fa-sticky-note mr-1"></i> Keterangan
+                        </label>
+                        <select id="attendance-reason" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                            <option value="">Pilih Keterangan</option>
+                            <option value="Izin">Izin</option>
+                            <option value="Sakit">Sakit</option>
+                            <option value="Tanpa Keterangan">Tanpa Keterangan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="attendance-notes" class="block text-gray-700 mb-2">
+                            <i class="fas fa-comment-alt mr-1"></i> Catatan (Opsional)
+                        </label>
+                        <textarea id="attendance-notes" placeholder="Tambahkan catatan jika perlu" class="w-full border border-gray-300 rounded p-2 form-input" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="hideModal('attendance-modal')" class="px-4 py-2 border border-gray-300 text-gray-700 rounded">
+                            Batal
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded flex items-center gap-2">
+                            <i class="fas fa-paper-plane"></i> Kirim
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultation Modal -->
+    <div id="consultation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div class="bg-orange-500 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-comments"></i> Form Konsultasi
+                </h3>
+                <button onclick="hideModal('consultation-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <form id="consultation-form">
+                    <div class="mb-4">
+                        <label for="parent-of" class="block text-gray-700 mb-2">
+                            <i class="fas fa-user-friends mr-1"></i> Orang Tua Dari
+                        </label>
+                        <input type="text" id="parent-of" placeholder="Nama anak - Jenjang (contoh: Ahmad - Prasekolah)" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">
+                            <i class="fas fa-clipboard-list mr-1"></i> Topik Konsultasi
+                        </label>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="topic1" name="topic" value="Perkembangan anak" class="mr-2">
+                                <label for="topic1" class="text-gray-700">Perkembangan anak</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="topic2" name="topic" value="Kesulitan belajar" class="mr-2">
+                                <label for="topic2" class="text-gray-700">Kesulitan belajar</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="topic3" name="topic" value="Perilaku siswa" class="mr-2">
+                                <label for="topic3" class="text-gray-700">Perilaku siswa</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="topic4" name="topic" value="Lainnya" class="mr-2">
+                                <label for="topic4" class="text-gray-700">Lainnya</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="consultation-desc" class="block text-gray-700 mb-2">
+                            <i class="fas fa-align-left mr-1"></i> Deskripsi Singkat
+                        </label>
+                        <textarea id="consultation-desc" placeholder="Jelaskan secara singkat pertanyaan/konsultasi Anda" class="w-full border border-gray-300 rounded p-2 form-input" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="consultation-date" class="block text-gray-700 mb-2">
+                                <i class="fas fa-calendar-day mr-1"></i> Tanggal
+                            </label>
+                            <input type="date" id="consultation-date" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                        </div>
+                        <div>
+                            <label for="consultation-time" class="block text-gray-700 mb-2">
+                                <i class="fas fa-clock mr-1"></i> Jam
+                            </label>
+                            <input type="time" id="consultation-time" class="w-full border border-gray-300 rounded p-2 form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="hideModal('consultation-modal')" class="px-4 py-2 border border-gray-300 text-gray-700 rounded">
+                            Batal
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded flex items-center gap-2">
+                            <i class="fas fa-paper-plane"></i> Kirim
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activities Modal -->
+    <div id="activities-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="bg-yellow-500 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-photo-film"></i> Album Kegiatan
+                </h3>
+                <button onclick="hideModal('activities-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="flex gap-2 mb-4 overflow-x-auto py-2">
+                    <button class="album-filter-btn active" data-category="all">Semua</button>
+                    <button class="album-filter-btn" data-category="prasekolah">Prasekolah</button>
+                    <button class="album-filter-btn" data-category="sd">SD</button>
+                    <button class="album-filter-btn" data-category="smp">SMP</button>
+                    <button class="album-filter-btn" data-category="event">Event</button>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="gallery-grid">
+                    <!-- Gallery items will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end">
+                <button onclick="hideModal('activities-modal')" class="px-4 py-2 bg-yellow-500 text-white rounded">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bank Info Modal -->
+    <div id="bank-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div class="bg-blue-800 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-landmark"></i> Informasi Rekening
+                </h3>
+                <button onclick="hideModal('bank-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-4 cursor-pointer" onclick="copyToClipboard('1234567890', 'BNI')">
+                    <img src="https://www.bankmuamalat.co.id/assets/frontend/images/logo.jpg" alt="Bank Muamalat" class="w-16 h-16 object-contain">
+                    <div>
+                        <p class="font-semibold text-gray-800">1234567890</p>
+                        <p class="text-gray-600 text-sm">CV Klinik Edukasi Shahaba</p>
+                        <p class="text-blue-500 text-xs mt-1 flex items-center">
+                            <i class="fas fa-copy mr-1"></i> Klik untuk menyalin
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg p-4 flex items-center gap-4 cursor-pointer" onclick="copyToClipboard('9876543210', 'BSI')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/2560px-Bank_Syariah_Indonesia.svg.png" alt="BSI" class="w-16 h-16 object-contain">
+                    <div>
+                        <p class="font-semibold text-gray-800">9876543210</p>
+                        <p class="text-gray-600 text-sm">CV Klinik Edukasi Shahaba</p>
+                        <p class="text-blue-500 text-xs mt-1 flex items-center">
+                            <i class="fas fa-copy mr-1"></i> Klik untuk menyalin
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end">
+                <button onclick="hideModal('bank-modal')" class="px-4 py-2 bg-blue-800 text-white rounded">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GMeet Info Modal -->
+    <div id="gmeet-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div class="bg-red-500 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-video"></i> Info Google Meet
+                </h3>
+                <button onclick="hideModal('gmeet-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="mb-4">
+                    <label for="gmeet-filter" class="block text-gray-700 mb-2">
+                        <i class="fas fa-filter mr-1"></i> Filter Guru/Kelas:
+                    </label>
+                    <input type="text" id="gmeet-filter" placeholder="Cari guru/mapel/kelas..." class="w-full border border-gray-300 rounded p-2 form-input">
+                </div>
+                
+                <div class="space-y-4" id="gmeet-list">
+                    <!-- GMeet list will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end">
+                <button onclick="hideModal('gmeet-modal')" class="px-4 py-2 bg-red-500 text-white rounded">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Articles Modal -->
+    <div id="articles-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="bg-purple-500 text-white p-4 rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 class="font-bold flex items-center gap-2">
+                    <i class="fas fa-newspaper"></i> Artikel Pendidikan
+                </h3>
+                <button onclick="hideModal('articles-modal')" class="text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-4">
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="openArticle('https://shahaba.com/persiapan-jelang-masuk-sekolah-langkah-awal-menuju-aktivitas-yang-produktif')">
+                        <h4 class="font-semibold text-purple-600 mb-1">Persiapan Jelang Masuk Sekolah</h4>
+                        <p class="text-gray-600 text-sm">Langkah awal menuju aktivitas yang produktif</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="openArticle('https://shahaba.com/sekolah-sd-dengan-kelas-intensif')">
+                        <h4 class="font-semibold text-purple-600 mb-1">Sekolah SD dengan Kelas Intensif</h4>
+                        <p class="text-gray-600 text-sm">Pendekatan pembelajaran yang lebih fokus</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 p-4 flex justify-end">
+                <button onclick="hideModal('articles-modal')" class="px-4 py-2 bg-purple-500 text-white rounded">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Load content if needed
+            if (modalId === 'activities-modal') {
+                loadGalleryItems();
+            } else if (modalId === 'gmeet-modal') {
+                loadGMeetList();
+            }
+        }
+        
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Specific modal show functions
+        function showWhatsAppModal() {
+            showModal('whatsapp-modal');
+            // Set today's date
+            document.getElementById('whatsapp-message').value = '';
+            document.getElementById('char-count').textContent = '0';
+        }
+        
+        function showScheduleModal() {
+            showModal('schedule-modal');
+            // Set today's date
+            document.getElementById('attendance-date').valueAsDate = new Date();
+        }
+        
+        function showAttendanceModal() {
+            showModal('attendance-modal');
+            // Set today's date
+            document.getElementById('attendance-date').valueAsDate = new Date();
+        }
+        
+        function showConsultationModal() {
+            showModal('consultation-modal');
+            // Set today's date
+            document.getElementById('consultation-date').valueAsDate = new Date();
+        }
+        
+        function showActivitiesModal() {
+            showModal('activities-modal');
+        }
+        
+        function showBankInfo() {
+            showModal('bank-modal');
+        }
+        
+        function showGMeetInfo() {
+            showModal('gmeet-modal');
+        }
+        
+        function showArticles() {
+            showModal('articles-modal');
+        }
+        
+        // WhatsApp Functions
+        document.getElementById('whatsapp-message').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('char-count').textContent = count;
+            
+            if (count > 500) {
+                this.value = this.value.substring(0, 500);
+                document.getElementById('char-count').textContent = '500';
+            }
+        });
+        
+        function sendWhatsAppMessage() {
+            const message = document.getElementById('whatsapp-message').value;
+            const recipient = document.getElementById('recipient').value;
+            
+            if (!message.trim()) {
+                Swal.fire({
+                    title: 'Pesan Kosong',
+                    text: 'Mohon isi pesan terlebih dahulu',
+                    icon: 'warning',
+                    confirmButtonColor: '#25D366'
+                });
+                return;
+            }
+            
+            const whatsappUrl = `https://wa.me/${recipient}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            hideModal('whatsapp-modal');
+        }
+        
+        // Copy to Clipboard
+        function copyToClipboard(text, context) {
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({
+                    title: 'Berhasil Disalin!',
+                    text: `Nomor rekening ${context} telah disalin`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(() => {
+                Swal.fire({
+                    title: 'Gagal Menyalin',
+                    text: 'Mohon salin nomor rekening secara manual',
+                    icon: 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        }
+        
+        // Load Gallery Items
+        function loadGalleryItems() {
+            const galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = '';
+            
+            // Sample gallery items (in a real app, this would come from an API)
+            const galleryItems = [
+                { id: 1, category: 'prasekolah', image: 'https://via.placeholder.com/600x400/3693cc/ffffff?text=Prasekolah+1', caption: 'Field Trip' },
+                { id: 2, category: 'prasekolah', image: 'https://via.placeholder.com/600x400/172e69/ffffff?text=Prasekolah+2', caption: 'Praktikum Sains' },
+                { id: 3, category: 'sd', image: 'https://via.placeholder.com/600x400/e15f0e/ffffff?text=SD+1', caption: 'Olahraga' },
+                { id: 4, category: 'sd', image: 'https://via.placeholder.com/600x400/ee9d15/ffffff?text=SD+2', caption: 'Seni Budaya' },
+                { id: 5, category: 'smp', image: 'https://via.placeholder.com/600x400/27ae60/ffffff?text=SMP+1', caption: 'Proyek Sains' },
+                { id: 6, category: 'event', image: 'https://via.placeholder.com/600x400/9b59b6/ffffff?text=Event+1', caption: 'Pentas Seni' },
+            ];
+            
+            galleryItems.forEach(item => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item relative group cursor-pointer';
+                galleryItem.dataset.category = item.category;
+                galleryItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.caption}" class="w-full h-40 object-cover rounded-lg">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 rounded-lg flex items-end p-3 opacity-0 group-hover:opacity-100 transition">
+                        <p class="text-white font-medium">${item.caption}</p>
+                    </div>
+                `;
+                galleryGrid.appendChild(galleryItem);
+            });
+            
+            // Filter functionality
+            document.querySelectorAll('.album-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.album-filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    const items = document.querySelectorAll('.gallery-item');
+                    
+                    items.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Load GMeet List
+        function loadGMeetList() {
+            const gmeetList = document.getElementById('gmeet-list');
+            gmeetList.innerHTML = '';
+            
+            // Sample GMeet data (in a real app, this would come from an API)
+            const gmeetData = [
+                {
+                    name: "Bu Nurhayati",
+                    subject: "Prasekolah",
+                    class: "Prasekolah A",
+                    link: "https://meet.google.com/abc-def-ghi"
+                },
+                {
+                    name: "Pak Dwi Indo",
+                    subject: "Matematika",
+                    class: "SD Kelas 1",
+                    link: "https://meet.google.com/jkl-mno-pqr"
+                },
+                {
+                    name: "Bu Siti",
+                    subject: "Bahasa Inggris",
+                    class: "SD Kelas 3",
+                    link: "https://meet.google.com/stu-vwx-yza"
+                }
+            ];
+            
+            gmeetData.forEach(teacher => {
+                const teacherCard = document.createElement('div');
+                teacherCard.className = 'border border-gray-200 rounded-lg p-4';
+                teacherCard.innerHTML = `
+                    <div class="mb-3">
+                        <h4 class="font-semibold text-gray-800">${teacher.name}</h4>
+                        <div class="flex gap-4 text-sm text-gray-600 mt-1">
+                            <span><i class="fas fa-book mr-1"></i> ${teacher.subject}</span>
+                            <span><i class="fas fa-users mr-1"></i> ${teacher.class}</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="${teacher.link}" target="_blank" class="flex-1 bg-blue-100 text-blue-800 text-sm font-medium py-2 px-3 rounded text-center hover:bg-blue-200 transition">
+                            <i class="fas fa-link mr-1"></i> Link
+                        </a>
+                        <button onclick="copyToClipboard('${teacher.link}', 'Link GMeet')" class="bg-gray-100 text-gray-800 text-sm font-medium py-2 px-3 rounded hover:bg-gray-200 transition">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                `;
+                gmeetList.appendChild(teacherCard);
+            });
+            
+            // Filter functionality
+            document.getElementById('gmeet-filter').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('#gmeet-list > div');
+                
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Form Submissions
+        document.getElementById('attendance-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const date = document.getElementById('attendance-date').value;
+            const name = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const reason = document.getElementById('attendance-reason').value;
+            const notes = document.getElementById('attendance-notes').value;
+            
+            // In a real app, you would send this data to your server
+            console.log('Attendance submitted:', { date, name, studentClass, reason, notes });
+            
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Laporan absensi telah dikirim',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                hideModal('attendance-modal');
+                this.reset();
+            });
+        });
+        
+        document.getElementById('consultation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const parentOf = document.getElementById('parent-of').value;
+            const topics = Array.from(document.querySelectorAll('input[name="topic"]:checked')).map(el => el.value);
+            const description = document.getElementById('consultation-desc').value;
+            const date = document.getElementById('consultation-date').value;
+            const time = document.getElementById('consultation-time').value;
+            
+            if (topics.length === 0) {
+                Swal.fire({
+                    title: 'Peringatan',
+                    text: 'Pilih minimal satu topik konsultasi',
+                    icon: 'warning'
+                });
+                return;
+            }
+            
+            // In a real app, you would send this data to your server
+            console.log('Consultation submitted:', { parentOf, topics, description, date, time });
+            
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Permintaan konsultasi telah dikirim',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                hideModal('consultation-modal');
+                this.reset();
+            });
+        });
+        
+        // Open Article in New Tab
+        function openArticle(url) {
+            window.open(url, '_blank');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date in forms
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendance-date').value = today;
+            document.getElementById('consultation-date').value = today;
+            
+            // Sample schedule data (in a real app, this would come from an API)
+            const scheduleData = {
+                prasekolah: {
+                    daily: [
+                        { time: "08:00 - 09:00", activity: "Pembukaan & Doa Pagi", teacher: "Bu Nurhayati" },
+                        { time: "09:00 - 10:00", activity: "Belajar Berhitung", teacher: "Bu Nurhayati" },
+                        { time: "10:00 - 10:30", activity: "Istirahat", teacher: "" },
+                        { time: "10:30 - 11:30", activity: "Mewarnai & Menggambar", teacher: "Bu Siti" }
+                    ],
+                    exam: [
+                        { date: "25 Maret 2024", subject: "Kemampuan Dasar", time: "08:00 - 10:00" },
+                        { date: "26 Maret 2024", subject: "Bahasa", time: "08:00 - 09:30" }
+                    ],
+                    uniform: [
+                        { day: "Senin", uniform: "Seragam Merah" },
+                        { day: "Selasa", uniform: "Seragam Batik" },
+                        { day: "Rabu", uniform: "Seragam Olahraga" },
+                        { day: "Kamis", uniform: "Seragam Pramuka" },
+                        { day: "Jumat", uniform: "Seragam Putih" }
+                    ]
+                },
+                sd1: {
+                    daily: [
+                        { time: "07:30 - 08:30", activity: "Matematika", teacher: "Pak Dwi" },
+                        { time: "08:30 - 09:30", activity: "Bahasa Indonesia", teacher: "Bu Rina" },
+                        { time: "09:30 - 10:00", activity: "Istirahat", teacher: "" },
+                        { time: "10:00 - 11:00", activity: "IPA", teacher: "Bu Siti" }
+                    ],
+                    exam: [
+                        { date: "25 Maret 2024", subject: "Matematika", time: "07:30 - 09:30" },
+                        { date: "26 Maret 2024", subject: "Bahasa Indonesia", time: "07:30 - 09:00" }
+                    ],
+                    uniform: [
+                        { day: "Senin", uniform: "Seragam Putih Merah" },
+                        { day: "Selasa", uniform: "Seragam Batik" },
+                        { day: "Rabu", uniform: "Seragam Olahraga" },
+                        { day: "Kamis", uniform: "Seragam Pramuka" },
+                        { day: "Jumat", uniform: "Seragam Muslim" }
+                    ]
+                }
+            };
+            
+            // Schedule level selector
+            document.getElementById('schedule-level').addEventListener('change', function() {
+                const level = this.value;
+                const data = scheduleData[level] || scheduleData.prasekolah;
+                
+                // Daily schedule
+                const dailySchedule = document.getElementById('daily-schedule');
+                dailySchedule.innerHTML = data.daily.map(item => `
+                    <div class="flex py-2 border-b border-gray-100 last:border-0">
+                        <div class="w-1/4 font-medium">${item.time}</div>
+                        <div class="flex-1">
+                            <p class="font-medium">${item.activity}</p>
+                            ${item.teacher ? `<p class="text-xs text-gray-500">${item.teacher}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Exam schedule
+                const examSchedule = document.getElementById('exam-schedule');
+                examSchedule.innerHTML = data.exam.map(item => `
+                    <div class="flex py-2 border-b border-gray-100 last:border-0">
+                        <div class="w-1/3 font-medium">${item.date}</div>
+                        <div class="w-1/3">${item.subject}</div>
+                        <div class="w-1/3">${item.time}</div>
+                    </div>
+                `).join('');
+                
+                // Uniform schedule
+                const uniformSchedule = document.getElementById('uniform-schedule');
+                uniformSchedule.innerHTML = data.uniform.map(item => `
+                    <div class="flex py-2 border-b border-gray-100 last:border-0">
+                        <div class="w-1/3 font-medium">${item.day}</div>
+                        <div class="w-2/3">${item.uniform}</div>
+                    </div>
+                `).join('');
+            });
+            
+            // Trigger change to load initial data
+            document.getElementById('schedule-level').dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+</html>
