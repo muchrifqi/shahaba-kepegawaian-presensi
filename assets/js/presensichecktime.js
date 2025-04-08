@@ -4,8 +4,8 @@ function checkTime() {
     const limitTime = new Date(); // Waktu batas (06:45)
 
     // Set waktu batas ke 06:45
-    limitTime.setHours(6);
-    limitTime.setMinutes(45);
+    limitTime.setHours(7);
+    limitTime.setMinutes(30);
     limitTime.setSeconds(0);
 
     // Jika waktu saat ini sudah melewati 06:45
@@ -35,7 +35,7 @@ async function presensichecktime(nama) {
         await Swal.fire({
             icon: 'error',
             title: 'Waktu Presensi Habis',
-            text: 'Mohon maaf, waktu pendataan presensi telah berakhir pada pukul 06:45.',
+            text: 'Mohon maaf, waktu pendataan presensi telah berakhir pada pukul 07.30.',
         });
         return; // Hentikan proses jika waktu sudah melewati 06:45
     }
