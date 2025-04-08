@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     dayName: "Senin",
                     activities: [
-                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan menyanyi" },
+                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan dzikir pagi" },
                         { time: "08:00 - 09:00", title: "Motorik Halus", description: "Menggambar dan mewarnai" },
                         { time: "09:00 - 09:30", title: "Istirahat", description: "" },
                         { time: "09:30 - 10:30", title: "Bermain Edukatif", description: "Permainan pengembangan kognitif" },
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     dayName: "Selasa",
                     activities: [
-                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan menyanyi" },
+                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan dzikir pagi" },
                         { time: "08:00 - 09:00", title: "Motorik Halus", description: "Menggambar dan mewarnai" },
                         { time: "09:00 - 09:30", title: "Istirahat", description: "" },
                         { time: "09:30 - 10:30", title: "Bermain Edukatif", description: "Permainan pengembangan kognitif" },
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     dayName: "Rabu",
                     activities: [
-                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan menyanyi" },
+                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan dzikir pagi" },
                         { time: "08:00 - 09:00", title: "Motorik Halus", description: "Menggambar dan mewarnai" },
                         { time: "09:00 - 09:30", title: "Istirahat", description: "" },
                         { time: "09:30 - 10:30", title: "Bermain Edukatif", description: "Permainan pengembangan kognitif" },
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     dayName: "Kamis",
                     activities: [
-                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan menyanyi" },
+                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan dzikir pagi" },
                         { time: "08:00 - 09:00", title: "Motorik Halus", description: "Menggambar dan mewarnai" },
                         { time: "09:00 - 09:30", title: "Istirahat", description: "" },
                         { time: "09:30 - 10:30", title: "Bermain Edukatif", description: "Permainan pengembangan kognitif" },
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     dayName: "Jum'at",
                     activities: [
-                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan menyanyi" },
+                        { time: "07:30 - 08:00", title: "Pembukaan", description: "Doa pagi dan dzikir pagi" },
                         { time: "08:00 - 09:00", title: "Motorik Halus", description: "Menggambar dan mewarnai" },
                         { time: "09:00 - 09:30", title: "Istirahat", description: "" },
                         { time: "09:30 - 10:30", title: "Bermain Edukatif", description: "Permainan pengembangan kognitif" },
