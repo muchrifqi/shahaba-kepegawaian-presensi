@@ -199,6 +199,22 @@
             margin: 0 !important;
         }
     }
+
+    .swal2-progress-steps {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .swal2-progress-step {
+        padding: 5px 10px;
+        border-radius: 20px;
+        background: #f0f0f0;
+        color: #555;
+    }
+    .swal2-progress-step.swal2-active-progress-step {
+        background: #4CAF50;
+        color: white;
+    }
     /* Sembunyikan scrollbar tapi tetap bisa di-scroll di seluruh halaman */
     html, body {
         overflow: auto; /* Tetap memungkinkan scrolling */

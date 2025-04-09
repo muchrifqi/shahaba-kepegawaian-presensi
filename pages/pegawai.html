@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/script.js" defer></script>
-    <script src="../assets/js/presensichecktime.js" defer></script>
+    <script src="../assets/js/log-time.js" defer></script>
     <!--<script src="../assets/js/landingpegawai.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   </head>
@@ -55,8 +55,8 @@
       <h3><i class="fas fa-users"></i> Pegawai</h3>
       <div class="button-container">
         <div class="button-container">
-          <button onclick="presensichecktime('Deva Mandela')">Deva Mandela</button> <!-- untuk disable setelah 06:45 id="Disable645" tapi konflik dengan fungsi update tombol-->
-          <button onclick="presensichecktime('Dwi Indo')">Dwi Indo</button>
+          <button id="btn-Deva-Mandela" onclick="handlePresensi('Deva Mandela')">Deva Mandela</button>
+          <button id="btn-Dwi-Indo" onclick="presensichecktime('Dwi Indo')">Dwi Indo</button>
           <button onclick="presensichecktime('Muchamad Rifqi Hermawan')" onclick="">Muchamad Rifqi Hermawan</button>
           <button onclick="presensichecktime('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
           <button onclick="presensichecktime('Nurhayati')">Nurhayati</button>
