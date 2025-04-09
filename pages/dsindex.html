@@ -7,6 +7,7 @@
     <link rel="manifest" href="../manifest.json">
     <link rel="icon" href="../assets/icons/logoshahabahub.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +16,7 @@
             --primary-color: #172e69;
             --secondary-color: #2b2b2b;
             --accent-color: #e15f0e;
-            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69, #3693cc);
+            --background-gradient: linear-gradient(135deg, #172e69 0%, #3693cc 100%);
             --text-color: white;
             --error-color: #b82f25;
             --success-color: #006c04;
@@ -51,9 +52,10 @@
 
         /* Base Styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--background-gradient);
-            background-size: 400% 400%;
+            background-size: cover;
+            background-attachment: fixed;
             color: var(--text-color);
             margin: 0;
             padding: 0;
@@ -91,6 +93,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
 
         /* Dashboard Card */
         .dashboard-card {
@@ -184,18 +187,25 @@
             }
         }
 
+        @media (min-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         .menu-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem 0.5rem;
+            padding: 1.25rem 0.5rem;
             border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             text-decoration: none;
             color: white;
+            min-height: 100px;
         }
 
         .menu-item:hover {
@@ -1359,6 +1369,15 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         height: 300px;
     }
 }
+        /* Date and Time Info */
+        .datetime-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
     </style>
 </head>
 <body>
@@ -1419,7 +1438,17 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 </div>
             </div>
     </div>
-
+            <!-- Date and Time Info -->
+            <div class="datetime-info">
+                <div>
+                    <i class="far fa-calendar-alt mr-1"></i>
+                    <span id="current-date">Senin, 20 Maret 2024</span>
+                </div>
+                <div>
+                    <i class="far fa-clock mr-1"></i>
+                    <span id="current-time">08:45 WIB</span>
+                </div>
+            </div>
 
         <!-- Menu Grid -->
             <div class="menu-grid">
@@ -2322,6 +2351,20 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   });
 });
+
+        // Update Date and Time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', options);
+            
+            const timeOptions = { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' };
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('id-ID', timeOptions);
+        }
+
+        // Initialize Date and Time
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>

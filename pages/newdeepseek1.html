@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaba Hub - Portal Orang Tua</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="../assets/icons/logoshahabahub.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS untuk halaman lainnya tetap sama */
+        /* ... (CSS sebelumnya) ... */
+
+        /* ==================== */
+        /* IMPROVED DASHBOARD CSS */
+        /* ==================== */
+        
+        /* Dashboard Header */
+        .dashboard-header {
+            background: linear-gradient(135deg, #172e69 0%, #3693cc 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+
+        .greeting-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .greeting-icon {
+            background: rgba(255,255,255,0.2);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .greeting-text h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .greeting-text p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin: 0.25rem 0 0;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #172e69;
+            margin: 0 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .dashboard-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #e15f0e 0%, #ee9d15 100%);
+            border-radius: 3px;
+        }
+
+        .dashboard-card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Announcements Card */
+        .announcements-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .announcements-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #172e69;
+            margin: 0 0 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .announcement-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .announcement-item:hover {
+            background: rgba(0, 0, 0, 0.01);
+            transform: translateX(5px);
+        }
+
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .announcement-item p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .announcement-item small {
+            display: block;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 0.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .menu-item i {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #172e69 0%, #3693cc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu-item span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            color: #444;
+        }
+
+        /* Gallery Section */
+        .gallery-container {
+            width: 100%;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .featured-slider {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border: none;
+            aspect-ratio: 16/9;
+            transition: all 0.3s ease;
+        }
+
+        .featured-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .featured-slide.active {
+            opacity: 1;
+        }
+
+        .featured-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 5s ease-out;
+        }
+
+        .featured-slide.active img {
+            transform: scale(1.05);
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 1rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .activity-description {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-description p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+        }
+
+        #current-activity {
+            color: #172e69;
+            font-weight: 600;
+        }
+
+        .small-photos-container {
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .small-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .small-photo {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .small-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .small-photo:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .featured-slider {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .featured-slider {
+                height: 150px;
+            }
+            
+            .greeting-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Shahaba Hub</h1>
+        <h2>Portal Orang Tua</h2>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <!-- Improved Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="greeting-container">
+                    <div class="greeting-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="greeting-text">
+                        <h3>Assalamu'alaykum!</h3>
+                        <p>Selamat datang di portal orang tua Shahaba</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="dashboard-card">
+                <h3><i class="fas fa-info-circle"></i> Informasi Penting</h3>
+                <p>Portal ini menyediakan berbagai fitur untuk memantau perkembangan putra/putri Anda di Shahaba. Gunakan menu di bawah untuk mengakses fitur yang tersedia.</p>
+            </div>
+
+            <!-- Gallery Section -->
+            <div class="gallery-container">
+                <!-- Slider Foto Besar -->
+                <div class="featured-slider">
+                    <!-- Foto 1 -->
+                    <div class="featured-slide active">
+                        <img src="../assets/images/prasekolah_belajar1.jpg" alt="Kegiatan Sekolah">
+                        <div class="slide-caption">Field Trip ke Museum Nasional</div>
+                    </div>
+                    <!-- Foto 2 -->
+                    <div class="featured-slide">
+                        <img src="../assets/images/sd_outing1.jpg" alt="Kegiatan Olahraga">
+                        <div class="slide-caption">Lomba Olahraga Antar Kelas</div>
+                    </div>
+                    <!-- Foto 3 -->
+                    <div class="featured-slide">
+                        <img src="../assets/images/sd_karya1.jpg" alt="Kegiatan Sains">
+                        <div class="slide-caption">Praktikum Sains Kelas 5</div>
+                    </div>
+                </div>
+                
+                <!-- Deskripsi Kegiatan -->
+                <div class="activity-description">
+                    <p><span class="font-semibold">Kegiatan Terkini:</span> <span id="current-activity">Field Trip ke Museum Nasional</span></p>
+                    <p class="mt-1 text-xs text-gray-500">Lihat lebih banyak foto di menu <strong>Kegiatan</strong></p>
+                </div>
+
+                <!-- Dua Foto Kecil -->
+                <div class="small-photos-container">
+                    <div class="small-photos-grid">
+                        <div class="small-photo">
+                            <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1">
+                        </div>
+                        <div class="small-photo">
+                            <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="menu-grid">
+                <a href="#" class="menu-item" onclick="showPage('schedule-page')">
+                    <i class="fas fa-calendar-days"></i>
+                    <span>Jadwal</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('activities-page')">
+                    <i class="fas fa-photo-film"></i>
+                    <span>Kegiatan</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showBankAccountInfo()">
+                    <i class="fas fa-landmark"></i>
+                    <span>Rekening</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('konsultasi-page')">
+                    <i class="fas fa-comments"></i>
+                    <span>Konsultasi</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('attendance-page')">
+                    <i class="fas fa-user-check"></i>
+                    <span>Absensi</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
+                    <i class="fas fa-video"></i>
+                    <span>Info GMeet</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('articles-page')">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Artikel</span>
+                </a>
+            </div>
+
+            <!-- Announcements Card -->
+            <div class="announcements-card">
+                <h3><i class="fas fa-bullhorn"></i> Pengumuman Terkini</h3>
+                <div id="announcement-container">
+                    <div class="announcement-item">
+                        <h4><i class="fas fa-exclamation-circle text-yellow-500"></i> Pengumuman Penting!</h4>
+                        <p>Jadwal Ujian Tengah Semester akan dimulai minggu depan. Mohon persiapkan putra/putri Anda.</p>
+                        <small>20 Maret 2024</small>
+                    </div>
+                    <div class="announcement-item">
+                        <h4><i class="fas fa-info-circle text-blue-500"></i> Info Kegiatan</h4>
+                        <p>Kegiatan ekstrakurikuler akan diliburkan selama masa ujian.</p>
+                        <small>19 Maret 2024</small>
+                    </div>
+                    <div class="announcement-item">
+                        <h4><i class="fas fa-calendar-day text-green-500"></i> Parent's Day</h4>
+                        <p>Pertemuan orang tua dengan wali kelas akan dilaksanakan pada tanggal 25 Maret 2024.</p>
+                        <small>18 Maret 2024</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Halaman lainnya tetap sama -->
+        <!-- ... (halaman lainnya) ... -->
+
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
+        <i class="fas fa-comment-dots"></i>
+    </a>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 Shahaba Hub - Portal Orang Tua</p>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsapp-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <!-- ... (modal WhatsApp) ... -->
+    </div>
+
+    <script>
+        // JavaScript tetap sama
+        // ... (script sebelumnya) ...
+    </script>
+</body>
+</html>
