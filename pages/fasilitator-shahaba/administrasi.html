@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi Guru - Pembuka File Kelas</title>
+    <style>
+        :root {
+            --primary-color: #172e69;
+            --primary-light: #3a4d8a;
+            --primary-dark: #0f1f4d;
+            --accent-color: #ff9800;
+            --text-light: #f5f5f5;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --bg-gray: #e9ecef;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .main-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .class-levels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .level-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-gray);
+        }
+
+        .level-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .level-badge {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .file-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-gray);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: background-color 0.2s ease;
+        }
+
+        .file-link:hover {
+            background-color: #d1d7e0;
+        }
+
+        .file-icon {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .file-name {
+            flex-grow: 1;
+        }
+
+        .open-all-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .open-all-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        .open-all-btn:active {
+            background-color: var(--primary-dark);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .control-btn.accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .control-btn.accent:hover {
+            background-color: #e68a00;
+            border-color: #e68a00;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--bg-gray);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .class-levels {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-chalkboard-teacher"></i></span>
+                <span>Guru Admin</span>
+            </div>
+            <h1>Administrasi Kelas</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="main-title">Pilih Kelas untuk Membuka File Administrasi</h2>
+
+        <div class="controls">
+            <button id="openAllSd" class="control-btn">Buka Semua SD</button>
+            <button id="openAllSmp" class="control-btn">Buka Semua SMP</button>
+            <button id="openAll" class="control-btn accent">Buka Semua Kelas</button>
+        </div>
+
+        <div class="class-levels">
+            <!-- SD Kelas 1 -->
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Kelas 1</h3>
+                    <span class="level-badge">SD</span>
+                </div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="1-sd" data-type="absensi">
+                            <span class="file-icon"><i class="fas fa-clipboard-list"></i></span>
+                            <span class="file-name">Absensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="1-sd" data-type="pr">
+                            <span class="file-icon"><i class="fas fa-tasks"></i></span>
+                            <span class="file-name">Catatan PR</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="1-sd" data-type="nilai">
+                            <span class="file-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="file-name">Tabel Nilai Harian</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="open-all-btn" data-class="1-sd">Buka Semua File Kelas 1</button>
+            </div>
+
+            <!-- SD Kelas 2 -->
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Kelas 2</h3>
+                    <span class="level-badge">SD</span>
+                </div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="2-sd" data-type="absensi">
+                            <span class="file-icon"><i class="fas fa-clipboard-list"></i></span>
+                            <span class="file-name">Absensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="2-sd" data-type="pr">
+                            <span class="file-icon"><i class="fas fa-tasks"></i></span>
+                            <span class="file-name">Catatan PR</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="2-sd" data-type="nilai">
+                            <span class="file-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="file-name">Tabel Nilai Harian</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="open-all-btn" data-class="2-sd">Buka Semua File Kelas 2</button>
+            </div>
+
+            <!-- SD Kelas 4 -->
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Kelas 4</h3>
+                    <span class="level-badge">SD</span>
+                </div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="4-sd" data-type="absensi">
+                            <span class="file-icon"><i class="fas fa-clipboard-list"></i></span>
+                            <span class="file-name">Absensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="4-sd" data-type="pr">
+                            <span class="file-icon"><i class="fas fa-tasks"></i></span>
+                            <span class="file-name">Catatan PR</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="4-sd" data-type="nilai">
+                            <span class="file-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="file-name">Tabel Nilai Harian</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="open-all-btn" data-class="4-sd">Buka Semua File Kelas 4</button>
+            </div>
+
+            <!-- SD Kelas 5 -->
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Kelas 5</h3>
+                    <span class="level-badge">SD</span>
+                </div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="5-sd" data-type="absensi">
+                            <span class="file-icon"><i class="fas fa-clipboard-list"></i></span>
+                            <span class="file-name">Absensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="5-sd" data-type="pr">
+                            <span class="file-icon"><i class="fas fa-tasks"></i></span>
+                            <span class="file-name">Catatan PR</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="5-sd" data-type="nilai">
+                            <span class="file-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="file-name">Tabel Nilai Harian</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="open-all-btn" data-class="5-sd">Buka Semua File Kelas 5</button>
+            </div>
+
+            <!-- SMP Kelas 9 -->
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Kelas 9</h3>
+                    <span class="level-badge">SMP</span>
+                </div>
+                <ul class="file-list">
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="9-smp" data-type="absensi">
+                            <span class="file-icon"><i class="fas fa-clipboard-list"></i></span>
+                            <span class="file-name">Absensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="9-smp" data-type="pr">
+                            <span class="file-icon"><i class="fas fa-tasks"></i></span>
+                            <span class="file-name">Catatan PR</span>
+                        </a>
+                    </li>
+                    <li class="file-item">
+                        <a href="#" class="file-link" data-class="9-smp" data-type="nilai">
+                            <span class="file-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="file-name">Tabel Nilai Harian</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="open-all-btn" data-class="9-smp">Buka Semua File Kelas 9</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Sistem Administrasi Guru. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data link spreadsheet untuk setiap kelas dan jenis file
+        const fileLinks = {
+            '1-sd': {
+                'absensi': 'https://docs.google.com/spreadsheets/d/1Vda-qnPVlTT8nJfqUc8DlVW_9nL4pWgoqrQe7y51F4A/edit?usp=drive_link',
+                'pr': 'https://docs.google.com/spreadsheets/d/10tofy5dMOggX_qIJ1qRE1jptxCKHsmlPEolhnOysApk/edit?usp=drive_link',
+                'nilai': 'https://docs.google.com/spreadsheets/d/1LhivXsPzb6rb019WzyX-4AmLILQE-ARkpsizirl5GO0/edit?usp=drive_link'
+            },
+            '2-sd': {
+                'absensi': 'https://docs.google.com/spreadsheets/d/1XLbCOXmegTvk8rxC5sD8Tv5tdy_c93gP45Ba_XuUBVg/edit?usp=drive_link',
+                'pr': 'https://docs.google.com/spreadsheets/d/1kRo82a7978P2rVXNXhvhCszwB7ZlgabGJ2iZOBzyHr0/edit?usp=drive_link',
+                'nilai': 'https://docs.google.com/spreadsheets/d/1LhivXsPzb6rb019WzyX-4AmLILQE-ARkpsizirl5GO0/edit?usp=drive_link'
+            },
+            '4-sd': {
+                'absensi': 'https://docs.google.com/spreadsheets/d/1S-bsJZqoM86iZVFwpb6vSGq4ZyriKREakw7vn7LVw4Y/edit?usp=drive_link',
+                'pr': 'https://docs.google.com/spreadsheets/d/1S-bsJZqoM86iZVFwpb6vSGq4ZyriKREakw7vn7LVw4Y/edit?usp=drive_link',
+                'nilai': 'https://docs.google.com/spreadsheets/d/1LhivXsPzb6rb019WzyX-4AmLILQE-ARkpsizirl5GO0/edit?usp=drive_link'
+            },
+            '5-sd': {
+                'absensi': 'https://docs.google.com/spreadsheets/d/5-sd-absensi',
+                'pr': 'https://docs.google.com/spreadsheets/d/1SQ0eRjQEjS3ke79B-JWvNb2MNjO1GHd1AKeYlgr0XhA/edit?usp=drive_link',
+                'nilai': 'https://docs.google.com/spreadsheets/d/1LhivXsPzb6rb019WzyX-4AmLILQE-ARkpsizirl5GO0/edit?usp=drive_link'
+            },
+            '9-smp': {
+                'absensi': 'https://docs.google.com/spreadsheets/d/9-smp-absensi',
+                'pr': 'https://docs.google.com/spreadsheets/d/9-smp-pr',
+                'nilai': ''
+            }
+        };
+
+        // Fungsi untuk membuka link
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Fungsi untuk membuka semua file dalam satu kelas
+        function openAllFiles(classId) {
+            const files = fileLinks[classId];
+            for (const type in files) {
+                openLink(files[type]);
+            }
+        }
+
+        // Fungsi untuk membuka semua file SD
+        function openAllSdFiles() {
+            const sdClasses = ['1-sd', '2-sd', '4-sd', '5-sd'];
+            sdClasses.forEach(classId => {
+                openAllFiles(classId);
+            });
+        }
+
+        // Fungsi untuk membuka semua file SMP
+        function openAllSmpFiles() {
+            openAllFiles('9-smp');
+        }
+
+        // Fungsi untuk membuka semua file semua kelas
+        function openAllClassFiles() {
+            openAllSdFiles();
+            openAllSmpFiles();
+        }
+
+        // Event listeners untuk link file individual
+        document.querySelectorAll('.file-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const classId = this.getAttribute('data-class');
+                const fileType = this.getAttribute('data-type');
+                const url = fileLinks[classId][fileType];
+                openLink(url);
+            });
+        });
+
+        // Event listeners untuk tombol "Buka Semua" per kelas
+        document.querySelectorAll('.open-all-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class');
+                openAllFiles(classId);
+            });
+        });
+
+        // Event listeners untuk tombol kontrol
+        document.getElementById('openAllSd').addEventListener('click', openAllSdFiles);
+        document.getElementById('openAllSmp').addEventListener('click', openAllSmpFiles);
+        document.getElementById('openAll').addEventListener('click', openAllClassFiles);
+
+        // Pesan konsol untuk developer
+        console.log('Aplikasi Administrasi Guru siap digunakan!');
+    </script>
+</body>
+</html>
