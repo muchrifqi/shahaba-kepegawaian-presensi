@@ -30,8 +30,11 @@ async function handlePresensi(nama) {
         const button = document.getElementById(buttonId);
         if (!button) throw new Error('Tombol tidak ditemukan');
 
+        // Tambahkan feedback visual memproses
         button.disabled = true;
-        
+        button.innerHTML = `${nama} <span class="spinner"></span>`;
+        button.classList.add('processing');
+
         // 1. Dapatkan lokasi (wajib)
         const position = await checkLocation();
         const lat = position.coords.latitude;
@@ -63,6 +66,7 @@ async function handlePresensi(nama) {
         });
         
         button.innerHTML = `${nama} ${isPulang ? '⏏️' : '✓'}`;
+        button.classList.remove('processing');
         button.classList.add(isPulang ? 'presensi-pulang' : 'presensi-masuk');
         
         await Swal.fire({
@@ -75,7 +79,11 @@ async function handlePresensi(nama) {
         console.error('Error presensi:', error);
         const buttonId = `btn-${nama.replace(/ /g, '-')}`;
         const button = document.getElementById(buttonId);
-        if (button) button.disabled = false;
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = nama;
+            button.classList.remove('processing');
+        }
         
         await Swal.fire({
             icon: 'error',

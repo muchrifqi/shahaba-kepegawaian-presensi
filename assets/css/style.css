@@ -1093,3 +1093,22 @@ button.disabled-after-time:disabled {
 .btn-delete:hover {
     background: #f44336;
 }
+/* CSS untuk feedback visual */
+button.processing {
+    position: relative;
+    opacity: 0.8;
+}
+
+.spinner {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border: 2px solid rgba(255, 255, 255, 0.128);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
