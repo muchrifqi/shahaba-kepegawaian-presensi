@@ -2,11 +2,11 @@
     --primary-color: #172e69; /* Warna biru shahaba sd */
     --secondary-color: #2b2b2b; 
     --accent-color: #e15f0e;
-    --background-gradient: linear-gradient(-45deg, /*#57c7de*/ #3693cc, #172e69, #3693cc); /* Gradien biru */
-    --text-color: white; /* Warna teks putih */
+    --background-gradient:white; /* Gradien biru */
+    --text-color: #172e69; /* Warna teks putih */
     --error-color: #b82f25; /* Warna merah untuk pesan error */
     --success-color: #006c04; /* Warna hijau untuk pesan sukses */
-    --button-hover-color: #1e7637; /* Warna hijau saat hover */
+    --button-hover-color: #172e69; /* Warna hijau saat hover */
     --border-radius: 25px;
     /* Swal warna */
     --swal-primary-color: #172e69; 
@@ -279,7 +279,7 @@ body {
     left: 0;
     width: 100%;
     height: 100px;
-    background: white;
+    background: #172e69;
     border-radius: 0 0 50% 50%;
     transform: scaleX(1);
     display: flex;
@@ -289,14 +289,14 @@ body {
 }
 
 .curve h1 {
-    color: var(--primary-color);
+    color: white;
     font-size: 2rem;
     margin: 0;
     font-weight: bold;
 }
 
 .curve h2 {
-    color: var(--secondary-color);
+    color: white;
     font-size: 1rem;
     margin: 0;
     font-weight: normal;
@@ -324,9 +324,9 @@ button {
     line-height: 1.3;    /* Mengatur jarak baris */
     padding: 0.7rem;
     font-size: 14px;
-    background: rgba(173, 173, 173, 0.468);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    background: rgba(214, 214, 214, 0.468);
+    border: 2px solid #172e69;
+    color: #172e69;
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -335,12 +335,14 @@ button {
 button:hover:not(:disabled) {
     background: var(--button-hover-color);
     border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-5px);
+    transform: translateY(-2px);
+    color: white;
 }
 
 button:disabled {
-    background: #126128;
-    border-color: rgba(255, 255, 255, 0.406);
+    background: #a1a1a1;
+    color: white;
+    border-color: rgba(117, 117, 117, 0.406);
     cursor: not-allowed;
 }
 /* Gaya khusus untuk tombol yang dinonaktifkan setelah 06:45 */
@@ -419,7 +421,7 @@ button.disabled-after-time:disabled {
     a {
         text-decoration: none;
         padding: 10px 20px;
-        background-color: rgb(9, 168, 217);
+        background-color: rgb(226, 226, 226);
         color: var(--text-color);
         border-radius: var(--border-radius);
         cursor: pointer;
@@ -428,7 +430,7 @@ button.disabled-after-time:disabled {
     }
 
     a:hover {
-        background-color: #172e69;
+        background-color: #9cb8ff;
         transform: translateY(-5px);
     }
 
@@ -617,9 +619,9 @@ button.disabled-after-time:disabled {
         margin-top: 20px;
         padding: 0.7rem;
         font-size: 15px;
-        background: rgba(173, 173, 173, 0.468);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        color: white;
+        background: rgb(255, 255, 255);
+        border: 2px solid #172e69;
+        color: #172e69;
         border-radius: var(--border-radius);
         cursor: pointer;
         transition: all 0.3s ease;
@@ -629,8 +631,8 @@ button.disabled-after-time:disabled {
     
     .back-button:hover {
         background: var(--button-hover-color);
-        border-color: rgba(255, 255, 255, 0.4);
         transform: translateY(-5px);
+        color: white;
     }
 
     /* Responsif untuk perangkat kecil */
@@ -745,27 +747,6 @@ button.disabled-after-time:disabled {
             font-size: 1rem;
         }
 
-        .back-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 0.7rem;
-            font-size: 15px;
-            background: rgba(173, 173, 173, 0.468);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-        
-        .back-button:hover {
-            background: var(--button-hover-color);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-5px);
-        }
-
         /* Responsif untuk perangkat kecil */
         @media (max-width: 768px) {
             .laporan-container {
@@ -851,7 +832,7 @@ button.disabled-after-time:disabled {
             max-width: 400px;
             margin: 0 1rem;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(255, 255, 255);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -868,9 +849,9 @@ button.disabled-after-time:disabled {
         .landing-button {
             padding: 1rem;
             font-size: 16px;
-            background: rgba(173, 173, 173, 0.468);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
+            background: rgb(255, 255, 255);
+            border: 2px solid #172e69;
+            color: rgb(94, 94, 94);
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
