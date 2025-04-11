@@ -274,18 +274,23 @@ body {
 }
 
 .curve {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100px;
     background: #172e69;
     border-radius: 0 0 50% 50%;
+    box-shadow: 
+    0 10px 25px rgba(23, 46, 105, 0.3),
+    0 4px 10px rgba(0, 0, 0, 0.2);
     transform: scaleX(1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1rem;
+    z-index: 10;
 }
 
 .curve h1 {
