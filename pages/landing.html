@@ -5,53 +5,417 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="manifest" href="../manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-          if ('serviceWorker' in navigator) {
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#172e69',
+                        secondary: '#2b2b2b',
+                        accent: '#e15f0e',
+                        shahabaBlue: '#3693cc',
+                        shahabaOrange: '#ee9d15'
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'gradient-y': 'gradient-y 8s ease infinite',
+                        'gradient-xy': 'gradient-xy 8s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        },
+                        'gradient-y': {
+                            '0%, 100%': {
+                                'background-size': '400% 400%',
+                                'background-position': 'center top'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'center bottom'
+                            }
+                        },
+                        'gradient-xy': {
+                            '0%, 100%': {
+                                'background-size': '400% 400%',
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-size': '400% 400%',
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('../sw.js')
-              .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
-              })
-              .catch((error) => {
-                console.error('Service Worker registration failed:', error);
-              });
-          }
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
     </script>
     <link rel="icon" href="../assets/icons/logopresensi167.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="../assets/js/offline-checker.js"></script>
+    <style>
+        
+        :root {
+            --primary-color: #172e69;
+            --secondary-color: #2b2b2b;
+            --accent-color: #e15f0e;
+            --background-gradient: linear-gradient(-45deg, #3693cc, #172e69, #3693cc);
+            --text-color: white;
+            --error-color: #b82f25;
+            --success-color: #006c04;
+            --button-hover-color: #41dfffa3;
+            --border-radius: 25px;
+            --swal-primary-color: #172e69;
+            --swal-secondary-color: #ee9d15;
+            --swal-accent-color: #e15f0e;
+            --swal-text-color: #172e69;
+            --swal-text-secondary-color: #484848;
+            --swal-background-color: #ffffff;
+            --swal-border-color: #cccccc;
+            --swal-shadow-color: rgba(0, 0, 0, 0.15);
+            --swal-width: 80%;
+            --swal-max-width: 600px;
+            --swal-font-size: 14.5px;
+            --swal-title-font-size: 20px;
+            --swal-padding: 20px;
+            --swal-border-radius: 25px;
+            --swal-button-padding: 10px 20px;
+            --swal-button-border-radius: 5px;
+            --swal-input-width: 90%;
+            --swal-input-padding: 10px;
+            --swal-icon-size: 70px;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-gradient);
+            background-size: 400% 400%;
+            /*animation: gradientBG 15s ease infinite;*/
+            color: var(--text-color);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-curve {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: white;
+            border-radius: 0 0 50% 50%;
+            transform: scaleX(1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+            0 10px 25px rgba(23, 46, 105, 0.3), /* Bayangan biru */
+            0 4px 10px rgba(0, 0, 0, 0.226); /* Bayangan netral */
+        }
+        .header-curve h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .header-curve h2 {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-button {
+            background: rgba(173, 173, 173, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            letter-spacing: 0.7px;
+            border-radius: 15px;
+        }
+
+        .app-button:hover {
+            background: rgba(65, 223, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .admin-button {
+            background: linear-gradient(45deg, #ee9d15, #e15f0e);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .admin-button:hover {
+            background: linear-gradient(45deg, #e15f0e, #c04a0a);
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 20;
+        }
+
+        /* SweetAlert2 customizations */
+        .swal2-popup {
+            width: var(--swal-width) !important;
+            max-width: var(--swal-max-width) !important;
+            font-size: var(--swal-font-size) !important;
+            padding: var(--swal-padding) !important;
+            border-radius: var(--swal-border-radius) !important;
+            background-color: var(--swal-background-color) !important;
+            box-shadow: 0 4px 12px var(--swal-shadow-color) !important;
+        }
+
+        .swal2-title {
+            font-size: var(--swal-title-font-size) !important;
+            color: var(--swal-text-color) !important;
+        }
+
+        .swal2-html-container {
+            color: var(--swal-text-secondary-color) !important;
+        }
+
+        .swal2-confirm {
+            background-color: #3693cc !important;
+            border-radius: var(--swal-button-border-radius) !important;
+        }
+
+        .swal2-confirm:hover {
+            background-color: #172e69 !important;
+        }
+
+        .swal2-cancel {
+            background-color: var(--swal-secondary-color) !important;
+            border-radius: var(--swal-button-border-radius) !important;
+        }
+
+        .swal2-cancel:hover {
+            background-color: #707070 !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-curve {
+                height: 100px;
+            }
+            
+            .app-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .swal2-popup {
+                width: 90% !important;
+            }
+            
+            .app-card {
+                padding: 1.5rem !important;
+            }
+            
+            .app-button, .admin-button {
+                padding: 0.75rem !important;
+                font-size: 0.9rem !important;
+            }
+            
+            h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            h2 {
+                font-size: 1rem !important;
+            }
+            
+            h3 {
+                font-size: 1.25rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-curve {
+                height: 90px;
+            }
+            
+            .app-card {
+                padding: 1rem !important;
+            }
+            
+            .app-button, .admin-button {
+                padding: 0.6rem !important;
+                font-size: 0.85rem !important;
+            }
+            
+            h1 {
+                font-size: 1.5rem !important;
+            }
+            
+            h2 {
+                font-size: 0.9rem !important;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Pulse animation for attention */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Fade in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
 </head>
-<body>
-    <!-- Header dengan judul dan deskripsi -->
-    <div class="curve">
+<body class="flex flex-col items-center">
+    <!-- Simplified Header without Logo -->
+    <div class="header-curve">
         <h1>Shahaba</h1>
         <h2>Aplikasi Presensi</h2>
-    </div>
-    <div class="landing-content">
-        <h1><i class="fas fa-house-user"></i> Home</h1>
-        <p>
-            Selamat datang di <strong>Aplikasi Presensi</strong>.
-            <br>
-            Selesaikan pendataan presensi sebelum pukul 06:45
-            <br>
-        </p>
-        </div>
-    <!-- Container untuk tombol-tombol -->
-    <div class="landing-button-container">
-        <h3><i class="fas fa-window-restore"></i> Pilih Aplikasi</h3>
-            <button onclick="window.location.href='pegawai.html'" class="landing-button">
-                <i class="fas fa-users"></i> App Presensi Pegawai
-            </button>
-            <button onclick="window.location.href='pesertadidik.html'" class="landing-button">
-                <i class="fas fa-qrcode"></i> App Scan QR Peserta Didik
-            </button>
-            <button id="adminButton" class="landing-button">
-                <i class="fas fa-user-lock"></i> Masuk sebagai Admin
-            </button>
-        </div>
-    </div>
+      </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-4xl px-4 py-6 md:py-8 flex flex-col items-center">
+        <!-- Welcome Section -->
+        <section class="w-full max-w-2xl text-center mb-6 md:mb-8">
+            <h1 class="text-xl md:text-2xl font-bold mb-3 flex items-center justify-center">
+                <i class="fas fa-home mr-2 md:mr-3 text-accent"></i> Selamat Datang
+            </h1>
+            <p class="text-base md:text-lg opacity-90 leading-relaxed">
+                Aplikasi Presensi Digital untuk pegawai dan peserta didik <span class="font-semibold text-white">Shahaba</span>
+                <br class="hidden sm:block">
+                Selesaikan pendataan sebelum pukul <span class="font-bold text-white">07:00</span>.
+            </p>
+        </section>
+
+        <!-- App Selection Cards -->
+        <section class="w-full max-w-2xl">
+            <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6 text-center flex items-center justify-center">
+                <i class="fas fa-th-large mr-2 md:mr-3 text-shahabaOrange"></i> Pilih Aplikasi
+            </h3>
+            
+            <div class="app-grid grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <!-- Pegawai Card -->
+                <div class="app-card p-4 md:p-6 flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-shahabaOrange rounded-full flex items-center justify-center mb-3 md:mb-4">
+                        <i class="fas fa-users text-white text-xl md:text-2xl"></i>
+                    </div>
+                    <h4 class="text-base md:text-lg font-semibold mb-2">Presensi Pegawai</h4>
+                    <p class="text-xs md:text-sm opacity-80 mb-3 md:mb-4 text-center">Presensi harian untuk staf dan guru</p>
+                    <button onclick="window.location.href='pegawai.html'" 
+                            class="app-button px-4 py-2 md:px-6 md:py-3 w-full flex items-center justify-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Buka Aplikasi
+                    </button>
+                </div>
+                
+                <!-- Fasilitator Card -->
+                <div class="app-card p-4 md:p-6 flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-accent rounded-full flex items-center justify-center mb-3 md:mb-4">
+                        <i class="fas fa-user-tie text-white text-xl md:text-2xl"></i>
+                    </div>
+                    <h4 class="text-base md:text-lg font-semibold mb-2">Fasilitator</h4>
+                    <p class="text-xs md:text-sm opacity-80 mb-3 md:mb-4 text-center">Tugas-tugas administrasi Fasilitator Shahaba</p>
+                    <button onclick="window.location.href='fasilitator-shahaba/administrasi.html'" 
+                            class="app-button px-4 py-2 md:px-6 md:py-3 w-full flex items-center justify-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Buka Aplikasi
+                    </button>
+                </div>
+
+                <!-- Peserta Didik Card -->
+                <div class="app-card p-4 md:p-6 flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center mb-3 md:mb-4">
+                        <i class="fas fa-qrcode text-white text-xl md:text-2xl"></i>
+                    </div>
+                    <h4 class="text-base md:text-lg font-semibold mb-2">Scan QR Peserta Didik</h4>
+                    <p class="text-xs md:text-sm opacity-80 mb-3 md:mb-4 text-center">Presensi menggunakan kode QR</p>
+                    <button onclick="window.location.href='pesertadidik.html'" 
+                            class="app-button px-4 py-2 md:px-6 md:py-3 w-full flex items-center justify-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Buka Aplikasi
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Admin Button -->
+            <div class="mt-6 md:mt-8 w-full">
+                <button id="adminButton" 
+                        class="admin-button text-white px-4 py-2 md:px-6 md:py-3 w-full rounded-xl font-medium flex items-center justify-center">
+                    <i class="fas fa-user-shield mr-2 md:mr-3"></i> Masuk sebagai Admin
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer w-full py-3 md:py-4 text-center text-xs md:text-sm mt-6 md:mt-8">
+        <p>&copy; 2025 Shahaba SD & Prasekolah.</p>
+    </footer>
 
     <script>
         const ADMIN_PASSWORD_HASH = "b251b590aa7474295b09b586463278ef3032e9c75f1500d34458afb96b2fc7e1"; // Hash SHA-256
@@ -60,34 +424,112 @@
             return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
         }
 
-        // Event listener untuk tombol Admin
+        // Enhanced admin login with better UX
         document.getElementById('adminButton').addEventListener('click', async () => {
             const { value: password } = await Swal.fire({
-                title: 'Masukkan Password Admin',
+                title: '<span style="color: var(--swal-text-color)">Masukkan Password Admin</span>',
+                html: '<p style="color: var(--swal-text-secondary-color)">Silakan masukkan password untuk mengakses panel admin</p>',
                 input: 'password',
                 inputPlaceholder: 'Ketik password...',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
                 showCancelButton: true,
-                confirmButtonText: 'Masuk',
-                cancelButtonText: 'Batal',
+                confirmButtonText: '<i class="fas fa-unlock-alt"></i> Masuk',
+                cancelButtonText: '<i class="fas fa-times"></i> Batal',
+                background: 'var(--swal-background-color)',
+                backdrop: 'rgba(0,0,0,0.5)',
                 inputValidator: (value) => {
                     if (!value) {
                         return 'Password tidak boleh kosong!';
                     }
+                },
+                customClass: {
+                    validationMessage: 'text-red-500'
                 }
             });
 
             if (password) {
-                const enteredPasswordHash = hashPassword(password);
-                if (enteredPasswordHash === ADMIN_PASSWORD_HASH) {
-                    // Password benar, arahkan ke admin.html
-                    window.location.href = "../admin.html";
-                } else {
-                    // Password salah
-                    Swal.fire('Gagal!', 'Password salah.', 'error');
-                }
+                // Show loading indicator
+                Swal.fire({
+                    title: 'Memverifikasi...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Simulate network delay for better UX
+                setTimeout(() => {
+                    const enteredPasswordHash = hashPassword(password);
+                    if (enteredPasswordHash === ADMIN_PASSWORD_HASH) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: 'Anda akan diarahkan ke panel admin',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            window.location.href = "../admin.html";
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: 'Password yang Anda masukkan salah',
+                            confirmButtonText: 'Coba Lagi'
+                        });
+                    }
+                }, 800);
             }
         });
+
+        // Add animation class when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-fade-in');
+            });
+        });
+
+        // Check for PWA installation prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install banner
+            const installBanner = document.createElement('div');
+            installBanner.id = 'installBanner';
+            installBanner.className = 'fixed bottom-0 left-0 right-0 bg-shahabaBlue text-white p-3 md:p-4 flex items-center justify-center z-50';
+            installBanner.innerHTML = `
+                <span class="mr-2 md:mr-3 text-xs md:text-sm">Install aplikasi untuk pengalaman lebih baik</span>
+                <button id="installButton" class="bg-white text-shahabaBlue px-3 py-1 md:px-4 md:py-2 rounded-lg font-medium text-xs md:text-sm">
+                    Install Sekarang
+                </button>
+                <button id="dismissButton" class="ml-2 text-white opacity-70">
+                    <i class="fas fa-times text-sm md:text-base"></i>
+                </button>
+            `;
+            document.body.appendChild(installBanner);
+            
+            document.getElementById('installButton').addEventListener('click', () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installBanner.style.display = 'none';
+                });
+            });
+            
+            document.getElementById('dismissButton').addEventListener('click', () => {
+                installBanner.style.display = 'none';
+            });
+        });
     </script>
-    <script src="../assets/js/install.js"></script>
 </body>
 </html>
