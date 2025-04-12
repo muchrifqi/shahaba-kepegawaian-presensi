@@ -481,7 +481,7 @@ button.disabled-after-time:disabled {
     }
 
     .admin-button {
-        background-color: #ee9d15;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
         color: white;
         border: none;
         padding: 0.5rem 1rem;
