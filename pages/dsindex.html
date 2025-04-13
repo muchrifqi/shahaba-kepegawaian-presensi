@@ -16,7 +16,7 @@
             --primary-color: #172e69;
             --secondary-color: #2b2b2b;
             --accent-color: #e15f0e;
-            --background-gradient: linear-gradient(135deg, #172e69 0%, #3693cc 100%);
+            --background-gradient: linear-gradient(135deg, #3693cc, #172e69);
             --text-color: white;
             --error-color: #b82f25;
             --success-color: #006c04;
@@ -1378,6 +1378,57 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.9);
         }
+    
+    .navbar-button {
+        position: relative;
+        color: #838383;
+        transition: all 0.5s ease;
+        padding: 4px 0;
+    }
+
+    .navbar-button.active {
+        color: var(--accent-color);
+    }
+
+    /* Indikator aktif dengan animasi */
+    .navbar-button::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: var(--accent-color);
+        transition: all 0.5s ease;
+        transform: translateX(-50%);
+        border-radius: 10px 10px 0 0;
+    }
+
+    .navbar-button.active::after {
+        width: 70%;
+    }
+
+    /* Efek hover */
+    .navbar-button:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+    /* Animasi untuk perubahan aktif */
+    @keyframes fadeInActive {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    .navbar-button i {
+        transition: all 0.5s ease;
+    }
+
+    .navbar-button.active i {
+        animation: fadeInActive 0.3s ease;
+    }
+
+
     </style>
 </head>
 <body>
@@ -1480,6 +1531,15 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                     <i class="fas fa-newspaper" style="color: #9b59b6;"></i>
                     <span>Artikel</span>
                 </a>
+                <a href="#" class="menu-item" onclick="showWhatsAppModal(); return false;">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showPage('calendar-page')">
+                    <i class="fas fa-calendar-check" style="color: #f39c12;"></i>
+                    <span>Kalender</span>
+                </a>
+                
             </div>
                 <!-- Announcements -->
             <div class="dashboard-card">
@@ -1910,10 +1970,24 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
                 </div>
             </div>
         </div>
-    <!-- WhatsApp Float Button -->
-    <a href="#" class="whatsapp-float" onclick="showWhatsAppModal(); return false;">
-        <i class="fas fa-comment-dots"></i>
-    </a>
+        <!-- Calendar Page -->
+        <div id="calendar-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+
+            <div class="dashboard-card">
+                <h3 class="flex items-center gap-2 text-white text-base font-semibold mb-3">
+                    <i class="fas fa-calendar-check"></i>
+                    Kalender Kegiatan Sekolah
+                </h3>
+
+                <ul id="calendar-list" class="text-white space-y-3 text-sm">
+                    <!-- Konten akan diisi lewat JavaScript -->
+                </ul>
+            </div>
+        </div>
+
 
     <!-- Footer -->
     <div class="footer">
@@ -1969,6 +2043,32 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             </div>
         </div>
     </div>
+
+<!-- Bottom Navbar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white text-gray-700 shadow-md z-50 flex justify-around items-center py-2 border-t border-gray-200 rounded-t-xl">
+    <button id="nav-dashboard" onclick="navigateToPage('dashboard-page', this)" class="navbar-button flex flex-col items-center text-xs">
+        <i class="fas fa-home text-lg"></i>
+        <span>Beranda</span>
+    </button>
+    <button id="nav-schedule" onclick="navigateToPage('schedule-page', this)" class="navbar-button flex flex-col items-center text-xs">
+        <i class="fas fa-calendar-alt text-lg"></i>
+        <span>Jadwal</span>
+    </button>
+    <button id="nav-activities" onclick="navigateToPage('activities-page', this)" class="navbar-button flex flex-col items-center text-xs">
+        <i class="fas fa-photo-film text-lg"></i>
+        <span>Kegiatan</span>
+    </button>
+    <button id="nav-attendance" onclick="navigateToPage('attendance-page', this)" class="navbar-button flex flex-col items-center text-xs">
+        <i class="fas fa-user-check text-lg"></i>
+        <span>Absensi</span>
+    </button>
+    <button id="nav-articles" onclick="navigateToPage('articles-page', this)" class="navbar-button flex flex-col items-center text-xs">
+        <i class="fas fa-newspaper text-lg"></i>
+        <span>Artikel</span>
+    </button>
+</nav>
+
+
 
     <script>
         // Page Navigation
@@ -2163,194 +2263,194 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
             document.getElementById('tanggal').value = today;
         });
 
-  // Inisialisasi EmailJS
-  emailjs.init('XCyDgWPI6c1YEq8Hg'); // Ganti dengan User ID EmailJS Anda
+        // Inisialisasi EmailJS
+        emailjs.init('XCyDgWPI6c1YEq8Hg'); // Ganti dengan User ID EmailJS Anda
 
-  // Fungsi Handle Submit
-  function handleSubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const submitBtn = document.getElementById('submitBtn');
-    const deskripsiField = document.getElementById('deskripsi');
-    
-    // 1. Validasi Form
-    const checkedTopics = Array.from(form.elements['topik'])
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.value);
-    
-    if(checkedTopics.length === 0) {
-      Swal.fire({
-        title: 'Peringatan!',
-        text: 'Pilih minimal 1 topik konsultasi',
-        icon: 'warning'
-      });
-      return;
-    }
-    
-    // Validasi khusus jika memilih "Lainnya"
-    const isLainnyaSelected = checkedTopics.includes('Lainnya');
-    if(isLainnyaSelected && !deskripsiField.value.trim()) {
-      Swal.fire({
-        title: 'Peringatan!',
-        text: 'Harap isi deskripsi untuk opsi "Lainnya"',
-        icon: 'warning'
-      });
-      deskripsiField.focus();
-      return;
-    }
+        // Fungsi Handle Submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = document.getElementById('submitBtn');
+            const deskripsiField = document.getElementById('deskripsi');
+            
+            // 1. Validasi Form
+            const checkedTopics = Array.from(form.elements['topik'])
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+            
+            if(checkedTopics.length === 0) {
+            Swal.fire({
+                title: 'Peringatan!',
+                text: 'Pilih minimal 1 topik konsultasi',
+                icon: 'warning'
+            });
+            return;
+            }
+            
+            // Validasi khusus jika memilih "Lainnya"
+            const isLainnyaSelected = checkedTopics.includes('Lainnya');
+            if(isLainnyaSelected && !deskripsiField.value.trim()) {
+            Swal.fire({
+                title: 'Peringatan!',
+                text: 'Harap isi deskripsi untuk opsi "Lainnya"',
+                icon: 'warning'
+            });
+            deskripsiField.focus();
+            return;
+            }
 
-    // 2. Siapkan Data Email
-    const templateParams = {
-    orangtuaDari: document.getElementById('orangtuaDari').value,
-    topik: "• " + checkedTopics.join('\n• '),
-    deskripsi: isLainnyaSelected ? deskripsiField.value : '',
-    tanggal: new Date(document.getElementById('tanggal').value).toLocaleDateString('id-ID', { 
-        weekday: 'long', 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-    }),
-    jam: document.getElementById('jam').value + ' WIB',
-    current_year: new Date().getFullYear().toString()
-};
+            // 2. Siapkan Data Email
+            const templateParams = {
+            orangtuaDari: document.getElementById('orangtuaDari').value,
+            topik: "• " + checkedTopics.join('\n• '),
+            deskripsi: isLainnyaSelected ? deskripsiField.value : '',
+            tanggal: new Date(document.getElementById('tanggal').value).toLocaleDateString('id-ID', { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            }),
+            jam: document.getElementById('jam').value + ' WIB',
+            current_year: new Date().getFullYear().toString()
+        };
 
-    // 3. Kirim Email
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mengirim...`;
+            // 3. Kirim Email
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mengirim...`;
 
-    emailjs.send('service_wnjhl7q', 'template_egp0vsz', templateParams)
-      .then(() => {
-        Swal.fire({
-          title: 'Berhasil!',
-          text: 'Penjadwalan Konsultasi telah dikirim ke Shahaba',
-          icon: 'success'
+            emailjs.send('service_wnjhl7q', 'template_egp0vsz', templateParams)
+            .then(() => {
+                Swal.fire({
+                title: 'Berhasil!',
+                text: 'Penjadwalan Konsultasi telah dikirim ke Shahaba',
+                icon: 'success'
+                });
+                form.reset();
+                document.getElementById('charCount').textContent = 0;
+            })
+            .catch((error) => {
+                Swal.fire({
+                title: 'Gagal!',
+                text: `Error: ${error.text || 'Gagal mengirim email'}`,
+                icon: 'error'
+                });
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Kirim`;
+            });
+        }
+
+        // Fungsi untuk toggle required pada deskripsi
+        document.querySelectorAll('input[name="topik"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+            const deskripsiGroup = document.getElementById('deskripsi').closest('.form-group');
+            const isLainnyaChecked = document.querySelector('input[name="topik"][value="Lainnya"]:checked');
+            
+            if(isLainnyaChecked) {
+                deskripsiGroup.style.display = 'block';
+                document.getElementById('deskripsi').setAttribute('required', '');
+            } else {
+                deskripsiGroup.style.display = 'none';
+                document.getElementById('deskripsi').removeAttribute('required');
+            }
+            });
         });
-        form.reset();
-        document.getElementById('charCount').textContent = 0;
-      })
-      .catch((error) => {
-        Swal.fire({
-          title: 'Gagal!',
-          text: `Error: ${error.text || 'Gagal mengirim email'}`,
-          icon: 'error'
+
+        // Hitung karakter deskripsi
+        document.getElementById('deskripsi').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('charCount').textContent = count;
+            if(count > 500) {
+            this.value = this.value.substring(0, 500);
+            document.getElementById('charCount').textContent = 500;
+            }
         });
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Kirim`;
-      });
-  }
 
-  // Fungsi untuk toggle required pada deskripsi
-  document.querySelectorAll('input[name="topik"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const deskripsiGroup = document.getElementById('deskripsi').closest('.form-group');
-      const isLainnyaChecked = document.querySelector('input[name="topik"][value="Lainnya"]:checked');
-      
-      if(isLainnyaChecked) {
-        deskripsiGroup.style.display = 'block';
-        document.getElementById('deskripsi').setAttribute('required', '');
-      } else {
-        deskripsiGroup.style.display = 'none';
-        document.getElementById('deskripsi').removeAttribute('required');
-      }
-    });
-  });
+        // Sembunyikan deskripsi saat load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('deskripsi').closest('.form-group').style.display = 'none';
+        });
 
-  // Hitung karakter deskripsi
-  document.getElementById('deskripsi').addEventListener('input', function() {
-    const count = this.value.length;
-    document.getElementById('charCount').textContent = count;
-    if(count > 500) {
-      this.value = this.value.substring(0, 500);
-      document.getElementById('charCount').textContent = 500;
-    }
-  });
+        // Slider Otomatis untuk Foto Besar
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.featured-slide');
+        const activityTexts = [
+            "Field Trip ke Museum Nasional",
+            "Lomba Olahraga Antar Kelas", 
+            "Praktikum Sains Kelas 5"
+        ];
 
-  // Sembunyikan deskripsi saat load
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('deskripsi').closest('.form-group').style.display = 'none';
-  });
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-activity').textContent = activityTexts[currentSlide];
+        }
 
-  // Slider Otomatis untuk Foto Besar
-let currentSlide = 0;
-const slides = document.querySelectorAll('.featured-slide');
-const activityTexts = [
-    "Field Trip ke Museum Nasional",
-    "Lomba Olahraga Antar Kelas", 
-    "Praktikum Sains Kelas 5"
-];
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
 
-function showSlide(n) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    currentSlide = (n + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    document.getElementById('current-activity').textContent = activityTexts[currentSlide];
-}
+        // Mulai slider otomatis (berganti setiap 5 detik)
+        let slideInterval = setInterval(nextSlide, 5000);
 
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
+        // Hentikan slider saat hover
+        document.querySelector('.featured-slider').addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
 
-// Mulai slider otomatis (berganti setiap 5 detik)
-let slideInterval = setInterval(nextSlide, 5000);
+        // Lanjutkan slider saat mouse leave
+        document.querySelector('.featured-slider').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 3000);
+        });
 
-// Hentikan slider saat hover
-document.querySelector('.featured-slider').addEventListener('mouseenter', () => {
-    clearInterval(slideInterval);
-});
+        // Inisialisasi slider pertama
+        showSlide(0);
 
-// Lanjutkan slider saat mouse leave
-document.querySelector('.featured-slider').addEventListener('mouseleave', () => {
-    slideInterval = setInterval(nextSlide, 3000);
-});
+        // Filter Album activity-page
 
-// Inisialisasi slider pertama
-showSlide(0);
+        // Filter Album
+        document.querySelectorAll('.album-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Hapus active state dari semua button
+            document.querySelectorAll('.album-filter-btn').forEach(b => b.classList.remove('active'));
+            // Tambahkan active state ke button yang diklik
+            this.classList.add('active');
+            
+            const category = this.dataset.category;
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+            });
+        });
+        });
 
-// Filter Album activity-page
-
-// Filter Album
-document.querySelectorAll('.album-filter-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Hapus active state dari semua button
-    document.querySelectorAll('.album-filter-btn').forEach(b => b.classList.remove('active'));
-    // Tambahkan active state ke button yang diklik
-    this.classList.add('active');
-    
-    const category = this.dataset.category;
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    galleryItems.forEach(item => {
-      if (category === 'all' || item.dataset.category === category) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  
-  galleryItems.forEach(item => {
-    const img = item.querySelector('img');
-    
-    img.onload = function() {
-      const aspectRatio = img.naturalWidth / img.naturalHeight;
-      
-      // Sesuaikan grid span berdasarkan rasio aspek
-      if (aspectRatio > 1.5) {
-        item.style.gridColumn = 'span 2'; // Gambar landscape (lebar)
-      } else if (aspectRatio < 0.8) {
-        item.style.gridRow = 'span 2'; // Gambar portrait (tinggi)
-      }
-      // Gambar square tetap 1x1
-    };
-  });
-});
+        document.addEventListener('DOMContentLoaded', function() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryItems.forEach(item => {
+            const img = item.querySelector('img');
+            
+            img.onload = function() {
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            
+            // Sesuaikan grid span berdasarkan rasio aspek
+            if (aspectRatio > 1.5) {
+                item.style.gridColumn = 'span 2'; // Gambar landscape (lebar)
+            } else if (aspectRatio < 0.8) {
+                item.style.gridRow = 'span 2'; // Gambar portrait (tinggi)
+            }
+            // Gambar square tetap 1x1
+            };
+        });
+        });
 
         // Update Date and Time
         function updateDateTime() {
@@ -2365,10 +2465,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize Date and Time
         updateDateTime();
         setInterval(updateDateTime, 60000); // Update every minute
+
+        // Navbar
+        function navigateToPage(pageId, btn) {
+            showPage(pageId);
+            document.querySelectorAll('.navbar-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            btn.classList.add('active');
+        }
+
     </script>
         <script src="../assets/js/jadwal.js"></script>
         <script src="../assets/js/izin-pd.js"></script>
         <script src="../assets/js/gmeet.js"></script>
+        <script src="../assets/js/kal-kegiatan.js"></script>
         
 </body>
 </html>

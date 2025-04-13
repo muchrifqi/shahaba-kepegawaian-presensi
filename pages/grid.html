@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile App Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Material+Symbols+Rounded" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #f2f2f7;
+      --card-color: #ffffff;
+      --text-color: #1c1c1e;
+      --hover-bg: rgba(0, 0, 0, 0.05);
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #1c1c1e;
+        --card-color: #2c2c2e;
+        --text-color: #f2f2f7;
+        --hover-bg: rgba(255, 255, 255, 0.05);
+        --shadow: rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 1rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+
+    .menu-item {
+      background: var(--card-color);
+      border-radius: 1.2rem;
+      padding: 1.5rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text-color);
+      box-shadow: 0 4px 10px var(--shadow);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .menu-item:hover {
+      background: var(--hover-bg);
+      transform: translateY(-3px);
+    }
+
+    .menu-item:active {
+      transform: scale(0.97);
+    }
+
+    .material-symbols-rounded {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-label {
+      font-size: 0.85rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    @media (max-width: 500px) {
+      .menu-item {
+        padding: 1.2rem 0.6rem;
+      }
+
+      .material-symbols-rounded {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-grid">
+    <a href="#" class="menu-item" onclick="showPage('schedule-page')">
+      <span class="material-symbols-rounded" style="color: #4a90e2;">calendar_month</span>
+      <div class="menu-label">Jadwal</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showPage('activities-page')">
+      <span class="material-symbols-rounded" style="color: #f4d03f;">photo_library</span>
+      <div class="menu-label">Kegiatan</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showBankAccountInfo()">
+      <span class="material-symbols-rounded" style="color: #7ed6a7;">account_balance</span>
+      <div class="menu-label">Rekening</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showPage('konsultasi-page')">
+      <span class="material-symbols-rounded" style="color: #ffa502;">forum</span>
+      <div class="menu-label">Konsultasi</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showPage('attendance-page')">
+      <span class="material-symbols-rounded" style="color: #2ecc71;">verified_user</span>
+      <div class="menu-label">Absensi</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showPage('gmeet-page')">
+      <span class="material-symbols-rounded" style="color: #e74c3c;">videocam</span>
+      <div class="menu-label">Info GMeet</div>
+    </a>
+    <a href="#" class="menu-item" onclick="showPage('articles-page')">
+      <span class="material-symbols-rounded" style="color: #9b59b6;">article</span>
+      <div class="menu-label">Artikel</div>
+    </a>
+  </div>
+
+</body>
+</html>
