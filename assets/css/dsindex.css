@@ -80,41 +80,7 @@ body {
     margin: 0 auto;
 }
 
-/* Welcome Card Styles */
-.welcome-card {
-    background: linear-gradient(135deg, #3B82F6 0%, #134681 100%);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-.welcome-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.welcome-icon {
-    color: white;
-    font-size: 1.5rem; /* 24px */
-}
-
-.welcome-title {
-    color: white;
-    font-size: 1.125rem; /* 18px */
-    font-weight: 600;
-    margin: 0;
-}
-
-.welcome-description {
-    color: white;
-    font-size: 0.875rem; /* 14px */
-    opacity: 0.8;
-    margin: 0;
-    line-height: 1.4;
-}
 /* Dashboard Card */
 .dashboard-card {
     background: rgba(255, 255, 255, 0.1);
@@ -279,7 +245,6 @@ background-position: right 0.5rem center;
 .page {
     display: none;
     animation: fadeIn 0.3s ease;
-    padding-bottom: 80px; /* Space for bottom navbar */
 }
 
 .page.active {
@@ -495,183 +460,26 @@ background-position: right 0.5rem center;
     background: rgba(255, 255, 255, 0.2);
 }
 
-
-/* WhatsApp Modal */
-.whatsapp-modal {
+/* WhatsApp Float Button */
+.whatsapp-float {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    display: none; /* Awalnya tersembunyi */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}  
-#whatsapp-modal {
-    z-index: 1000;
-}
-  .whatsapp-modal.show {
-    opacity: 1;
-  }
-
-.modal-container {
-    background-color: white;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 28rem;
-    margin: 0 1rem;
-    overflow: hidden;
-}
-
-.modal-header {
-    background-color: #25D366;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #25D366;
     color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 12px 12px 0 0;
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.whatsapp-icon-container {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 0.5rem;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    z-index: 100;
+    text-decoration: none;
+    animation: pulse 2s infinite;
 }
-
-.whatsapp-icon-container i {
-    font-size: 1.25rem;
-}
-
-.header-text h3 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.header-text p {
-    font-size: 0.875rem;
-    opacity: 0.9;
-    margin: 0.25rem 0 0;
-}
-
-.close-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 0.25rem;
-}
-
-.modal-body {
-    padding: 1rem;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    color: #4a4a4a;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.form-group textarea {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 0.75rem;
-    height: 8rem;
-    color: #4a4a4a;
-    font-family: inherit;
-    resize: vertical;
-}
-
-.form-group textarea:focus {
-    outline: none;
-    border-color: #25D366;
-    box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
-}
-
-.char-counter {
-    font-size: 0.75rem;
-    color: #6b7280;
-    text-align: right;
-    margin-top: 0.25rem;
-}
-
-.form-group select {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 0.75rem;
-    color: #4a4a4a;
-    background-color: white;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a4a4a'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1rem;
-}
-
-.modal-footer {
-    border-top: 1px solid #e5e7eb;
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-}
-
-.cancel-button {
-    padding: 0.5rem 1rem;
-    color: #6b7280;
-    background: none;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.cancel-button:hover {
-    background-color: #f3f4f6;
-}
-
-.send-button {
-    padding: 0.5rem 1rem;
-    background-color: #25D366;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.send-button:hover {
-    background-color: #128C7E;
-}
+/* WhatsApp Dropdown Style */
 #recipient {
     background-color: rgba(121, 121, 121, 0);
     color: rgb(58, 58, 58);
@@ -1331,24 +1139,6 @@ font-size: 0.95rem;
 font-weight: 500;
 text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
-/* Activity Description */
-.activity-description {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    color: #333;
-    font-size: 0.875rem;
-}
-.activity-label {
-    font-weight: 600;
-}
-
-.activity-hint {
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
-    color: #666;
-}
 
 /* Container Foto Kecil */
 .small-photos-container {
@@ -1564,6 +1354,86 @@ border: 1px solid rgba(255, 255, 255, 0.1);
 #article-frame {
 height: 300px;
 }
+}
+/* Date and Time Info */
+/* CSS Modern untuk DateTime */
+.datetime-container {
+    margin-bottom: 1rem;
+}
+
+.datetime-card {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 0.3rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: 100%;
+}
+
+.datetime-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.datetime-icon {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.datetime-label {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    width: 120px;
+}
+
+.datetime-value {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: white;
+    margin-top: 2px;
+}
+
+/* Animasi */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.datetime-icon {
+    animation: pulse 3s infinite;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .datetime-card {
+        gap: 0.50rem;
+    }
+    
+    .datetime-separator {
+        width: 70%;
+        height: 1px;
+        margin: 0 auto;
+    }
+    
+    .datetime-item {
+        width: 100%;
+    }
 }
 
 .navbar-button {
