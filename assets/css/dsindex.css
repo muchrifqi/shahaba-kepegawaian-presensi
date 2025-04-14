@@ -83,8 +83,8 @@ body {
 
 /* Dashboard Card */
 .dashboard-card {
-    background: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: var(--border-radius);
     padding: 1.25rem;
     margin-bottom: 1rem;
@@ -1346,85 +1346,12 @@ border: 1px solid rgba(255, 255, 255, 0.1);
 height: 300px;
 }
 }
-/* Date and Time Info */
-/* CSS Modern untuk DateTime */
-.datetime-container {
-    margin-bottom: 1rem;
-}
-
-.datetime-card {
-    display: flex;
+/* Calendar page */
+#calendar-list li {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    padding: 1rem;
     border-radius: var(--border-radius);
-    padding: 0.3rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    width: 100%;
-}
-
-.datetime-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-}
-
-.datetime-icon {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.datetime-label {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 0px;
-    width: 120px;
-}
-
-.datetime-value {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: white;
-    margin-top: 2px;
-}
-
-/* Animasi */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.datetime-icon {
-    animation: pulse 3s infinite;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .datetime-card {
-        gap: 0.50rem;
-    }
-    
-    .datetime-separator {
-        width: 70%;
-        height: 1px;
-        margin: 0 auto;
-    }
-    
-    .datetime-item {
-        width: 100%;
-    }
+    border: 1px solid rgba(255, 255, 255, 0.221);
 }
 
 .navbar-button {
