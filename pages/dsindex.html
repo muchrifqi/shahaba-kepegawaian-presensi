@@ -22,92 +22,74 @@
     
     <!-- Main Content Container -->
     <div class="main-container">
-                <!-- Letakkan ini tepat setelah .header dan sebelum .dashboard-card -->
-               <div class="datetime-container">
-                   <div class="datetime-card">
-                       <div class="datetime-item">
-                           <i class="fas fa-calendar-day datetime-icon"></i>                               
-                           <div>
-                               <div class="datetime-label"></div>
-                               <div id="current-date" class="datetime-value">Senin, 20 Maret 2024</div>
-                           </div>
-                       </div>
-                       <div class="datetime-item">
-                           <i class="fas fa-clock datetime-icon"></i>
-                           <div>
-                               <div class="datetime-label" style="width: auto;"></div>
-                            <div id="current-time" class="datetime-value">08:45 WIB</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         <!-- Dashboard Page -->
-        <div class="dashboard-card welcome-card">
-            <div class="welcome-header">
-                <i class="fas fa-school welcome-icon"></i>
-                <h3 class="welcome-title">Assalamu'alaykum!</h3>
+        <div id="dashboard-page" class="page active">
+            <div class="dashboard-card">
+                <div class="flex items-center gap-3 mb-3">
+                    <i class="fas fa-school text-white text-2xl"></i>
+                    <h3 class="text-white text-lg font-semibold">Assalamu'alaykum!</h3>
+                </div>
+                <p class="text-white text-sm opacity-80">Selamat datang di portal orang tua Shahaba. Pilih menu di bawah untuk mengakses fitur.</p>
             </div>
-            <p class="welcome-description">Selamat datang di portal orang tua Shahaba. Pilih menu di bawah untuk mengakses fitur.</p>
-        </div>
 
         <!-- Tambahkan setelah dashboard-card pertama dan sebelum menu-grid -->
-        <div class="gallery-container">
+        <div class="gallery-container mb-4">
             <!-- Slider Foto Besar -->
-            <div class="featured-slider">
+            <div class="featured-slider relative overflow-hidden rounded-lg shadow-md" style="height: 200px;">
                 <!-- Foto 1 -->
                 <div class="featured-slide active">
-                    <img src="../assets/images/prasekolah_belajar1.jpg" alt="Kegiatan Sekolah">
+                    <img src="../assets/images/prasekolah_belajar1.jpg" alt="Kegiatan Sekolah" class="w-full h-full object-cover">
                     <div class="slide-caption">Field Trip ke Museum Nasional</div>
                 </div>
                 <!-- Foto 2 -->
                 <div class="featured-slide">
-                    <img src="../assets/images/sd_outing1.jpg" alt="Kegiatan Olahraga">
+                    <img src="../assets/images/sd_outing1.jpg" alt="Kegiatan Olahraga" class="w-full h-full object-cover">
                     <div class="slide-caption">Lomba Olahraga Antar Kelas</div>
                 </div>
                 <!-- Foto 3 -->
                 <div class="featured-slide">
-                    <img src="../assets/images/sd_karya1.jpg" alt="Kegiatan Sains">
+                    <img src="../assets/images/sd_karya1.jpg" alt="Kegiatan Sains" class="w-full h-full object-cover">
                     <div class="slide-caption">Praktikum Sains Kelas 5</div>
                 </div>
             </div>
             
             <!-- Deskripsi Kegiatan -->
-            <div class="activity-description">
-                <p><span class="activity-label">Kegiatan Terkini:</span> <span id="current-activity">Field Trip ke Museum Nasional</span></p>
-                <p class="activity-hint">Lihat lebih banyak foto di menu <strong>Kegiatan</strong></p>
+            <div class="activity-description bg-white bg-opacity-90 rounded-lg p-3 mt-2 text-gray-800 text-sm">
+                <p><span class="font-semibold">Kegiatan Terkini:</span> <span id="current-activity">Field Trip ke Museum Nasional</span></p>
+                <p class="mt-1 text-xs text-gray-600">Lihat lebih banyak foto di menu <strong>Kegiatan</strong></p>
             </div>
-        
-            <!-- Foto Kecil -->
-            <div class="small-photos-container">
-                <div class="small-photos-slider">
-                    <div class="small-photo">
-                        <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/sd_karya3.jpg" alt="Foto Kegiatan 1">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/prasekolah_outing3.jpg" alt="Foto Kegiatan 2">
-                    </div>
-                    <!-- Duplikat foto untuk efek loop tanpa jeda -->
-                    <div class="small-photo">
-                        <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/sd_karya3.jpg" alt="Foto Kegiatan 1">
-                    </div>
-                    <div class="small-photo">
-                        <img src="../assets/images/prasekolah_outing3.jpg" alt="Foto Kegiatan 2">
-                    </div>
+
+        <!-- Foto Kecil -->
+        <div class="small-photos-container">
+            <div class="small-photos-slider">
+                <div class="small-photo">
+                    <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/sd_karya3.jpg" alt="Foto Kegiatan 1" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/prasekolah_outing3.jpg" alt="Foto Kegiatan 2" class="w-full h-full object-cover rounded">
+                </div>
+                <!-- Duplikat foto untuk efek loop tanpa jeda -->
+                <div class="small-photo">
+                    <img src="../assets/images/sd_karya2.jpg" alt="Foto Kegiatan 1" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/prasekolah_outing2.jpg" alt="Foto Kegiatan 2" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/sd_karya3.jpg" alt="Foto Kegiatan 1" class="w-full h-full object-cover rounded">
+                </div>
+                <div class="small-photo">
+                    <img src="../assets/images/prasekolah_outing3.jpg" alt="Foto Kegiatan 2" class="w-full h-full object-cover rounded">
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- Menu Grid -->
             <div class="menu-grid">
