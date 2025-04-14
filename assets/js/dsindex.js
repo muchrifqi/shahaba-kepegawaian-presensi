@@ -398,35 +398,6 @@ galleryItems.forEach(item => {
 });
 });
 
-    // Update date time
-// Hapus MutationObserver yang tidak perlu, cukup jalankan sekali setelah pembaruan waktu.
-function updateDateTime() {
-    const now = new Date();
-    const dateOptions = { 
-        weekday: 'long', 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-    };
-    
-    let dateString = now.toLocaleDateString('id-ID', dateOptions);
-    dateString = dateString.replace(/Minggu/g, 'Ahad');
-    
-    document.getElementById('current-date').textContent = dateString;
-    
-    const timeOptions = { 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        hour12: false 
-    };
-    const timeElement = document.getElementById('current-time');
-    timeElement.textContent = now.toLocaleTimeString('id-ID', timeOptions) + ' WIB';
-}
-
-    // Jalankan setiap detik
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-
 // Navbar
 function navigateToPage(pageId, btn) {
     showPage(pageId);
