@@ -83,8 +83,8 @@ body {
 
 /* Dashboard Card */
 .dashboard-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
     border-radius: var(--border-radius);
     padding: 1.25rem;
     margin-bottom: 1rem;
@@ -99,6 +99,8 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.491);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+
 /* Style untuk level selector - Disesuaikan dengan tema */
 #levelSelector {
 background-color: rgba(255, 255, 255, 0.1);
@@ -1323,7 +1325,7 @@ grid-template-columns: repeat(2, 1fr);
 .article-item {
 border: 1.5px solid rgba(255, 255, 255, 0.221);
 transition: all 0.3s ease;
-background: rgba(255, 255, 255, 0) !important;
+background: rgba(255, 255, 255, 0.1) !important;
 }
 
 .article-item:hover {
