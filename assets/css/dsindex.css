@@ -164,21 +164,9 @@ background-position: right 0.5rem center;
 /* Menu Grid */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
     margin: 1rem 0;
-}
-
-@media (min-width: 640px) {
-    .menu-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .menu-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }
 
 .menu-item {
@@ -189,7 +177,7 @@ background-position: right 0.5rem center;
     padding: 1.25rem 0.5rem;
     border-radius: var(--border-radius);
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     text-decoration: none;
     color: white;
@@ -203,7 +191,7 @@ background-position: right 0.5rem center;
 }
 
 .menu-item i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -531,14 +519,14 @@ background-position: right 0.5rem center;
 @media (max-width: 480px) {
     .menu-grid {
         grid-template-columns: repeat(3, 1fr); /* Ubah dari 1fr menjadi 3 kolom */
-        gap: 0.5rem; /* Perkecil gap untuk tampilan mobile */
+        gap: 1rem; 
     }
     .menu-item {
         padding: 0.75rem 0.25rem;
     }
     
     .menu-item i {
-        font-size: 1.5rem;
+        font-size: 1.9rem;
         margin-bottom: 0.25rem;
     }
     
