@@ -436,3 +436,37 @@ floatBtn.addEventListener('click', () => {
     behavior: 'smooth' 
   });
 });
+
+// Fungsi untuk mengecek dan menyembunyikan floating button
+function updateButtonVisibility() {
+    const floatBtn = document.getElementById('announcement-float-btn');
+    const currentPage = document.querySelector('.page.active').id;
+    
+    // Sembunyikan jika bukan di halaman dashboard
+    if (currentPage !== 'dashboard-page') {
+      floatBtn.classList.add('hidden');
+    } else {
+      floatBtn.classList.remove('hidden');
+    }
+  }
+  
+  // Panggil fungsi saat:
+  // 1. Halaman pertama kali load
+  document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+  
+  // 2. Setiap kali berpindah halaman
+  function showPage(pageId) {
+    // Kode existing Anda untuk berpindah halaman...
+    
+    // Tambahkan ini di akhir fungsi
+    updateButtonVisibility();
+  }
+  // Jaga posisi konstan
+function setFixedPosition() {
+    const btn = document.getElementById('announcement-float-btn');
+    const viewportHeight = window.innerHeight;
+    btn.style.bottom = (viewportHeight * 0.85) + 'px'; // Selalu % dari viewport
+  }
+  
+  window.addEventListener('load', setFixedPosition);
+  window.addEventListener('resize', setFixedPosition);

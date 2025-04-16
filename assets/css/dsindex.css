@@ -1393,8 +1393,8 @@ animation: fadeInActive 0.3s ease;
 #announcement-float-btn {
     /* Base Styles */
     position: fixed;
-    top: 108px;
-    right: 20px;
+    bottom: 90px; /* Nilai default untuk JS disabled */
+    right: 47px;
     z-index: 1000;
     
     /* Initial State (icon only) */
@@ -1518,4 +1518,8 @@ animation: fadeInActive 0.3s ease;
       font-size: 12px;
       margin-left: 5px;
     }
+  }
+  #announcement-float-btn.hidden {
+    display: none;
+    transition: opacity 0.3s ease;
   }
