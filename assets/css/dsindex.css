@@ -1393,7 +1393,7 @@ animation: fadeInActive 0.3s ease;
 #announcement-float-btn {
     /* Base Styles */
     position: fixed;
-    top: 135px;
+    top: 108px;
     right: 20px;
     z-index: 1000;
     
