@@ -1389,3 +1389,133 @@ animation: fadeInActive 0.3s ease;
         display: none !important;
     }
 }
+/* FLOATING BUTTON */
+#announcement-float-btn {
+    /* Base Styles */
+    position: fixed;
+    top: 135px;
+    right: 20px;
+    z-index: 1000;
+    
+    /* Initial State (icon only) */
+    width: 40px;
+    height: 40px;
+    border-radius: 28px;
+    padding: 0;
+    
+    /* Visual Design */
+    background: linear-gradient(135deg, #ee9d15, #e15f0e);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    
+    /* Content Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+    /* Animation Setup */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  /* Icon Style */
+  #announcement-float-btn .icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Text Label */
+  #announcement-float-btn .btn-text {
+    display: block;
+    width: 0;
+    opacity: 0;
+    margin-left: 0;
+    font-size: 0;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: 
+      width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+      opacity 0.3s ease 0.1s,
+      font-size 0.3s ease,
+      margin-left 0.4s ease;
+  }
+  
+  /* Animated States */
+  #announcement-float-btn.animate {
+    animation: pulse 3s ease-in-out 1;
+  }
+  
+  #announcement-float-btn.show-text {
+    width: auto;
+    padding: 0 10px;   /* Atur padding kiri-kanan (untuk jarak teks) */
+  }
+  
+  #announcement-float-btn.show-text .btn-text {
+    width: 85px;
+    opacity: 1;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  
+  #announcement-float-btn.hide-text .btn-text {
+    width: 0;
+    opacity: 0;
+    font-size: 0;
+    margin-left: 0;
+    transition: 
+      width 0.3s ease,
+      opacity 0.2s ease,
+      font-size 0.0s ease,
+      margin-left 0.3s ease;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    50% { transform: scale(1.1); box-shadow: 0 8px 30px rgba(66,133,244,0.3); }
+    100% { transform: scale(1); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  }
+  
+  @keyframes attention-grab {
+    0% { transform: translateY(0) rotate(0); }
+    20% { transform: translateY(-8px) rotate(5deg); }
+    40% { transform: translateY(0) rotate(-5deg); }
+    60% { transform: translateY(-5px) rotate(0); }
+    100% { transform: translateY(0) rotate(0); }
+  }
+  
+  /* Hover Effects */
+  #announcement-float-btn:hover {
+    box-shadow: 0 8px 25px rgba(66,133,244,0.25);
+    transform: translateY(-3px);
+  }
+  
+  #announcement-float-btn:hover .icon {
+    transform: rotate(15deg);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    #announcement-float-btn {
+      width: 35px;
+      height: 35px;
+      bottom: 16px;
+      right: 16px;
+    }
+    
+    #announcement-float-btn .icon {
+      font-size: 20px;
+    }
+    
+    #announcement-float-btn.show-text {
+      padding: 0 15px;
+    }
+    
+    #announcement-float-btn.show-text .btn-text {
+      width: 80px;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+  }

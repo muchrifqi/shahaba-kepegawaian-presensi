@@ -406,3 +406,33 @@ function navigateToPage(pageId, btn) {
     });
     btn.classList.add('active');
 }
+const floatBtn = document.getElementById('announcement-float-btn');
+
+// Step 1: Initial attention grab
+floatBtn.classList.add('animate');
+setTimeout(() => {
+  floatBtn.classList.remove('animate');
+  
+  // Step 2: Show text after animation
+  setTimeout(() => {
+    floatBtn.classList.add('show-text');
+    
+    // Step 3: Hide text after 3 seconds
+    setTimeout(() => {
+      floatBtn.classList.remove('show-text');
+      floatBtn.classList.add('hide-text');
+      
+      // Reset for hover state
+      setTimeout(() => {
+        floatBtn.classList.remove('hide-text');
+      }, 300);
+    }, 3000);
+  }, 500);
+}, 1000);
+
+// Scroll function
+floatBtn.addEventListener('click', () => {
+  document.getElementById('announcement-container').scrollIntoView({ 
+    behavior: 'smooth' 
+  });
+});
