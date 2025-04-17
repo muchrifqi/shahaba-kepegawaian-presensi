@@ -1523,3 +1523,40 @@ animation: fadeInActive 0.3s ease;
     display: none;
     transition: opacity 0.3s ease;
   }
+  /* Style untuk halaman catatan */
+#qr-reader {
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+#camera-status {
+    transition: all 0.3s ease;
+}
+
+#scan-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border-left: 3px solid #EF4444;
+}
+
+/* Animasi untuk loading */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Tombol yang lebih responsif */
+button {
+    transition: all 0.2s ease;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
