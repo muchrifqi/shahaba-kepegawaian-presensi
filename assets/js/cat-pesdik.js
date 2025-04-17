@@ -123,9 +123,18 @@ class QRScannerManager {
       
       // Tampilkan info dasar siswa
       this.elements.infoSiswa.innerHTML = `
-          <p><strong>Nama:</strong> ${student.nama}</p>
-          <p><strong>Kelas:</strong> ${student.kelas}</p>
-      `;
+      <div class="bg-white/5 border border-white/20 backdrop-blur-md rounded-xl p-4 mb-6 shadow-md">
+        <div class="flex items-center gap-3 text-white text-base font-semibold mb-1">
+          <i class="fas fa-user-graduate text-yellow-300"></i>
+          <span>${student.nama}</span>
+        </div>
+        <div class="flex items-center gap-3 text-white text-sm">
+          <i class="fas fa-school text-blue-300"></i>
+          <span>${student.kelas}</span>
+        </div>
+      </div>
+    `;
+    
 
       // Tampilkan catatan sikap
       this.elements.listCatatan.innerHTML = response.data.map(item => `
