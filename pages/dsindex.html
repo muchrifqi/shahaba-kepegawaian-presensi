@@ -24,6 +24,7 @@
         <!-- Script Eksternal -->
         <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://unpkg.com/html5-qrcode"></script>
     </head>
 <body>
     <!-- Header -->
@@ -144,9 +145,11 @@
                     <i class="fas fa-lightbulb" style="color: #FFB400;"></i>
                     <span>Kritik & Saran</span>
                 </a>
-                
-                
-                
+                <a href="#" class="menu-item" onclick="showPage('catatan-page')">
+                    <i class="fas fa-id-card" style="color: #00BCD4;"></i>
+                    <span>Catatan PD</span>
+                </a>                
+                       
             </div>
                 <!-- Announcements -->
             <div class="dashboard-card">
@@ -639,6 +642,31 @@
                 </form>
             </div>
         </div>
+        <!-- Halaman Catatan Peserta Didik -->
+        <div id="catatan-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+          
+            <div class="dashboard-card">
+              <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
+                <i class="fas fa-qrcode"></i> Catatan Peserta Didik
+              </h1>
+          
+              <div id="qr-reader" style="width: 100%; max-width: 400px; margin: auto;"></div>
+              <div class="text-center mt-2">
+                <button onclick="restartScanner()" class="px-4 py-2 bg-yellow-400 text-black rounded text-sm font-semibold">
+                  🔄 Ulangi Scan
+                </button>
+              </div>
+          
+              <div id="catatan-result" class="mt-6 text-sm space-y-3 hidden">
+                <div id="info-siswa"></div>
+                <div id="list-catatan" style="color: #4a4a4a;"></div>
+                <p class="text-gray-400 text-xs italic">Data lainnya: coming soon</p>
+              </div>
+            </div>
+          </div>
 
     <!-- Footer -->
     <div class="footer">
@@ -724,6 +752,6 @@
 <script src="../assets/js/gmeet.js"></script>
 <script src="../assets/js/kal-kegiatan.js"></script>
 <script src="../assets/js/kritiksaran.js"></script>
-        
+<script src="../assets/js/cat-pesdik.js"></script>
 </body>
 </html>

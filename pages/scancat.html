@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan Catatan Peserta Didik - Shahaba Hub</title>
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/icons/logoshahabahub.svg">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../src/output.css">
+  <style>
+    .scanner-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    #qr-reader {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .scan-btn {
+      transition: all 0.3s ease;
+    }
+    .result-card {
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-gray-800 py-4 px-6 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="../dsindex.html" class="flex items-center gap-2">
+        <i class="fas fa-arrow-left text-lg"></i>
+        <span class="font-semibold">Kembali</span>
+      </a>
+      <h1 class="text-xl font-bold">Catatan Peserta Didik</h1>
+      <div class="w-6"></div> <!-- Spacer untuk balance -->
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow p-4">
+    <div class="scanner-container">
+      <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+        <div class="flex items-center gap-3 mb-6">
+          <i class="fas fa-qrcode text-2xl text-blue-400"></i>
+          <h2 class="text-xl font-semibold">Scan QR Code Siswa</h2>
+        </div>
+        
+        <div id="qr-reader" class="bg-black"></div>
+        
+        <div class="text-center mt-4">
+          <button id="scan-btn" class="scan-btn bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-6 rounded-lg">
+            <i class="fas fa-sync-alt mr-2"></i> Mulai Scan
+          </button>
+        </div>
+        
+        <div id="scanner-error" class="text-red-400 text-center mt-3 hidden"></div>
+        
+        <div id="result-container" class="result-card mt-6 hidden">
+          <div class="bg-gray-700 rounded-lg p-4">
+            <div id="info-siswa" class="mb-4"></div>
+            <div id="list-catatan" class="space-y-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-3 text-center text-sm text-gray-400">
+    <p>© 2025 Shahaba Hub - Portal Orang Tua</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="../assets/js/cat-pesdik.js"></script>
+</body>
+</html>
