@@ -19,6 +19,15 @@ function submitFeedback(event) {
     const submitBtn = event.submitter;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+    
+          // Show loading indicator
+          const swalInstance = Swal.fire({
+            title: 'Mengirim data...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading(),
+            background: 'var(--primary-color)',
+            color: 'white'
+          });
 
     fetch('https://script.google.com/macros/s/AKfycby9CzE6fcev_xPJ-A3kZK-6OeyQ7wIVYByvg6TDU1qBD1uHqYHCTUyh4HxbQb9qQ7hOOQ/exec', {
         method: 'POST',
