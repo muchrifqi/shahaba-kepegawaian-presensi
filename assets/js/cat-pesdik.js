@@ -116,7 +116,7 @@ class QRScannerManager {
 
   displayStudentData(response) {
     if (!response.data || response.data.length === 0) {
-        throw new Error('Tidak ada data untuk siswa ini');
+        throw new Error('Tidak ada catatan untuk Ananda.');
     }
 
     const student = response.data[0];
