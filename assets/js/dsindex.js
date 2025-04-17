@@ -62,7 +62,7 @@ function showBankAccountInfo() {
         title: 'Informasi Rekening Shahaba',
         html: `
             <div class="bank-info">
-                <div class="bank-card" onclick="copyToClipboard('1234567890', 'BNI')">
+                <div class="bank-card" onclick="copyToClipboard('1234567890', 'Muamalat')">
                    <img src="https://www.bankmuamalat.co.id/assets/frontend/images/logo.jpg" alt="Bank Muamalat" class="bank-logo">
                     <div class="bank-details">
                         <p class="account-number">1234567890</p>
