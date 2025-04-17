@@ -140,6 +140,12 @@
                     <i class="fas fa-calendar-check" style="color: #FBC02D;"></i>
                     <span>Kalender</span>
                 </a>
+                <a href="#" class="menu-item" onclick="showPage('feedback-page')">
+                    <i class="fas fa-lightbulb" style="color: #FFB400;"></i>
+                    <span>Kritik & Saran</span>
+                </a>
+                
+                
                 
             </div>
                 <!-- Announcements -->
@@ -593,6 +599,47 @@
                 </ul>
             </div>
         </div>
+        <!-- Feedback Page -->
+        <div id="feedback-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+
+            <div class="dashboard-card">
+                <h1 class="flex items-center gap-2 text-white text-xl font-semibold mb-4">
+                    <i class="fas fa-lightbulb"></i> Kritik & Saran
+                </h1>
+
+                <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                    <div class="form-group">
+                        <label for="namaFeedback"><i class="fas fa-user"></i> Nama (Opsional)</label>
+                        <input type="text" id="namaFeedback" name="nama" placeholder="Boleh dikosongkan" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kategoriFeedback"><i class="fas fa-tags"></i> Kategori</label>
+                        <select id="kategoriFeedback" name="kategori" class="form-input" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="Fasilitas">Fasilitas</option>
+                            <option value="Guru / Staff">Guru / Staff</option>
+                            <option value="Kegiatan / Program">Kegiatan / Program</option>
+                            <option value="Administrasi / Keuangan">Administrasi / Keuangan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="isiFeedback"><i class="fas fa-comment-alt"></i> Pesan / Masukan</label>
+                        <textarea id="isiFeedback" name="pesan" class="form-input" rows="5" placeholder="Tulis saran atau kritik Anda di sini..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Kirim Masukan
+                    </button>
+                </form>
+            </div>
+        </div>
+
     <!-- Footer -->
     <div class="footer">
         <p>© 2025 Shahaba Hub - Portal Orang Tua</p>
@@ -676,6 +723,7 @@
 <script src="../assets/js/izin-pd.js"></script>
 <script src="../assets/js/gmeet.js"></script>
 <script src="../assets/js/kal-kegiatan.js"></script>
+<script src="../assets/js/kritiksaran.js"></script>
         
 </body>
 </html>
