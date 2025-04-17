@@ -115,73 +115,72 @@ class QRScannerManager {
   }
 
   displayStudentData(response) {
-      if (!response.data || response.data.length === 0) {
-          throw new Error('Tidak ada data untuk siswa ini');
-      }
+    if (!response.data || response.data.length === 0) {
+        throw new Error('Tidak ada data untuk siswa ini');
+    }
 
-      const student = response.data[0];
-      
-      // Tampilkan info dasar siswa
-      this.elements.infoSiswa.innerHTML = `
-      <div class="bg-white/5 border border-white/20 backdrop-blur-md rounded-xl p-4 mb-6 shadow-md">
-        <div class="flex items-center gap-3 text-white text-base font-semibold mb-1">
-          <i class="fas fa-user-graduate text-yellow-300"></i>
-          <span>${student.nama}</span>
-        </div>
-        <div class="flex items-center gap-3 text-white text-sm">
-          <i class="fas fa-school text-blue-300"></i>
-          <span>${student.kelas}</span>
-        </div>
-      </div>
-    `;
+    const student = response.data[0];
     
+    // Info siswa
+    this.elements.infoSiswa.innerHTML = `
+    <div class="student-info-card">
+        <div class="student-avatar">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="student-details">
+            <h3>${student.nama}</h3>
+            <p><i class="fas fa-chalkboard"></i> ${student.kelas}</p>
+        </div>
+    </div>
+    `;
 
-      // Tampilkan catatan sikap
-      this.elements.listCatatan.innerHTML = response.data.map(item => `
-      <div class="bg-opacity-10 border border-white/20 backdrop-blur rounded-xl p-4 mb-4 shadow-md">
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2 text-base text-yellow-300 font-bold">
-            <i class="fas fa-calendar-alt"></i>
-            <span>${item.tanggal}</span>
-          </div>
+    // Catatan sikap
+    this.elements.listCatatan.innerHTML = response.data.map(item => `
+    <div class="note-card">
+        <div class="note-header">
+            <div class="note-date">
+                <i class="fas fa-calendar-day"></i>
+                ${item.tanggal}
+            </div>
+            <span class="note-label">Catatan Sikap</span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-white mt-3">
-          <div class="flex items-start gap-2">
-            <i class="fas fa-book-open text-yellow-400 mt-1"></i>
-            <div>
-              <p class="font-semibold text-gray-200">Persiapan</p>
-              <p>${item.persiapan}</p>
+        <div class="note-grid">
+            <div class="note-item prep-note">
+                <div class="note-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="note-content">
+                    <p class="note-category">Persiapan Belajar</p>
+                    <p class="note-value">${item.persiapan || '-'}</p>
+                </div>
             </div>
-          </div>
 
-          <div class="flex items-start gap-2">
-            <i class="fas fa-user-check text-green-400 mt-1"></i>
-            <div>
-              <p class="font-semibold text-gray-200">Sikap</p>
-              <p>${item.sikap}</p>
+            <div class="note-item attitude-note">
+                <div class="note-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="note-content">
+                    <p class="note-category">Sikap di Kelas</p>
+                    <p class="note-value">${item.sikap || '-'}</p>
+                </div>
             </div>
-          </div>
 
-          <div class="flex items-start gap-2">
-            <i class="fas fa-comments text-blue-400 mt-1"></i>
-            <div>
-              <p class="font-semibold text-gray-200">Interaksi</p>
-              <p>${item.interaksi}</p>
+            <div class="note-item interact-note">
+                <div class="note-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="note-content">
+                    <p class="note-category">Interaksi Sosial</p>
+                    <p class="note-value">${item.interaksi || '-'}</p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+    `).join('');
 
-
-      `).join('');
-
-      this.elements.resultContainer.classList.remove('hidden');
-      this.updateUI({
-          statusText: 'Data berhasil dimuat',
-          showError: false
-      });
-  }
+    this.elements.resultContainer.classList.remove('hidden');
+}
 
   clearResults() {
       this.elements.infoSiswa.innerHTML = '';
