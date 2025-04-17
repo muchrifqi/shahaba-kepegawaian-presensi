@@ -1,14 +1,13 @@
 function submitFeedback(event) {
     event.preventDefault();
 
-    const data = {
-        nama: document.getElementById("namaFeedback").value,
-        kategori: document.getElementById("kategoriFeedback").value,
-        pesan: document.getElementById("isiFeedback").value
-    };
+    const data = new URLSearchParams();
+    data.append("nama", document.getElementById("namaFeedback").value);
+    data.append("kategori", document.getElementById("kategoriFeedback").value);
+    data.append("pesan", document.getElementById("isiFeedback").value);
 
     // Validasi pesan tidak kosong
-    if (!data.pesan.trim()) {
+    if (!data.get("pesan").trim()) {
         Swal.fire({
             icon: 'warning',
             title: 'Pesan kosong!',
@@ -21,12 +20,9 @@ function submitFeedback(event) {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
 
-    fetch('https://script.google.com/macros/s/AKfycbwoRgL2OTiNMboB1Y379sQcO2LWZTGCTdEsNVHrgMevLNjFGNAxPrGwryVH9V0vWLtEpA/exec', {
+    fetch('https://script.google.com/macros/s/AKfycby9CzE6fcev_xPJ-A3kZK-6OeyQ7wIVYByvg6TDU1qBD1uHqYHCTUyh4HxbQb9qQ7hOOQ/exec', {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        body: data
     })
     .then(res => res.json())
     .then(response => {
