@@ -93,7 +93,7 @@ class QRScannerManager {
               showError: false
           });
 
-          const response = await fetch(`https://script.google.com/macros/s/AKfycbwvEqLysbc20BlLNN4CByvUUZrdXY0IMsyXOYU9j_Bh_b26Xtuk7GSDUCbxqcgeAwwv/exec?id=${studentId}`);
+          const response = await fetch(`https://script.google.com/macros/s/AKfycbxvcuNMUTjHpaeGOAK4aR8dORrY6z0LJv4t9N3ZRRFOHqPE0-PHa30yYE3rjng056mt/exec?id=${studentId}`);
           
           if (!response.ok) {
               throw new Error(`Gagal mengambil data: ${response.status}`);
@@ -136,48 +136,97 @@ class QRScannerManager {
 
     // Catatan sikap
     this.elements.listCatatan.innerHTML = response.data.map(item => `
-    <div class="note-card">
-        <div class="note-header">
-            <div class="note-date">
-                <i class="fas fa-calendar-day"></i>
-                ${item.tanggal}
+        <div class="note-card" data-expanded="false">
+            <div class="note-header">
+                <div class="note-date">
+                    <i class="fas fa-calendar-day"></i>
+                    ${item.tanggal}
+                </div>
+                <span class="note-label">${item.pr.length > 1 ? item.pr.length + ' PR' : 'Catatan Harian'}</span>
             </div>
-            <span class="note-label">Catatan Sikap</span>
+        
+            <div class="note-grid">
+                <!-- Kolom Persiapan -->
+                <div class="note-item prep-note">
+                    <div class="note-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="note-content">
+                        <p class="note-category">Persiapan</p>
+                        <p class="note-value">${item.persiapan}</p>
+                    </div>
+                </div>
+        
+                <!-- Kolom Sikap -->
+                <div class="note-item attitude-note">
+                    <div class="note-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="note-content">
+                        <p class="note-category">Sikap</p>
+                        <p class="note-value">${item.sikap}</p>
+                    </div>
+                </div>
+        
+                <!-- Kolom Interaksi -->
+                <div class="note-item interact-note">
+                    <div class="note-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="note-content">
+                        <p class="note-category">Interaksi</p>
+                        <p class="note-value">${item.interaksi}</p>
+                    </div>
+                </div>
+        
+                <!-- Kolom PR dengan Toggle -->
+                <div class="note-item pr-note ${item.pr.length > 1 ? 'clickable-pr' : ''}">
+                    <div class="note-icon">
+                        <i class="fas fa-tasks"></i>
+                        ${item.pr.length > 1 ? `<span class="pr-badge">${item.pr.length}</span>` : ''}
+                    </div>
+                    <div class="note-content">
+                        <p class="note-category">PR/Tugas</p>
+                        <p class="note-value">${item.pr[0]}</p>
+                        ${item.pr.length > 1 ? `<p class="pr-more">+${item.pr.length - 1} lainnya</p>` : ''}
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Daftar PR Lengkap (Toggle) -->
+            <div class="pr-expanded">
+                <h4><i class="fas fa-clipboard-list"></i> Daftar PR Lengkap</h4>
+                <ul class="pr-list">
+                    ${item.pr.map((pr, index) => `
+                    <li>
+                        <span class="pr-number">${index + 1}.</span>
+                        ${pr}
+                    </li>
+                    `).join('')}
+                </ul>
+            </div>
         </div>
-
-        <div class="note-grid">
-            <div class="note-item prep-note">
-                <div class="note-icon">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                <div class="note-content">
-                    <p class="note-category">Persiapan Belajar</p>
-                    <p class="note-value">${item.persiapan || '-'}</p>
-                </div>
-            </div>
-
-            <div class="note-item attitude-note">
-                <div class="note-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <div class="note-content">
-                    <p class="note-category">Sikap di Kelas</p>
-                    <p class="note-value">${item.sikap || '-'}</p>
-                </div>
-            </div>
-
-            <div class="note-item interact-note">
-                <div class="note-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <div class="note-content">
-                    <p class="note-category">Interaksi Sosial</p>
-                    <p class="note-value">${item.interaksi || '-'}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    `).join('');
+        `).join('');
+        
+        // Event listener untuk toggle PR di mobile
+        document.querySelectorAll('.clickable-pr').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.stopPropagation();
+                    const card = this.closest('.note-card');
+                    const isExpanded = card.getAttribute('data-expanded') === 'true';
+                    card.setAttribute('data-expanded', !isExpanded);
+                    card.classList.toggle('expanded', !isExpanded);
+                    
+                    // Scroll ke card yang dibuka
+                    if (!isExpanded) {
+                        setTimeout(() => {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 50);
+                    }
+                }
+            });
+        });
 
     this.elements.resultContainer.classList.remove('hidden');
 }
