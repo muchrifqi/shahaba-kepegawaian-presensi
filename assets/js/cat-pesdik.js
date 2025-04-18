@@ -1,9 +1,9 @@
 class QRScannerManager {
-  constructor() {
-      this.scanner = null;
-      this.cameraAllowed = false;
-      this.initElements();
-      this.initEventListeners();
+    constructor() {
+        this.scanner = null;
+        this.cameraAllowed = false;
+        this.initElements();
+        this.initEventListeners();
   }
 
   initElements() {
@@ -11,24 +11,25 @@ class QRScannerManager {
           qrReader: document.getElementById('qr-reader'),
           startBtn: document.getElementById('start-scan-btn'),
           stopBtn: document.getElementById('stop-scan-btn'),
-          retryBtn: document.getElementById('retry-scan-btn'),
+          refreshBtn: document.getElementById('refresh-scan-btn'),
           statusText: document.getElementById('camera-status'),
           resultContainer: document.getElementById('catatan-result'),
           infoSiswa: document.getElementById('info-siswa'),
           listCatatan: document.getElementById('list-catatan'),
-          errorDisplay: document.getElementById('scan-error')
+          errorDisplay: document.getElementById('scan-error'),
+          loadingIndicator: document.getElementById('loading-indicator')
       };
   }
 
   initEventListeners() {
       this.elements.startBtn.addEventListener('click', () => this.startCamera());
       this.elements.stopBtn.addEventListener('click', () => this.stopCamera());
-      this.elements.retryBtn.addEventListener('click', () => this.restartScanner());
   }
 
   async startCamera() {
-      try {
-          this.showLoading(true);
+    try {
+        this.clearResults();
+        this.showLoading(true);
           
           this.scanner = new Html5Qrcode('qr-reader');
           this.elements.qrReader.style.display = 'block';
@@ -152,7 +153,7 @@ class QRScannerManager {
                         <i class="fas fa-book-open"></i>
                     </div>
                     <div class="note-content">
-                        <p class="note-category">Persiapan</p>
+                        <p class="note-category">Persiapan Belajar</p>
                         <p class="note-value">${item.persiapan}</p>
                     </div>
                 </div>
@@ -163,7 +164,7 @@ class QRScannerManager {
                         <i class="fas fa-user-check"></i>
                     </div>
                     <div class="note-content">
-                        <p class="note-category">Sikap</p>
+                        <p class="note-category">Sikap di kelas</p>
                         <p class="note-value">${item.sikap}</p>
                     </div>
                 </div>
@@ -174,7 +175,7 @@ class QRScannerManager {
                         <i class="fas fa-comments"></i>
                     </div>
                     <div class="note-content">
-                        <p class="note-category">Interaksi</p>
+                        <p class="note-category">Interaksi Sosial</p>
                         <p class="note-value">${item.interaksi}</p>
                     </div>
                 </div>
@@ -232,15 +233,16 @@ class QRScannerManager {
 }
 
   clearResults() {
-      this.elements.infoSiswa.innerHTML = '';
-      this.elements.listCatatan.innerHTML = '';
-      this.elements.resultContainer.classList.add('hidden');
+    this.elements.infoSiswa.innerHTML = '';
+    this.elements.listCatatan.innerHTML = '';
+    this.elements.resultContainer.classList.add('hidden');
+    this.elements.loadingIndicator.classList.add('hidden');
+    this.elements.refreshBtn.classList.add('hidden');
   }
 
   updateUI({ scanning, statusText, showError, errorMessage }) {
       this.elements.startBtn.classList.toggle('hidden', scanning);
       this.elements.stopBtn.classList.toggle('hidden', !scanning);
-      this.elements.retryBtn.classList.toggle('hidden', !scanning);
 
       if (statusText) {
           this.elements.statusText.textContent = statusText;
@@ -256,25 +258,42 @@ class QRScannerManager {
   }
 
   showLoading(loading) {
-      const btn = loading ? this.elements.stopBtn : this.elements.startBtn;
-      if (btn) {
-          btn.innerHTML = loading ? 
-              '<i class="fas fa-spinner fa-spin"></i> Memproses...' : 
-              '<i class="fas fa-camera"></i> Aktifkan Kamera';
-          btn.disabled = loading;
-      }
-  }
+    if (loading) {
+        this.elements.loadingIndicator.classList.remove('hidden');
+        this.elements.statusText.textContent = 'Memproses data peserta didik...';
+    } else {
+        this.elements.loadingIndicator.classList.add('hidden');
+    }
+    
+    // Update tombol seperti sebelumnya
+    const btn = loading ? this.elements.stopBtn : this.elements.startBtn;
+    if (btn) {
+        btn.innerHTML = loading ? 
+            '<i class="fas fa-spinner fa-spin"></i> Menunggu kode QR...' : 
+            '<i class="fas fa-camera"></i> Scan QR lainnya';
+        btn.disabled = loading;
+    }
+}
 
-  handleError(error) {
-      console.error('Error:', error);
-      let userMessage = error.message || 'Terjadi kesalahan';
-      
-      this.updateUI({
-          showError: true,
-          errorMessage: userMessage,
-          statusText: 'Terjadi kesalahan'
-      });
-  }
+handleError(error) {
+    console.error('Error:', error);
+    let userMessage = error.message || 'Terjadi kesalahan';
+    
+    this.updateUI({
+        showError: true,
+        errorMessage: userMessage,
+        statusText: 'Terjadi kesalahan'
+    });
+    
+    // Tampilkan tombol refresh dan sembunyikan tombol lainnya
+    this.elements.refreshBtn.classList.remove('hidden');
+    this.elements.startBtn.classList.add('hidden');
+    this.elements.stopBtn.classList.add('hidden');
+    this.elements.retryBtn.classList.add('hidden');
+    
+    // Sembunyikan loading indicator jika ada
+    this.showLoading(false);
+}
 }
 
 // Inisialisasi saat halaman dimuat
@@ -283,3 +302,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.qrScanner = new QRScannerManager();
   }
 });
+function resetScannerPage() {
+    showPage('catatan-page');
+    if (window.qrScanner) {
+        window.qrScanner.clearResults();
+        window.qrScanner.stopCamera().then(() => {
+            window.qrScanner.startCamera().catch(console.error);
+        }).catch(console.error);
+    }
+}
