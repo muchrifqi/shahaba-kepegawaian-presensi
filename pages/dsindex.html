@@ -697,70 +697,75 @@
         <!-- Transaksi Page -->
         <div id="transaksi-page" class="page">
             <button class="back-btn" onclick="showPage('dashboard-page')">
-                <i class="fas fa-arrow-left"></i> Kembali
+              <i class="fas fa-arrow-left"></i> Kembali
             </button>
-            <!-- Input ID Siswa -->
+          
             <div class="dashboard-card">
-              <div class="input-group">
-                <label for="siswa-id">Masukkan ID Siswa</label>
-                <div class="flex gap-2">
-                  <input id="siswa-id" type="text" class="form-input" placeholder="Contoh: A001" />
-                  <button onclick="loadTransaksi()" class="btn-primary">
-                    <i class="fas fa-search"></i> Cari
-                  </button>
-                </div>
-              </div>
-            </div>
+              <h1 class="flex items-center gap-2 text-xl font-semibold mb-4 text-white">
+                <i class="fas fa-wallet"></i> Riwayat Pembayaran
+              </h1>
           
-            <!-- Info Siswa -->
-            <div id="transaksi-result" class="hidden">
-              <div id="info-siswa">
-                <div class="bg-blue-500/10 p-3 rounded-full text-blue-300 text-xl">
-                  <i class="fas fa-user-graduate"></i>
-                </div>
-                <div>
-                  <h3 id="siswa-nama"></h3>
-                  <p class="text-sm text-blue-200">
-                    <span id="siswa-jenjang-text"></span> - <span id="siswa-kelas-text"></span>
-                  </p>
-                </div>
+              <!-- Form Input -->
+              <label for="siswa-id" class="form-label">
+                <i class="fas fa-id-card mr-1"></i> Masukkan ID Siswa
+              </label>
+              <div class="form-row mt-2 mb-4" style="display: flex; gap: 10px;">
+                <input id="siswa-id" type="text" class="form-input" placeholder="Contoh: 123456789" style="flex:1;">
+                <button onclick="loadTransaksi()" class="btn-primary">
+                  <i class="fas fa-search"></i> Cari
+                </button>
               </div>
           
-              <!-- Header Transaksi -->
-              <div class="flex justify-between">
-                <h2 id="transaksi-title">Riwayat Transaksi</h2>
-                <!-- <button onclick="downloadAll()" class="btn-secondary">
-                  <i class="fas fa-file-archive"></i> Unduh Semua
-                </button> -->
-              </div>
-          
-              <!-- List Transaksi -->
-              <div id="transaksi-list"></div>
-
-          
-            <!-- Template Transaksi (disembunyikan, untuk digunakan di JS) -->
-            <script type="text/template" id="transaksi-template">
-              <div class="transaksi-item">
-                <div class="flex justify-between">
-                  <div>
-                    <div class="font-mono text-yellow-300 text-lg font-bold">#ID_TRANSAKSI#</div>
-                    <div class="mt-1">#TANGGAL#</div>
+              <!-- Hasil -->
+              <div id="transaksi-result" class="hidden">
+                <!-- Info Siswa -->
+                <div class="student-info-card">
+                  <div class="student-avatar"><i class="fas fa-user-graduate"></i></div>
+                  <div class="student-details">
+                    <h3 id="siswa-nama">Nama Siswa</h3>
+                    <p><i class="fas fa-school mr-1"></i>
+                      <span id="siswa-jenjang-text"></span> - 
+                      <span id="siswa-kelas-text"></span>
+                    </p>
                   </div>
-                  <div class="status-badge #STATUS#">#STATUS#</div>
                 </div>
-                <div class="mt-3 font-bold">#NOMINAL#</div>
-                <div class="mt-1">#KETERANGAN#</div>
-                <!-- <div class="mt-4">
-                  <button class="btn-download" onclick="downloadKwitansi('#ID_TRANSAKSI#')">
-                    <i class="fas fa-file-download"></i> Unduh Kwitansi
-                  </button>
-                </div> -->
+          
+                <!-- Tunggakan -->
+                <div id="tunggakan-container" class="hidden">
+                  <h3 class="section-title"><i class="fas fa-exclamation-circle text-yellow-500"></i> Tunggakan</h3>
+                  <ul id="tunggakan-list" class="transaksi-list"></ul>
+                </div>
+          
+                <!-- Riwayat Transaksi -->
+                <h3 id="transaksi-title" class="section-title">
+                  <i class="fas fa-history"></i> Riwayat Transaksi
+                </h3>
+                <div id="transaksi-list" class="transaksi-list"></div>
               </div>
-            </script>
-        </div>
-    </div>
           
-          
+              <!-- Template Transaksi -->
+              <script type="text/template" id="transaksi-template">
+                <div class="note-card">
+                  <div class="note-header">
+                    <div>
+                      <div class="transaksi-id"><i class="fas fa-hashtag"></i> #ID_TRANSAKSI#</div>
+                      <div class="transaksi-date"><i class="fas fa-calendar-day"></i> #TANGGAL#</div>
+                    </div>
+                    <div class="transaksi-status status-#STATUS#">#STATUS#</div>
+                  </div>
+                  <div class="transaksi-nominal">
+                    <i class="fas fa-money-bill-wave"></i> #NOMINAL#
+                  </div>
+                  <div class="transaksi-ket"><i class="fas fa-file-alt"></i> #KETERANGAN#</div>
+                  <!-- <div class="transaksi-btn-container mt-2">
+                    <button class="btn-secondary" onclick="downloadKwitansi('#ID_TRANSAKSI#')">
+                      <i class="fas fa-file-download"></i> Unduh Kwitansi
+                    </button>
+                  </div> -->
+                </div>
+              </script>
+            </div>
+          </div>  
 
     <!-- Footer -->
     <div class="footer">
@@ -895,7 +900,7 @@ function insertBackButton() {
   backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Menu Utama';
   backBtn.onclick = () => {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('home-page').classList.add('active');
+    document.getElementById('dashboard-page').classList.add('active');
     history.replaceState(null, '', window.location.pathname); // hapus ?id=
   };
 

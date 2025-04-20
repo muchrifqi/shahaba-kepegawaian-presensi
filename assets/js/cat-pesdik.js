@@ -94,7 +94,7 @@ class QRScannerManager {
               showError: false
           });
 
-          const response = await fetch(`https://script.google.com/macros/s/AKfycbxvcuNMUTjHpaeGOAK4aR8dORrY6z0LJv4t9N3ZRRFOHqPE0-PHa30yYE3rjng056mt/exec?id=${studentId}`);
+          const response = await fetch(`https://script.google.com/macros/s/AKfycbz5sG92n77GcsPUJFn1PB-ZpHGpQORTznPCzUNZvt2NPtRKJWrs7jesYmclYaKp1rX6/exec?id=${studentId}`);
           
           if (!response.ok) {
               throw new Error(`Gagal mengambil data: ${response.status}`);

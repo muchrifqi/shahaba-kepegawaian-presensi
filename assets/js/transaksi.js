@@ -6,7 +6,7 @@ function loadTransaksi() {
     return;
   }
 
-  fetch(`https://script.google.com/macros/s/AKfycbwuZ-2d8pqrIqoIuhAVOhY-KioaFDWYz0FuXdEef1rJRZMFySTjCWfLkJzE2bmxDRvdQQ/exec?id=${encodeURIComponent(siswaId)}`)
+  fetch(`https://script.google.com/macros/s/AKfycbz0gKU9YFMFg-R9E7EqvWh2CL8LD5ExPA9ZsM65f1RXbaf9z9u10GfYz_TR4BSsNM5sdw/exec?id=${encodeURIComponent(siswaId)}`)
     .then(res => res.json())
     .then(data => {
       if (data.status !== "success") {
@@ -39,6 +39,33 @@ function loadTransaksi() {
         container.innerHTML += html;
       });
 
+      // ✅ Render tunggakan di dalam .then()
+      const tunggakan = data.data.tunggakan || [];
+      const tunggakanList = document.getElementById('tunggakan-list');
+      const tunggakanContainer = document.getElementById('tunggakan-container');
+
+      if (tunggakan.length > 0) {
+        tunggakanList.innerHTML = '';
+        let total = 0;
+        tunggakan.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'bg-yellow-500/10 p-3 rounded text-yellow-200 text-sm flex justify-between items-center';
+          li.innerHTML = `<span>${item.jenis}</span><span class="font-semibold">${formatRupiah(item.nominal)}</span>`;
+          tunggakanList.appendChild(li);
+          total += item.nominal;
+        });
+
+        // Tambahkan total tunggakan
+        const totalEl = document.createElement('li');
+        totalEl.className = 'bg-yellow-500/20 p-3 rounded text-yellow-100 text-sm flex justify-between items-center font-bold';
+        totalEl.innerHTML = `<span>Total Tunggakan</span><span>${formatRupiah(total)}</span>`;
+        tunggakanList.appendChild(totalEl);
+
+        tunggakanContainer.classList.remove('hidden');
+      } else {
+        tunggakanContainer.classList.add('hidden');
+      }
+
       document.getElementById('transaksi-result').classList.remove('hidden');
     })
     .catch(err => {
@@ -46,6 +73,7 @@ function loadTransaksi() {
       console.error(err);
     });
 }
+
 
 // Format Rupiah
 function formatRupiah(nominal) {
@@ -65,7 +93,7 @@ function formatRupiah(nominal) {
 //     return;
 //   }
 
-//   const url = `https://script.google.com/macros/s/AKfycbwuZ-2d8pqrIqoIuhAVOhY-KioaFDWYz0FuXdEef1rJRZMFySTjCWfLkJzE2bmxDRvdQQ/exec` +
+//   const url = `https://script.google.com/macros/s/AKfycbz0gKU9YFMFg-R9E7EqvWh2CL8LD5ExPA9ZsM65f1RXbaf9z9u10GfYz_TR4BSsNM5sdw/exec` +
 //               `?action=kwitansi&id=${encodeURIComponent(idTransaksi)}&siswa=${encodeURIComponent(siswaId)}`;
 
 //   const newWindow = window.open(url, '_blank');
@@ -89,7 +117,7 @@ function formatRupiah(nominal) {
 //     return;
 //   }
 
-//   const url = `https://script.google.com/macros/s/AKfycbwuZ-2d8pqrIqoIuhAVOhY-KioaFDWYz0FuXdEef1rJRZMFySTjCWfLkJzE2bmxDRvdQQ/exec` +
+//   const url = `https://script.google.com/macros/s/AKfycbz0gKU9YFMFg-R9E7EqvWh2CL8LD5ExPA9ZsM65f1RXbaf9z9u10GfYz_TR4BSsNM5sdw/exec` +
 //               `?action=download_all&siswa=${encodeURIComponent(siswaId)}`;
 
 //   const newWindow = window.open(url, '_blank');
