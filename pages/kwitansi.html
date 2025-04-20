@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .divider { border-top: 2px dashed #000; margin: 15px 0; }
+    .detail { margin-bottom: 5px; }
+    .footer { margin-top: 30px; text-align: right; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>KWITANSI PEMBAYARAN</h2>
+    <p>Sekolah Shahaba</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="detail">
+    <strong>ID Transaksi:</strong> <?= data.idTransaksi ?>
+  </div>
+  <div class="detail">
+    <strong>Tanggal:</strong> <?= data.tanggal ?>
+  </div>
+  <div class="detail">
+    <strong>Siswa:</strong> <?= data.namaSiswa ?> (<?= data.kelas ?>)
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="detail">
+    <strong>Nominal:</strong> <?= data.nominal ?>
+  </div>
+  <div class="detail">
+    <strong>Keterangan:</strong> <?= data.keterangan ?>
+  </div>
+
+  <div class="footer">
+    <p>Mengetahui,</p>
+    <br><br><br>
+    <p>(__________________)</p>
+  </div>
+</body>
+</html>

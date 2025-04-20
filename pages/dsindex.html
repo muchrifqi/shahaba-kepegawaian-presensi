@@ -23,7 +23,7 @@
         
         <!-- Script Eksternal -->
         <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>        
     </head>
 <body>
     <!-- Header -->
@@ -147,7 +147,11 @@
                 <a href="#" class="menu-item" onclick="showPage('catatan-page')">
                     <i class="fas fa-id-card" style="color: #00BCD4;"></i>
                     <span>Laporan</span>
-                </a>                
+                </a>   
+                <a href="#" class="menu-item" onclick="showPage('transaksi-page')">
+                    <i class="fas fa-receipt" style="color: #10B981;"></i>
+                    <span>Riwayat Transaksi</span>
+                  </a>          
                        
             </div>
                 <!-- Announcements -->
@@ -641,7 +645,7 @@
                 </form>
             </div>
         </div>
-        <!-- Halaman Laporan Peserta Didik -->
+        <!-- Catatan Page -->
         <div id="catatan-page" class="page">
             <button class="back-btn" onclick="showPage('dashboard-page')">
                 <i class="fas fa-arrow-left"></i> Kembali
@@ -690,6 +694,71 @@
                 <div id="scan-error" class="mt-4 text-red-400 text-sm text-center hidden"></div>
             </div>
         </div>
+        <!-- Transaksi Page -->
+        <div id="transaksi-page" class="page">
+            <button class="back-btn" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <!-- Input ID Siswa -->
+            <div class="dashboard-card">
+              <div class="input-group">
+                <label for="siswa-id">Masukkan ID Siswa</label>
+                <div class="flex gap-2">
+                  <input id="siswa-id" type="text" class="form-input" placeholder="Contoh: A001" />
+                  <button onclick="loadTransaksi()" class="btn-primary">
+                    <i class="fas fa-search"></i> Cari
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Info Siswa -->
+            <div id="transaksi-result" class="hidden">
+              <div id="info-siswa">
+                <div class="bg-blue-500/10 p-3 rounded-full text-blue-300 text-xl">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div>
+                  <h3 id="siswa-nama"></h3>
+                  <p class="text-sm text-blue-200">
+                    <span id="siswa-jenjang-text"></span> - <span id="siswa-kelas-text"></span>
+                  </p>
+                </div>
+              </div>
+          
+              <!-- Header Transaksi -->
+              <div class="flex justify-between">
+                <h2 id="transaksi-title">Riwayat Transaksi</h2>
+                <!-- <button onclick="downloadAll()" class="btn-secondary">
+                  <i class="fas fa-file-archive"></i> Unduh Semua
+                </button> -->
+              </div>
+          
+              <!-- List Transaksi -->
+              <div id="transaksi-list"></div>
+
+          
+            <!-- Template Transaksi (disembunyikan, untuk digunakan di JS) -->
+            <script type="text/template" id="transaksi-template">
+              <div class="transaksi-item">
+                <div class="flex justify-between">
+                  <div>
+                    <div class="font-mono text-yellow-300 text-lg font-bold">#ID_TRANSAKSI#</div>
+                    <div class="mt-1">#TANGGAL#</div>
+                  </div>
+                  <div class="status-badge #STATUS#">#STATUS#</div>
+                </div>
+                <div class="mt-3 font-bold">#NOMINAL#</div>
+                <div class="mt-1">#KETERANGAN#</div>
+                <div class="mt-4">
+                  <!-- <button class="btn-download" onclick="downloadKwitansi('#ID_TRANSAKSI#')">
+                    <i class="fas fa-file-download"></i> Unduh Kwitansi
+                  </button> -->
+                </div>
+              </div>
+            </script>
+          </div>
+          
 
     <!-- Footer -->
     <div class="footer">
@@ -769,6 +838,145 @@
         <span>Laporan</span>
     </button>
 </nav>
+<!-- Toast -->
+<div id="toast" style="
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+">Memuat data transaksi...</div>
+
+<!-- Loading Spinner -->
+<div id="loading-overlay" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 9998;
+  display: none;
+  justify-content: center;
+  align-items: center;
+">
+  <div class="loading-spinner"></div>
+</div>
+
+<script>
+// Fungsi tampilkan toast
+function showToast(text, duration = 3000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = text;
+  toast.style.display = 'block';
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, duration);
+}
+
+// Loading overlay control
+function showLoading() {
+  document.getElementById('loading-overlay').style.display = 'flex';
+}
+function hideLoading() {
+  document.getElementById('loading-overlay').style.display = 'none';
+}
+
+// Tambahkan tombol kembali ke menu utama (jika belum ada)
+function insertBackButton() {
+  const backBtn = document.createElement('button');
+  backBtn.className = 'back-btn';
+  backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Menu Utama';
+  backBtn.onclick = () => {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('home-page').classList.add('active');
+    history.replaceState(null, '', window.location.pathname); // hapus ?id=
+  };
+
+  const resultBox = document.getElementById('transaksi-result');
+  resultBox?.prepend(backBtn);
+}
+
+// Modifikasi loadTransaksi untuk integrasi toast dan title update
+const originalLoadTransaksi = window.loadTransaksi;
+window.loadTransaksi = function () {
+  showToast('Memuat data transaksi...');
+  showLoading();
+
+  const siswaId = document.getElementById('siswa-id')?.value.trim();
+  if (!siswaId) {
+    alert("Harap masukkan ID Siswa");
+    hideLoading();
+    return;
+  }
+
+  fetch(`https://script.google.com/macros/s/AKfycbwuZ-2d8pqrIqoIuhAVOhY-KioaFDWYz0FuXdEef1rJRZMFySTjCWfLkJzE2bmxDRvdQQ?id=${encodeURIComponent(siswaId)}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status !== "success") throw new Error(data.message || "Data tidak ditemukan");
+
+      // Tampilkan info siswa
+      const siswa = data.data.siswa;
+      document.getElementById('siswa-nama').textContent = siswa.nama;
+      document.getElementById('siswa-jenjang-text').textContent = siswa.jenjang;
+      document.getElementById('siswa-kelas-text').textContent = siswa.kelas;
+
+      // Update judul transaksi
+      document.getElementById('transaksi-title').textContent = 
+        `Riwayat Transaksi (${data.meta.total} ditemukan)`;
+
+      // Render transaksi
+      const container = document.getElementById('transaksi-list');
+      container.innerHTML = "";
+      data.data.transaksi.forEach(transaksi => {
+        const template = document.getElementById('transaksi-template').innerHTML;
+        const html = template
+          .replace(/#ID_TRANSAKSI#/g, transaksi.id_transaksi)
+          .replace(/#NOMINAL#/g, formatRupiah(transaksi.nominal))
+          .replace(/#TANGGAL#/g, transaksi.tanggal)
+          .replace(/#KETERANGAN#/g, transaksi.keterangan)
+          .replace(/#STATUS#/g, transaksi.status.toLowerCase());
+
+        container.innerHTML += html;
+      });
+
+      document.getElementById('transaksi-result').classList.remove('hidden');
+      insertBackButton(); // tambah tombol kembali
+      document.title = `Transaksi: ${siswa.nama}`;
+    })
+    .catch(err => {
+      alert(`Error: ${err.message}`);
+      console.error(err);
+    })
+    .finally(() => {
+      hideLoading();
+    });
+};
+
+// Auto tampil jika ada ?id=A001
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const siswaId = params.get("id");
+
+  if (siswaId) {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    const page = document.getElementById('transaksi-page');
+    if (page) page.classList.add('active');
+
+    const input = document.getElementById('siswa-id');
+    if (input) {
+      input.value = siswaId;
+      loadTransaksi();
+    }
+
+    window.scrollTo(0, 0);
+  }
+});
+</script>
 <script src="../assets/js/dsindex.js"></script> <!--Ubah pengumuman di sini-->
 <script src="../assets/js/jadwal.js"></script>
 <script src="../assets/js/izin-pd.js"></script>
@@ -777,5 +985,13 @@
 <script src="../assets/js/kritiksaran.js"></script>
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="../assets/js/cat-pesdik.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../assets/js/transaksi.js"></script>
+<script>
+  window.jsPDF = window.jspdf.jsPDF;
+  // Inisialisasi lainnya
+</script>
+
 </body>
 </html>
