@@ -59,7 +59,7 @@ function loadTransaksi() {
 
         // Tambahkan total tunggakan
         const totalEl = document.createElement('li');
-        totalEl.className = 'bg-yellow-500/20 p-3 rounded text-yellow-100 text-sm flex justify-between items-center font-bold';
+        totalEl.className = 'bg-yellow-500/20 p-3 rounded text-yellow-100 text-l flex justify-between items-center font-bold';
         totalEl.innerHTML = `<span>Total Tunggakan</span><span>${formatRupiah(total)}</span>`;
         tunggakanList.appendChild(totalEl);
 

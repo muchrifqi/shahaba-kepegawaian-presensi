@@ -848,6 +848,24 @@
         <span>Laporan</span>
     </button>
 </nav>
+<!-- Firebase notifikasi-shahaba -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyBm_CiCwn8yZCBXM29RnvO0hnYoHNhsAIE",
+    authDomain: "notifikasi-shahaba.firebaseapp.com",
+    projectId: "notifikasi-shahaba",
+    storageBucket: "notifikasi-shahaba.firebasestorage.app",
+    messagingSenderId: "306837572369",
+    appId: "1:306837572369:web:a6818d93a6a9db3b37dab0"
+    };
+
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+</script>
+
 <script>
 // Auto tampil jika ada ?id=A001
 document.addEventListener("DOMContentLoaded", () => {
@@ -884,6 +902,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.jsPDF = window.jspdf.jsPDF;
   // Inisialisasi lainnya
 </script>
-
+<div id="notif-status" style="color: green; font-size: 0.9rem; padding: 8px;"></div>
 </body>
 </html>
