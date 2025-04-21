@@ -1875,11 +1875,16 @@ button:disabled {
     display: none !important;
   }
   .form-status {
-    padding-left: 4px;
+    padding: 8px 12px;
     font-size: 14px;
-    color: #ffffff;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    font-weight: 500;
+    color: #f9fafb;;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
     text-align: center;
+    margin: 12px 0;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
   }
+  
     

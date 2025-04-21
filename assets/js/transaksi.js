@@ -5,7 +5,7 @@ function loadTransaksi() {
     alert("Harap masukkan ID Siswa");
     return;
   }
-  showStatusMessage('Mengambil data peserta didik...', true);
+  showStatusMessage('Memproses data...', true);
 
   fetch(`https://script.google.com/macros/s/AKfycbz0gKU9YFMFg-R9E7EqvWh2CL8LD5ExPA9ZsM65f1RXbaf9z9u10GfYz_TR4BSsNM5sdw/exec?id=${encodeURIComponent(siswaId)}`)
     .then(res => res.json())
