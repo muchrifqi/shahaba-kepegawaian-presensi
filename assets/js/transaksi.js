@@ -5,6 +5,7 @@ function loadTransaksi() {
     alert("Harap masukkan ID Siswa");
     return;
   }
+  showLoadingTransaksi(true);
 
   fetch(`https://script.google.com/macros/s/AKfycbz0gKU9YFMFg-R9E7EqvWh2CL8LD5ExPA9ZsM65f1RXbaf9z9u10GfYz_TR4BSsNM5sdw/exec?id=${encodeURIComponent(siswaId)}`)
     .then(res => res.json())
@@ -67,10 +68,12 @@ function loadTransaksi() {
       }
 
       document.getElementById('transaksi-result').classList.remove('hidden');
+      showLoadingTransaksi(false);
     })
     .catch(err => {
       alert(`Error: ${err.message}`);
       console.error(err);
+      showLoadingTransaksi(false); 
     });
 }
 
@@ -83,6 +86,11 @@ function formatRupiah(nominal) {
     minimumFractionDigits: 0
   }).format(nominal);
 }
+function showLoadingTransaksi(show = true) {
+  const el = document.getElementById('transaksi-loading');
+  if (el) el.classList.toggle('hidden', !show);
+}
+
 
 // // Download Kwitansi (PDF)
 // function downloadKwitansi(idTransaksi) {

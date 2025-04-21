@@ -412,7 +412,7 @@
                           type="text" 
                           id="orangtuaDari" 
                           name="orangtuaDari" 
-                          placeholder="Nama anak dan Jenjang (contoh: Ahmad - Prasekolah)" 
+                          placeholder="Nama anak dan Jenjang" 
                           required 
                           class="form-input"
                           pattern=".+ - .+"
@@ -765,6 +765,12 @@
                 </div>
               </script>
             </div>
+            <!-- Loading Overlay -->
+            <div id="transaksi-loading" class="transaksi-loading-overlay hidden">
+                <div class="transaksi-spinner"></div>
+                <p class="transaksi-loading-text">Memuat data transaksi...</p>
+            </div>
+  
           </div>  
 
     <!-- Footer -->
@@ -977,6 +983,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById('siswa-id');
     if (input) {
       input.value = siswaId;
+      showLoadingTransaksi(true);
       loadTransaksi();
     }
 
