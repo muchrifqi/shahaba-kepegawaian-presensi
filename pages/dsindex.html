@@ -715,6 +715,10 @@
                   <i class="fas fa-search"></i> Cari
                 </button>
               </div>
+              <!-- Feedback Status -->
+                <div id="transaksi-status" class="form-status text-sm text-gray-500 hidden">
+                    <!-- Status info ditampilkan oleh JS -->
+                </div>
           
               <!-- Hasil -->
               <div id="transaksi-result" class="hidden">
@@ -765,12 +769,6 @@
                 </div>
               </script>
             </div>
-            <!-- Loading Overlay -->
-            <div id="transaksi-loading" class="transaksi-loading-overlay hidden">
-                <div class="transaksi-spinner"></div>
-                <p class="transaksi-loading-text">Memuat data transaksi...</p>
-            </div>
-  
           </div>  
 
     <!-- Footer -->
@@ -851,125 +849,7 @@
         <span>Laporan</span>
     </button>
 </nav>
-<!-- Toast -->
-<div id="toast" style="
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 0.75rem 1.25rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  display: none;
-  z-index: 9999;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-">Memuat data transaksi...</div>
-
-<!-- Loading Spinner -->
-<div id="loading-overlay" style="
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 9998;
-  display: none;
-  justify-content: center;
-  align-items: center;
-">
-  <div class="loading-spinner"></div>
-</div>
-
 <script>
-// Fungsi tampilkan toast
-function showToast(text, duration = 3000) {
-  const toast = document.getElementById('toast');
-  toast.textContent = text;
-  toast.style.display = 'block';
-  setTimeout(() => {
-    toast.style.display = 'none';
-  }, duration);
-}
-
-// Loading overlay control
-function showLoading() {
-  document.getElementById('loading-overlay').style.display = 'flex';
-}
-function hideLoading() {
-  document.getElementById('loading-overlay').style.display = 'none';
-}
-
-// Tambahkan tombol kembali ke menu utama (jika belum ada)
-function insertBackButton() {
-  const backBtn = document.createElement('button');
-  backBtn.className = 'back-btn';
-  backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Menu Utama';
-  backBtn.onclick = () => {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('dashboard-page').classList.add('active');
-    history.replaceState(null, '', window.location.pathname); // hapus ?id=
-  };
-
-  const resultBox = document.getElementById('transaksi-result');
-  resultBox?.prepend(backBtn);
-}
-
-// Modifikasi loadTransaksi untuk integrasi toast dan title update
-const originalLoadTransaksi = window.loadTransaksi;
-window.loadTransaksi = function () {
-  showToast('Memuat data transaksi...');
-  showLoading();
-
-  const siswaId = document.getElementById('siswa-id')?.value.trim();
-  if (!siswaId) {
-    alert("Harap masukkan ID Siswa");
-    hideLoading();
-    return;
-  }
-
-  fetch(`https://script.google.com/macros/s/AKfycbwuZ-2d8pqrIqoIuhAVOhY-KioaFDWYz0FuXdEef1rJRZMFySTjCWfLkJzE2bmxDRvdQQ?id=${encodeURIComponent(siswaId)}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.status !== "success") throw new Error(data.message || "Data tidak ditemukan");
-
-      // Tampilkan info siswa
-      const siswa = data.data.siswa;
-      document.getElementById('siswa-nama').textContent = siswa.nama;
-      document.getElementById('siswa-jenjang-text').textContent = siswa.jenjang;
-      document.getElementById('siswa-kelas-text').textContent = siswa.kelas;
-
-      // Update judul transaksi
-      document.getElementById('transaksi-title').textContent = 
-        `Riwayat Transaksi (${data.meta.total} ditemukan)`;
-
-      // Render transaksi
-      const container = document.getElementById('transaksi-list');
-      container.innerHTML = "";
-      data.data.transaksi.forEach(transaksi => {
-        const template = document.getElementById('transaksi-template').innerHTML;
-        const html = template
-          .replace(/#ID_TRANSAKSI#/g, transaksi.id_transaksi)
-          .replace(/#NOMINAL#/g, formatRupiah(transaksi.nominal))
-          .replace(/#TANGGAL#/g, transaksi.tanggal)
-          .replace(/#KETERANGAN#/g, transaksi.keterangan)
-          .replace(/#STATUS#/g, transaksi.status.toLowerCase());
-
-        container.innerHTML += html;
-      });
-
-      document.getElementById('transaksi-result').classList.remove('hidden');
-      insertBackButton(); // tambah tombol kembali
-      document.title = `Transaksi: ${siswa.nama}`;
-    })
-    .catch(err => {
-      alert(`Error: ${err.message}`);
-      console.error(err);
-    })
-    .finally(() => {
-      hideLoading();
-    });
-};
-
 // Auto tampil jika ada ?id=A001
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
@@ -983,7 +863,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById('siswa-id');
     if (input) {
       input.value = siswaId;
-      showLoadingTransaksi(true);
       loadTransaksi();
     }
 
