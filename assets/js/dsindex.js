@@ -471,4 +471,59 @@ function setFixedPosition() {
   window.addEventListener('load', setFixedPosition);
   window.addEventListener('resize', setFixedPosition);
 
+// Meminta izin notifikasi dan register service worker
+async function setupNotifications() {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      try {
+        const registration = await navigator.serviceWorker.register('/service-worker.js');
+        
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Izin notifikasi diberikan');
+          
+          // Simpan subscription ke server/database
+          const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array('PUBLIC_VAPID_KEY')
+          });
+          
+          await saveSubscription(subscription);
+        }
+      } catch (error) {
+        console.error('Error setup notifikasi:', error);
+      }
+    }
+  }
   
+  // Fungsi untuk menyimpan subscription
+  async function saveSubscription(subscription) {
+    // Kirim subscription ke server Anda atau Google Sheets
+    // Contoh sederhana:
+    const response = await fetch('YOUR_API_ENDPOINT', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    });
+    return response.json();
+  }
+  
+  // Helper function untuk convert VAPID key
+  function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+  
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+  
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+  
+  // Panggil saat inisialisasi aplikasi
+  setupNotifications();

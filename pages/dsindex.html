@@ -848,24 +848,23 @@
         <span>Laporan</span>
     </button>
 </nav>
-<!-- Firebase notifikasi-shahaba -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
-
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-    const firebaseConfig = {
-    apiKey: "AIzaSyBm_CiCwn8yZCBXM29RnvO0hnYoHNhsAIE",
-    authDomain: "notifikasi-shahaba.firebaseapp.com",
-    projectId: "notifikasi-shahaba",
-    storageBucket: "notifikasi-shahaba.firebasestorage.app",
-    messagingSenderId: "306837572369",
-    appId: "1:306837572369:web:a6818d93a6a9db3b37dab0"
-    };
-
-  firebase.initializeApp(firebaseConfig);
-  const messaging = firebase.messaging();
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "7671df32-41ca-4a59-9a3e-a2e36da5bcda", // Ganti dengan App ID OneSignal Anda
+      safari_web_id: "YOUR_SAFARI_WEB_ID", // Untuk Safari (opsional)
+      notifyButton: {
+        enable: true, // Tampilkan tombol subscribe
+      },
+      allowLocalhostAsSecureOrigin: true // Untuk development lokal
+    });
+    
+    // Untuk debug
+    OneSignal.showSlidedownPrompt();
+  });
 </script>
-
 <script>
 // Auto tampil jika ada ?id=A001
 document.addEventListener("DOMContentLoaded", () => {
