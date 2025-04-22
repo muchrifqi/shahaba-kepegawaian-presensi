@@ -885,5 +885,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inisialisasi lainnya
 </script>
 <div id="notif-status" style="color: green; font-size: 0.9rem; padding: 8px;"></div>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "7671df32-41ca-4a59-9a3e-a2e36da5bcda",
+      safari_web_id: "",
+      notifyButton: {
+        enable: true,
+      },
+      promptOptions: {
+        actionMessage: "Izinkan notifikasi agar tidak ketinggalan info penting.",
+        acceptButtonText: "Izinkan",
+        cancelButtonText: "Nanti saja"
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
