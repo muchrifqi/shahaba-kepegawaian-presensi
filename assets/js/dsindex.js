@@ -470,3 +470,25 @@ function setFixedPosition() {
   
   window.addEventListener('load', setFixedPosition);
   window.addEventListener('resize', setFixedPosition);
+
+  //lazy loading menu item
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuItems = document.querySelectorAll('.menu-item');
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    menuItems.forEach((item, i) => {
+      item.style.transitionDelay = `${i * 100}ms`;
+      observer.observe(item);
+    });
+  });
+  
