@@ -848,23 +848,6 @@
         <span>Laporan</span>
     </button>
 </nav>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(function(OneSignal) {
-    OneSignal.init({
-      appId: "7671df32-41ca-4a59-9a3e-a2e36da5bcda", // Ganti dengan App ID OneSignal Anda
-      safari_web_id: "YOUR_SAFARI_WEB_ID", // Untuk Safari (opsional)
-      notifyButton: {
-        enable: true, // Tampilkan tombol subscribe
-      },
-      allowLocalhostAsSecureOrigin: true // Untuk development lokal
-    });
-    
-    // Untuk debug
-    OneSignal.showSlidedownPrompt();
-  });
-</script>
 <script>
 // Auto tampil jika ada ?id=A001
 document.addEventListener("DOMContentLoaded", () => {
