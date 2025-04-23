@@ -1922,4 +1922,144 @@ button:disabled {
     0% { left: -50%; }
     100% { left: 100%; }
   }
+  .ios-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 400px;
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    border: 1px solid rgba(200, 200, 200, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 10000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
   
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 20px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+  
+  .ios-prompt-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  
+  .ios-prompt-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1c1c1e;
+  }
+  
+  .ios-prompt-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    color: #007aff;
+  }
+  
+  .ios-share-icon, .ios-add-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .ios-arrow {
+    margin: 0 8px;
+    color: #8e8e93;
+    font-size: 18px;
+  }
+  
+  .ios-prompt-steps {
+    margin-bottom: 20px;
+  }
+  
+  .ios-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .step-number {
+    width: 24px;
+    height: 24px;
+    background-color: #007aff;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  
+  .ios-step p {
+    margin: 0;
+    font-size: 15px;
+    color: #1c1c1e;
+    line-height: 1.4;
+  }
+  
+  .ios-step strong {
+    color: #007aff;
+  }
+  
+  .ios-prompt-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .ios-prompt-button:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Dark Mode */
+  @media (prefers-color-scheme: dark) {
+    .ios-prompt {
+      background: rgba(28, 28, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  
+    .ios-prompt-header h3,
+    .ios-step p {
+      color: #f2f2f7;
+    }
+  
+    .ios-step strong {
+      color: #0a84ff;
+    }
+  
+    .ios-prompt-icon {
+      color: #0a84ff;
+    }
+  
+    .ios-prompt-button {
+      background-color: #0a84ff;
+    }
+  
+    .ios-prompt-button:hover {
+      background-color: #007aff;
+    }
+  }
