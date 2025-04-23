@@ -492,3 +492,69 @@ function setFixedPosition() {
     });
   });
   
+  // Fungsi untuk mendeteksi iOS secara akurat
+function isIOSDevice() {
+    return (
+      // Deteksi iPhone, iPad, iPod
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      // Deteksi iPad pada iOS 13+ (yang memiliki userAgent seperti Mac)
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    ) && !window.MSStream; // Exclude Windows devices
+  }
+  
+  // Fungsi khusus untuk iOS
+  function iOSSpecificFunction() {
+    console.log('Perangkat iOS terdeteksi, menjalankan fungsi khusus...');
+    // Tambahkan kode khusus iOS Anda di sini
+    
+    // Contoh: Tampilkan instruksi instalasi
+    const prompt = document.createElement('div');
+    prompt.innerHTML = `
+      <div style="
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        max-width: 90%;
+        z-index: 1000;
+        text-align: center;
+      ">
+        <p style="margin: 0 0 10px 0;">Untuk menginstal aplikasi:</p>
+        <ol style="margin: 0; padding-left: 20px; text-align: left;">
+          <li>Tap ikon <strong>Bagikan</strong> <span style="font-size: 18px;">📲</span></li>
+          <li>Pilih <strong>"Tambahkan ke Layar Utama"</strong> <span style="font-size: 18px;">➕</span></li>
+        </ol>
+        <button id="close-prompt" style="
+          margin-top: 10px;
+          background: #007aff;
+          color: white;
+          border: none;
+          padding: 5px 15px;
+          border-radius: 5px;
+          cursor: pointer;
+        ">Mengerti</button>
+      </div>
+    `;
+    
+    document.body.appendChild(prompt);
+    
+    // Tombol tutup
+    prompt.querySelector('#close-prompt').addEventListener('click', () => {
+      prompt.style.display = 'none';
+    });
+  }
+  
+  // Jalankan deteksi saat halaman dimuat
+  window.addEventListener('DOMContentLoaded', () => {
+    if (isIOSDevice()) {
+      // Tunggu 3 detik sebelum menampilkan prompt
+      setTimeout(iOSSpecificFunction, 3000);
+      
+      // Atau bisa juga langsung:
+      // iOSSpecificFunction();
+    }
+  });
