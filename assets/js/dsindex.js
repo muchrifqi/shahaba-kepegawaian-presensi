@@ -755,9 +755,14 @@ function isIOSDevice() {
     document.body.appendChild(prompt);
     
     // Tombol tutup
-    prompt.querySelector('#close-prompt').addEventListener('click', () => {
-      prompt.style.display = 'none';
-    });
+    document.getElementById('understand-btn').addEventListener('click', function() {
+        const prompt = document.getElementById('ios-install-prompt');
+        prompt.style.opacity = '0';
+        setTimeout(() => {
+          prompt.style.display = 'none';
+        }, 300);
+        localStorage.setItem('hideiOSInstallPrompt', 'true');
+      });
   }
   
   // Jalankan deteksi saat halaman dimuat
