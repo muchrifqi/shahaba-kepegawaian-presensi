@@ -518,10 +518,14 @@ function isIOSDevice() {
       </div>
       
       <div class="icon-flow">
-        <!-- Ikon Share Safari iOS -->
-        <svg viewBox="0 0 24 24" class="ios-share-icon" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3v12m0-12l-4 4m4-4l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M4 14v4a3 3 0 003 3h10a3 3 0 003-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Ikon Share Safari iOS 18-style -->
+        <svg viewBox="0 0 24 24" class="ios-share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <!-- Panah naik -->
+        <path d="M12 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M8 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        
+        <!-- Kotak terbuka -->
+        <path d="M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
         </svg>
         <span class="ios-arrow">→</span>
         <!-- Ikon Add iOS 18 style -->
@@ -754,30 +758,20 @@ function isIOSDevice() {
     
     document.body.appendChild(prompt);
     
-    // Tombol tutup
-    document.getElementById('understand-btn').addEventListener('click', function() {
-        const prompt = document.getElementById('ios-install-prompt');
-        prompt.style.opacity = '0';
-        setTimeout(() => {
-          prompt.style.display = 'none';
-        }, 300);
-        localStorage.setItem('hideiOSInstallPrompt', 'true');
-      });
-  }
-  
-  // Jalankan deteksi saat halaman dimuat
-  window.addEventListener('DOMContentLoaded', () => {
-    if (isIOSDevice()) {
-      // Tunggu 3 detik sebelum menampilkan prompt
-      setTimeout(iOSSpecificFunction, 3000);
-      
-      // Atau bisa juga langsung:
-      // iOSSpecificFunction();
-    }
-  });
-
-  // Prompt IOS
-  document.getElementById('close-prompt').addEventListener('click', function () {
-    document.getElementById('ios-install-prompt').style.display = 'none';
+ // ✅ Pasang event listener di sini, setelah tombol sudah ada di DOM
+ document.getElementById('understand-btn').addEventListener('click', function () {
+    const prompt = document.getElementById('ios-install-prompt');
+    prompt.style.opacity = '0';
+    setTimeout(() => {
+      prompt.style.display = 'none';
+    }, 300);
     localStorage.setItem('hideiOSInstallPrompt', 'true');
   });
+}
+
+// Jalankan saat DOM sudah siap
+window.addEventListener('DOMContentLoaded', () => {
+  if (isIOSDevice()) {
+    setTimeout(iOSSpecificFunction, 3000);
+  }
+});
