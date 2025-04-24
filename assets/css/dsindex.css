@@ -40,6 +40,9 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-gradient);
+    background-image: url('../images/background-vertical.png'); /* sesuaikan path-nya */
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     background-attachment: fixed;
     color: var(--text-color);
