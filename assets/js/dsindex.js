@@ -775,3 +775,24 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(iOSSpecificFunction, 3000);
   }
 });
+// Navbar
+function navigateToPage(pageId, button) {
+  // Sembunyikan semua halaman
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  // Tampilkan halaman yang dituju
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add('active');
+  }
+
+  // Reset semua tombol navbar
+  document.querySelectorAll('.navbar-button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  // Tandai tombol aktif
+  button.classList.add('active');
+}

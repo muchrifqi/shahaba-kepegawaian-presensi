@@ -40,7 +40,7 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-gradient);
-    background-image: url('../images/background-vertical.png'); /* sesuaikan path-nya */
+    background-image: url('../images/background-vertical-3dL.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -53,14 +53,31 @@ body {
 
 /* Header */
 .header {
-    background: white;
-    padding: 1rem;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
-    z-index: 10;
+  background: linear-gradient(to bottom, #ffffff, #ffffff,#ffffff, #c1c1c1);
+  padding: 1rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.311);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
 }
+
+/* Efek glossy di bagian atas */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
+  border-radius: 0 0 20px 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
 
 .header h1 {
     color: var(--primary-color);
@@ -179,6 +196,7 @@ background-position: right 0.5rem center;
     justify-content: center;
     padding: 1.25rem 0.5rem;
     border-radius: var(--border-radius);
+    backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.1);
     border: 0px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
@@ -1349,90 +1367,89 @@ border: 1px solid rgba(255, 255, 255, 0.1);
 
 /* General Navbar Styling */
 .ios-navbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(200, 200, 200, 0.5);
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 1rem 1rem 0 0;
-    z-index: 50;
-    padding-bottom: env(safe-area-inset-bottom); /* Untuk iPhone X ke atas */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0;
+  background: linear-gradient(to top, #ffffff, #ffffff, #c1c1c1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(200, 200, 200, 0.5);
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem 1rem 0 0;
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom);
+  overflow: hidden;
+}
+
+.ios-navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.7), transparent);
+  border-radius: 1rem 1rem 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.navbar-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-button span {
+  font-size: 0.65rem;
+  margin-top: 2px;
+}
+
+.navbar-button:hover,
+.navbar-button.active {
+  color: #2563eb;
+}
+
+.navbar-button i {
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-button:hover i {
+  transform: scale(1.1);
+}
+
+/* Responsif: hide di layar besar */
+@media (min-width: 1024px) {
+  .ios-navbar {
+    display: none !important;
   }
-  
-  /* Tombol Umum */
-  .navbar-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    color: #6b7280; /* gray-500 */
-    transition: all 0.3s ease;
-    padding: 0.25rem 0;
-    position: relative;
-  }
-  
-  .navbar-button span {
-    font-size: 0.65rem;
-    margin-top: 2px;
-  }
-  
-  /* Hover dan Aktif */
-  .navbar-button:hover,
-  .navbar-button.active {
-    color: #2563eb; /* blue-600 */
-  }
-  
-  .navbar-button i {
-    font-size: 1.25rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .navbar-button:hover i {
-    transform: scale(1.1);
-  }
-  
-  /* Tombol Tengah yang Menonjol */
-  .center-button {
-    background: white;
-    border: 1px solid #e5e7eb; /* gray-200 */
-    border-radius: 9999px;
-    padding: 0.75rem;
-    margin-top: -1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.258);
-    z-index: 10;
-    transition: transform 0.3s ease;
-  }
-  
-  .center-button:hover {
-    transform: translateY(-5px);
-  }
-  
-  .center-button i {
-    font-size: 1.5rem;
-    color: #2563eb;
-  }
-  
-  /* Aktif dan Hover Khusus Icon Tengah */
-  .center-button.active i,
-  .center-button:hover i {
-    transform: scale(1.1);
-  }
-  
-  /* Sembunyikan di Desktop */
-  @media (min-width: 1024px) {
-    .ios-navbar {
-      display: none !important;
-    }
-  }
+}
+
+/* Efek Transisi Konten */
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+}
+
   
 /* FLOATING BUTTON */
 #announcement-float-btn {
