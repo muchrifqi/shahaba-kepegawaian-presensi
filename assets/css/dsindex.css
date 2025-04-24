@@ -41,7 +41,7 @@ body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-gradient);
     background-image: url('../images/background-vertical-3dL.png');
-    background-repeat: no-repeat;
+    background-repeat:unset;
     background-position: center;
     background-size: cover;
     background-attachment: fixed !important;
