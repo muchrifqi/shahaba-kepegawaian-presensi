@@ -40,7 +40,7 @@
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-gradient);
-    background-image: url('../images/background-vertical-3dL-add.png');
+    background-image: url('../images/background-vertical-3d.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -50,10 +50,9 @@ body {
     padding: 0;
     min-height: 100vh;
 }
-
 /* Header */
 .header {
-  background: linear-gradient(to bottom, #ffffff, #ffffff,#ffffff, #c1c1c1);
+  background: linear-gradient(to bottom, #ffffff, #ffffff,#ffffff,#ffffff,#ffffff, #c1c1c1);
   padding: 1rem 1.25rem;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.311);
@@ -1178,7 +1177,7 @@ transition: all 0.3s ease;
 transform: translateX(0);
 }
 100% {
-transform: translateX(-300%);
+transform: translateX(-600%); /* Atur Kecepatan slide foto */
 }
 }
 
@@ -1374,7 +1373,7 @@ border: 1px solid rgba(255, 255, 255, 0.1);
   justify-content: space-around;
   align-items: center;
   padding: 0.5rem 0;
-  background: linear-gradient(to top, #ffffff, #ffffff, #c1c1c1);
+  background: linear-gradient(to top, #ffffff, #ffffff,#ffffff,#ffffff, #c1c1c1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(200, 200, 200, 0.5);

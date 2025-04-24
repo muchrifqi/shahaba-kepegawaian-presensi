@@ -393,19 +393,11 @@ galleryItems.forEach(item => {
     } else if (aspectRatio < 0.8) {
         item.style.gridRow = 'span 2'; // Gambar portrait (tinggi)
     }
-    // Gambar square tetap 1x1
     };
 });
 });
 
-// Navbar
-function navigateToPage(pageId, btn) {
-    showPage(pageId);
-    document.querySelectorAll('.navbar-button').forEach(button => {
-        button.classList.remove('active');
-    });
-    btn.classList.add('active');
-}
+// Float
 const floatBtn = document.getElementById('announcement-float-btn');
 
 // Step 1: Initial attention grab
