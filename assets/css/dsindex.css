@@ -38,22 +38,20 @@
 
 /* Base Styles */
 html {
-  background: var(--background-gradient);
-  background-image: url('../images/background-vertical-3dL.png');
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url('../images/background-vertical-3dL.png') no-repeat center center fixed;
   background-size: cover;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
 }
 
 body {
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: transparent;
-  color: var(--text-color);
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  min-height: 100%;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
 }
 
 
