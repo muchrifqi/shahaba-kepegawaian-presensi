@@ -35,20 +35,29 @@
     --swal-mobile-border-radius: 10px;
     --swal-mobile-icon-size: 40px;
 }
+html {
+  background: url('../images/background-vertical-lg.png') no-repeat center center fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed !important;
+  height: 100%;
+}
+
 
 /* Base Styles */
 body {
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--background-gradient);
-    background-image: url('../images/background-vertical-3d.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed !important;
-    color: var(--text-color);
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+}
+/* Untuk HP (lebar layar max 768px) */
+@media only screen and (max-width: 768px) {
+  body {
+    background-image: url("background-mobile.jpg");
+  }
 }
 /* Header */
 .header {
