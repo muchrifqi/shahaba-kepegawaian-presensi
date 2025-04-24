@@ -49,9 +49,9 @@ function setupAutocomplete() {
 
     dropdown.innerHTML = filtered.slice(0, 5).map(pd =>
       `<div class="dropdown-item" data-nama="${pd.nama}" data-kelas="${pd.kelas}">
-        ${pd.nama} (Kelas ${pd.kelas})
+        ${pd.nama} (${pd.kelas})
       </div>`
-    ).join('');
+    ).join(''); // Tambahkan kata depan seperti "(Kelas ${pd.kelas})"
     dropdown.style.display = 'block';
 
     document.querySelectorAll('.dropdown-item').forEach(item => {
