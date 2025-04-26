@@ -455,14 +455,34 @@ function loadPresensiHariIni() {
         const badge = document.getElementById(`presensi-${namaNormalized}`);
         
         if (badge) {
-          badge.textContent = `${pegawai.jam || "--:--"} - ${pegawai.keterangan || "-"}`;
-          
-          // Update class status
+          // Reset class dan konten
           badge.className = "presensi-badge";
-          if (pegawai.keterangan.includes("Presensi awal")) {
-            badge.classList.add("presensi-awal");
-          } else if (pegawai.keterangan.includes("Tepat waktu")) {
-            badge.classList.add("tepat-waktu");
+          badge.innerHTML = `${pegawai.jam || "--:--"}`;
+
+          // Kriteria 3-level
+          if (pegawai.jam) {
+            const [hours, minutes] = pegawai.jam.split(':').map(Number);
+            
+            if (hours < 6 || (hours === 6 && minutes < 30)) {
+              // BEFORE 6:30
+              badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Sebelum 6:30</span>`;
+              badge.classList.add("sebelum-630");
+            } 
+            else if (hours < 6 || (hours === 6 && minutes < 45)) {
+              // BEFORE 6:45
+              badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Sebelum 6:45</span>`;
+              badge.classList.add("sebelum-645");
+            }
+            else if (hours < 7 || (hours === 7 && minutes === 0)) {
+              // BEFORE 7:00
+              badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Sebelum 7:00</span>`;
+              badge.classList.add("sebelum-700");
+            }
+            else {
+              // AFTER 7:00 (default case)
+              badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Setelah 7:00</span>`;
+              badge.classList.add("setelah-700");
+            }
           }
         }
       });

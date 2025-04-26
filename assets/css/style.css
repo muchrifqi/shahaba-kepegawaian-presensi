@@ -1115,23 +1115,30 @@ button.processing {
 }
 
 /* Variasi Status */
-.presensi-badge.tepat-waktu {
-    background: rgba(52, 168, 83, 0.15);
-    color: #1e5631;
+/* Before 6:30 */
+.sebelum-630 {
+background: linear-gradient(45deg, #c6a500, #938200);
+color: #ffffff;
 }
 
-.presensi-badge.presensi-awal {
-    background: linear-gradient(135deg, #ceab00, #96850093);
-    color: #ffffff;
+/* Before 6:45 */
+.sebelum-645 {
+  background-color: #ffffff;
+  color: #297000;
 }
-  
-  /* Animasi untuk update data */
-  @keyframes fadeUpdate {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 1; }
-  }
-  
-  .presensi-badge.updating {
-    animation: fadeUpdate 1s ease-in-out;
-  }
+
+/* Before 7:00 */
+.sebelum-700 {
+  background-color: #fff3e0;
+  color: #0d47a1;
+}
+
+/* After 7:00 */
+.setelah-700 {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.keterangan {
+  /* font-weight: bold; */
+}
