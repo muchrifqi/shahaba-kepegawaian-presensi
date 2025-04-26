@@ -459,10 +459,10 @@ function loadPresensiHariIni() {
           
           // Update class status
           badge.className = "presensi-badge";
-          if (pegawai.keterangan.includes("Tepat waktu")) {
+          if (pegawai.keterangan.includes("Presensi awal")) {
+            badge.classList.add("presensi-awal");
+          } else if (pegawai.keterangan.includes("Tepat waktu")) {
             badge.classList.add("tepat-waktu");
-          } else if (pegawai.keterangan.includes("Terlambat")) {
-            badge.classList.add("terlambat");
           }
         }
       });

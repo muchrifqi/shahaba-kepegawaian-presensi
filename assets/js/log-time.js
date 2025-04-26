@@ -218,6 +218,6 @@ function updateButtonStates() {
     });
 }
 
-// Jalankan setiap menit
-setInterval(updateButtonStates, 10000);
+// Jalankan setiap 6 menit
+setInterval(updateButtonStates, 60000);
 updateButtonStates(); // Jalankan saat pertama load
