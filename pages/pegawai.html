@@ -55,16 +55,56 @@
       <h3><i class="fas fa-users"></i> Pegawai</h3>
       <div class="button-container">
         <div class="button-container">
-          <button id="btn-Deva-Mandela" onclick="handlePresensi('Deva Mandela')">Deva Mandela</button>
-          <button id="btn-Dwi-Indo" onclick="handlePresensi('Dwi Indo')">Dwi Indo</button>
-          <button id="btn-Muchamad-Rifqi-Hermawan" onclick="handlePresensi('Muchamad Rifqi Hermawan')">Muchamad Rifqi Hermawan</button>
-          <button id="btn-Salma-Siti-Saffiyah" onclick="handlePresensi('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
-          <button id="btn-Nurhayati" onclick="handlePresensi('Nurhayati')">Nurhayati</button>
-          <button id="btn-Muharrom-Susetyo-Nugroho" onclick="handlePresensi('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
-          <button id="btn-Nandar-Sunandar" onclick="handlePresensi('Nandar Sunandar')">Nandar Sunandar</button>
-          <button id="btn-Salma-Satira-Askar" onclick="handlePresensi('Salma Satira Askar')">Salma Satira Askar</button>
-          <button id="btn-Krisna-Dwi-Wardana" onclick="handlePresensi('Krisna Dwi Wardana')">Krisna Dwi Wardana</button>
-          <button id="btn-Nur-Annisa" onclick="handlePresensi('Nur Annisa')">Nur Annisa</button>
+          <div>
+            <button id="btn-Deva-Mandela" data-nama="Deva Mandela" style="height: 70px; width: 100%" onclick="handlePresensi('Deva Mandela')">Deva Mandela</button>
+            <div class="presensi-badge" id="presensi-Deva-Mandela">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Dwi-Indo" data-nama="Dwi Indo" style="height: 70px; width: 100%" onclick="handlePresensi('Dwi Indo')">Dwi Indo</button>
+            <div class="presensi-badge" id="presensi-Dwi-Indo">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Muchamad-Rifqi-Hermawan" data-nama="Muchamad Rifqi Hermawan" style="height: 70px; width: 100%" onclick="handlePresensi('Muchamad Rifqi Hermawan')">Muchamad Rifqi Hermawan</button>
+            <div class="presensi-badge" id="presensi-Muchamad-Rifqi-Hermawan">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Salma-Siti-Saffiyah" data-nama="Salma Siti Saffiyah" style="height: 70px; width: 100%" onclick="handlePresensi('Salma Siti Saffiyah')">Salma Siti Saffiyah</button>
+            <div class="presensi-badge" id="presensi-Salma-Siti-Saffiyah">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Nurhayati" data-nama="Nurhayati" style="height: 70px; width: 100%" onclick="handlePresensi('Nurhayati')">Nurhayati</button>
+            <div class="presensi-badge" id="presensi-Nurhayati">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Muharrom-Susetyo-Nugroho" data-nama="Muharrom Susetyo Nugroho" style="height: 70px; width: 100%" onclick="handlePresensi('Muharrom Susetyo Nugroho')">Muharrom Susetyo Nugroho</button>
+            <div class="presensi-badge" id="presensi-Muharrom-Susetyo-Nugroho">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Nandar-Sunandar" data-nama="Nandar Sunandar" style="height: 70px; width: 100%" onclick="handlePresensi('Nandar Sunandar')">Nandar Sunandar</button>
+            <div class="presensi-badge" id="presensi-Nandar-Sunandar">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Salma-Satira-Askar" data-nama="Salma Satira Askar" style="height: 70px; width: 100%" onclick="handlePresensi('Salma Satira Askar')">Salma Satira Askar</button>
+            <div class="presensi-badge" id="presensi-Salma-Satira-Askar">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Krisna-Dwi-Wardhana" data-nama="Krisna Dwi Wardhana" style="height: 70px; width: 100%" onclick="handlePresensi('Krisna Dwi Wardhana')">Krisna Dwi Wardhana</button>
+            <div class="presensi-badge" id="presensi-Krisna-Dwi-Wardhana">Belum datang</div>
+          </div>
+          
+          <div>
+            <button id="btn-Nur-Annisa" data-nama="Nur Annisa" style="height: 70px; width: 100%" onclick="handlePresensi('Nur Annisa')">Nur Annisa</button>
+            <div class="presensi-badge" id="presensi-Nur-Annisa">Belum datang</div>
+          </div>
+          
         </div>
         </div>
       </div>
@@ -77,7 +117,6 @@
       </div>
       <p id="statusMessage" style="margin-top: 1rem;"></p>
     </div>
-
     <!-- Tombol Melayang -->
     <button id="floatingMenuButton" class="floating-button">
       <i class="fas fa-bars"></i> Menu

@@ -43,8 +43,15 @@ async function handlePresensi(nama) {
         // 2. Dapatkan IP Address (opsional)
         const ip = await getIPAddress().catch(() => 'unknown');
         
-        // 3. Kirim data presensi via GET (tetap seperti sebelumnya)
-        const url = `https://script.google.com/macros/s/AKfycbx905NCryDB-xr0gn9KTNVmyeO7X2dt6foZd30bqC-cwkyO8CARPTVHiJFEg9lVheBf/exec?action=presensi&nama=${encodeURIComponent(nama)}&ip=${encodeURIComponent(ip)}&type=${isPulang ? 'pulang' : 'masuk'}&lat=${lat}&long=${long}`;
+        // 3. Format tanggal hari ini sebagai "DD/MM/YYYY"
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+        
+        // 4. Kirim data presensi via GET dengan parameter tanggal
+        const url = `https://script.google.com/macros/s/AKfycbx905NCryDB-xr0gn9KTNVmyeO7X2dt6foZd30bqC-cwkyO8CARPTVHiJFEg9lVheBf/exec?action=presensi&nama=${encodeURIComponent(nama)}&ip=${encodeURIComponent(ip)}&type=${isPulang ? 'pulang' : 'masuk'}&lat=${lat}&long=${long}&tanggal=${formattedDate}`;
         
         const response = await fetch(url, {
             redirect: 'follow',
@@ -93,6 +100,11 @@ async function handlePresensi(nama) {
     }
 }
 
+// Fungsi bantu untuk format tanggal (alternatif)
+function formatDate(date) {
+    return date.toLocaleDateString('en-GB'); // Format "DD/MM/YYYY"
+}
+
 // Fungsi cek lokasi yang lebih baik
 function checkLocation() {
     return new Promise((resolve, reject) => {
@@ -138,7 +150,7 @@ async function getIPAddress() {
 function checkWaktuMasuk() {
     const now = new Date();
     const jamMasuk = new Date();
-    jamMasuk.setHours(7, 0, 0, 0);
+    jamMasuk.setHours(7, 0, 0, 0); // Set jam masuk
     return now < jamMasuk;
 }
 
@@ -165,7 +177,7 @@ async function processPresensi(nama, isPulang) {
         const waktu = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
         
         // Update tombol
-        const statusIcon = isPulang ? '⏏️' : '✓';
+        const statusIcon = isPulang ? '<i class="fas fa-check"></i>' : '<i class="fas fa-check"></i>';
         button.innerHTML = `${nama} ${statusIcon}`;
         button.classList.add(isPulang ? 'presensi-pulang' : 'presensi-masuk');
         
@@ -191,11 +203,11 @@ function updateButtonStates() {
     const mode = getPresensiMode();
     
     buttons.forEach(button => {
-        const sudahPresensi = button.textContent.includes('✓') || button.textContent.includes('⏏️');
+        const sudahPresensi = button.textContent.includes('<i class="fas fa-check"></i>') || button.textContent.includes('<i class="fas fa-check"></i>');
         
         if (mode === 'pulang') {
             // Mode pulang (siang hari)
-            button.disabled = sudahPresensi && button.textContent.includes('⏏️');
+            button.disabled = sudahPresensi && button.textContent.includes('<i class="fas fa-check"></i>');
             if (!sudahPresensi) {
                 button.style.backgroundColor = ''; // Warna oranye untuk pulang
             }
@@ -207,5 +219,5 @@ function updateButtonStates() {
 }
 
 // Jalankan setiap menit
-setInterval(updateButtonStates, 60000);
+setInterval(updateButtonStates, 10000);
 updateButtonStates(); // Jalankan saat pertama load

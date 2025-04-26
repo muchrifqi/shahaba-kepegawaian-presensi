@@ -92,14 +92,23 @@ async function getButtonStatus() {
 // Fungsi untuk menonaktifkan tombol berdasarkan status
 async function updateButtonStatus() {
   const status = await getButtonStatus();
+  const buttons = document.querySelectorAll("button[data-nama]");
+
   buttons.forEach(button => {
-    const nama = button.innerText;
+    const nama = button.dataset.nama;
     if (status[nama] === "Nonaktif") {
       button.disabled = true;
       button.innerHTML = `${nama} <i class="fas fa-check"></i>`;
     }
   });
 }
+
+// Jalankan saat halaman dimuat
+document.addEventListener("DOMContentLoaded", () => {
+  updateButtonStatus();              // Jalankan pertama kali
+  setInterval(updateButtonStatus, 2000);  // Ulangi setiap 2 detik
+});
+
 
 // Fungsi presensi
 async function presensi(nama) {
@@ -413,3 +422,90 @@ async function presensi(nama) {
           // ... tampilkan hasil ...
       });
   }
+
+// Fungsi tampilkan presensi hari ini
+
+  const endpoint = "https://script.google.com/macros/s/AKfycbyvq4MOn922Jz_ZFh25CJYOgHkrS0-OdJVLgzU1JFM0X6TReO6aG7YPOBWv5kikYkhO/exec"; // Ganti dengan URL kamu
+
+  function formatTanggalHariIni() {
+    const tanggal = new Date();
+    const hari = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+    const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+                   "Agustus", "September", "Oktober", "November", "Desember"];
+    return `${hari[tanggal.getDay()]}, ${tanggal.getDate()}-${bulan[tanggal.getMonth()]}-${tanggal.getFullYear()}`;
+  }
+
+/*
+ * Memuat data presensi hari ini dari Google Apps Script endpoint
+ * dan menampilkannya di bawah tombol pegawai terkait.
+ */
+let presensiInterval; // Variabel untuk menyimpan interval
+
+function loadPresensiHariIni() {
+  const endpoint = "https://script.google.com/macros/s/AKfycbyvq4MOn922Jz_ZFh25CJYOgHkrS0-OdJVLgzU1JFM0X6TReO6aG7YPOBWv5kikYkhO/exec";
+  
+  fetch(endpoint)
+    .then((response) => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then(data => {
+      data.forEach(pegawai => {
+        const namaNormalized = pegawai.nama.replace(/\s+/g, "-");
+        const badge = document.getElementById(`presensi-${namaNormalized}`);
+        
+        if (badge) {
+          badge.textContent = `${pegawai.jam || "--:--"} - ${pegawai.keterangan || "-"}`;
+          
+          // Update class status
+          badge.className = "presensi-badge";
+          if (pegawai.keterangan.includes("Tepat waktu")) {
+            badge.classList.add("tepat-waktu");
+          } else if (pegawai.keterangan.includes("Terlambat")) {
+            badge.classList.add("terlambat");
+          }
+        }
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching presensi:", error);
+      document.querySelectorAll(".presensi-badge").forEach((div) => {
+        div.textContent = "Gagal memuat data";
+        div.className = "presensi-badge error";
+      });
+    });
+}
+
+// Fungsi untuk memulai auto-refresh
+function startAutoRefresh() {
+  loadPresensiHariIni(); // Langsung eksekusi pertama kali
+  presensiInterval = setInterval(loadPresensiHariIni, 2000); // Set interval 2 detik
+}
+
+// Fungsi untuk menghentikan auto-refresh
+function stopAutoRefresh() {
+  clearInterval(presensiInterval);
+}
+
+// Mulai auto-refresh saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+  startAutoRefresh();
+  
+  // Optional: Hentikan saat tab tidak aktif
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoRefresh();
+    } else {
+      startAutoRefresh();
+    }
+  });
+});
+
+// Panggil fungsi saat halaman dimuat
+document.addEventListener("DOMContentLoaded", loadPresensiHariIni);
+
+  function toggleAccordion() {
+    document.getElementById("accordionContent").classList.toggle("open");
+  }
+
+  window.addEventListener("DOMContentLoaded", loadPresensiHariIni);
