@@ -478,6 +478,11 @@ function loadPresensiHariIni() {
               badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Sebelum 7:00</span>`;
               badge.classList.add("sebelum-700");
             }
+            else if (hours > 11 || (hours === 11 && minutes === 0)) {
+              // BEFORE 7:00
+              badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Tercatat pulang</span>`;
+              badge.classList.add("pulang");
+            }
             else {
               // AFTER 7:00 (default case)
               badge.innerHTML = `${pegawai.jam} - <span class="keterangan">Setelah 7:00</span>`;
