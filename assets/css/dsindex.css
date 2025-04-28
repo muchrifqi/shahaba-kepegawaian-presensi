@@ -35,31 +35,36 @@
     --swal-mobile-border-radius: 10px;
     --swal-mobile-icon-size: 40px;
 }
+/* --- Style Umum untuk Semua Device --- */
+html, body {
+  height: 100%;
+  min-height: 100%; /* Tambahan untuk keamanan di iOS */
+  margin: 0;
+  padding: 0;
+}
+
 html {
   background: url('../images/background-vertical-lg.png') no-repeat center center fixed;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed !important;
-  height: 100%;
 }
 
-/* Background khusus untuk perangkat iOS */
-@supports (-webkit-touch-callout: none) {
-  html {
-    background: url('../images/background-ios-vertical-lg.png') no-repeat center center fixed;
-    background-size: cover;
+/* --- Khusus untuk iOS Device --- */
+.ios-device {
+  background: url('../images/background-ios-vertical-lg.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll; /* scroll supaya tidak bug di Safari/PWA iOS */
+}
+
+/* --- Opsional: responsive sedikit untuk layar kecil --- */
+@media (max-width: 768px) {
+  html, .ios-device {
+    background-position: center top;
   }
 }
 
-/* Alternatif deteksi Safari iOS */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  @supports (-webkit-touch-callout: none) {
-    html {
-      background: url('../images/background-ios-vertical-1.png') no-repeat center center fixed;
-      background-size: cover;
-    }
-  }
-}
+
 
 /* Base Styles */
 body {
@@ -70,31 +75,12 @@ body {
   font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
 }
-
-/* Fix untuk address bar iOS */
-@supports (-webkit-touch-callout: none) {
+/* Untuk HP (lebar layar max 768px)
+@media only screen and (max-width: 768px) {
   body {
-    /* Pastikan tinggi penuh di iOS */
-    min-height: -webkit-fill-available;
+    background-image: url("background-mobile.jpg");
   }
-  
-  html {
-    /* Fix untuk background di iOS */
-    height: -webkit-fill-available;
-  }
-}
-/* Optimalkan performa scroll di iOS */
-@supports (-webkit-touch-callout: none) {
-  html {
-    -webkit-overflow-scrolling: touch;
-  }
-}
-/* Fallback untuk browser yang tidak support backdrop-filter */
-@supports not (backdrop-filter: blur(5px)) {
-  .ios-device body {
-    background: rgba(255, 255, 255, 0.9);
-  }
-}
+} */
 /* Header */
 .header {
   background: linear-gradient(to bottom, #ffffff, #ffffff,#ffffff,#ffffff,#ffffff, #c1c1c1);

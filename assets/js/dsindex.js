@@ -485,7 +485,7 @@ function setFixedPosition() {
   });
   
   // Fungsi untuk mendeteksi iOS secara akurat
-function isIOSDevice() {
+  function isIOSDevice() {
     return (
       // Deteksi iPhone, iPad, iPod
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -493,310 +493,122 @@ function isIOSDevice() {
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
     ) && !window.MSStream; // Exclude Windows devices
   }
-
-// Fungsi untuk mengatur background khusus iOS
-function setIOSBackground() {
-  // Deteksi iOS
-  const isIOS = () => {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  };
-
-  if (isIOS()) {
-    document.documentElement.classList.add('ios-device');
-    
-    // Deteksi PWA standalone
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      document.documentElement.classList.add('ios-pwa-standalone');
+  
+  // Fungsi untuk mengatur background khusus iOS
+  function setIOSBackground() {
+    if (isIOSDevice()) {
+      document.documentElement.classList.add('ios-device');
       
-      // Tambahkan style dinamis untuk PWA
-      const style = document.createElement('style');
-      style.textContent = `
-        .ios-pwa-standalone html {
-          background: url(../images/background-ios-vertical-lg.png') no-repeat center center fixed;
-          background-size: cover;
-        }
-      `;
-      document.head.appendChild(style);
+      // Deteksi PWA standalone
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        document.documentElement.classList.add('ios-pwa-standalone');
+        
+        // Tambahkan style dinamis untuk PWA
+        const style = document.createElement('style');
+        style.textContent = `
+          .ios-pwa-standalone html {
+            background: url(../images/background-ios-vertical-lg.png) no-repeat center center fixed;
+            background-size: cover;
+          }
+        `;
+        document.head.appendChild(style);
+      }
     }
   }
-}
-
-// Panggil saat DOM siap
-document.addEventListener('DOMContentLoaded', setIOSBackground);
+  
   // Fungsi khusus untuk iOS
   function iOSSpecificFunction() {
     console.log('Perangkat iOS terdeteksi, menjalankan fungsi khusus...');
-    // Tambahkan kode khusus iOS Anda di sini
-    
-    // Contoh: Tampilkan instruksi instalasi
-    const prompt = document.createElement('div');
-    prompt.innerHTML = `
-     <div id="ios-install-prompt" class="ios-prompt">
-    <div class="prompt-container">
-      <div class="prompt-header">
-        <h2 class="prompt-title">Tambahkan ke Layar Utama</h2>
-        <p class="prompt-subtitle">Untuk pengalaman seperti aplikasi native dengan akses instan</p>
-      </div>
-      
-      <div class="icon-flow">
-        <!-- Ikon Share Safari iOS 18-style -->
-        <svg viewBox="0 0 24 24" class="ios-share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-        <!-- Panah naik -->
-        <path d="M12 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M8 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        
-        <!-- Kotak terbuka -->
-        <path d="M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-        </svg>
-        <span class="ios-arrow">→</span>
-        <!-- Ikon Add iOS 18 style -->
-        <svg viewBox="0 0 24 24" class="ios-add-icon" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
-          <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <div class="step-text">Tekan ikon <strong>Bagikan</strong> di bilah menu</div>
-            <div class="step-note">Di bagian bawah layar Safari</div>
+  
+    // Tampilkan instruksi install ke layar utama
+    if (!localStorage.getItem('hideiOSInstallPrompt')) {
+      const prompt = document.createElement('div');
+      prompt.innerHTML = `
+        <div id="ios-install-prompt" class="ios-prompt">
+          <div class="prompt-container">
+            <div class="prompt-header">
+              <h2 class="prompt-title">Tambahkan ke Layar Utama</h2>
+              <p class="prompt-subtitle">Untuk pengalaman seperti aplikasi native dengan akses instan</p>
+            </div>
+  
+            <div class="icon-flow">
+              <svg viewBox="0 0 24 24" class="ios-share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                <path d="M12 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M8 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span class="ios-arrow">→</span>
+              <svg viewBox="0 0 24 24" class="ios-add-icon" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <line x1="12" y1="7" x2="12" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+  
+            <div class="steps-container">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <div class="step-text">Tekan ikon <strong>Bagikan</strong> di bilah menu</div>
+                  <div class="step-note">Di bagian bawah layar Safari</div>
+                </div>
+              </div>
+  
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <div class="step-text">Pilih <strong>"Tambahkan ke Layar Utama"</strong></div>
+                </div>
+              </div>
+  
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <div class="step-text">Konfirmasi dengan menekan <strong>Tambah</strong></div>
+                </div>
+              </div>
+            </div>
+  
+            <button id="understand-btn" class="understand-btn">
+              <svg class="check-icon" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+              </svg>
+              Mengerti
+            </button>
           </div>
         </div>
-        
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <div class="step-text">Pilih <strong>"Tambahkan ke Layar Utama"</strong></div>
-          </div>
-        </div>
-        
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <div class="step-text">Konfirmasi dengan menekan <strong>Tambah</strong></div>
-          </div>
-        </div>
-      </div>
-      
-      <button id="understand-btn" class="understand-btn">
-        <svg class="check-icon" viewBox="0 0 24 24">
-          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
-        </svg>
-        Mengerti
-      </button>
-    </div>
-  </div>
+      `;
+      document.body.appendChild(prompt);
   
-  <style>
-  :root {
-    --ios-blue: #0A84FF;
-    --ios-dark-blue: #007AFF;
-    --ios-gray: #8E8E93;
-    --ios-light-gray: #E5E5EA;
-    --ios-dark-bg: #1C1C1E;
-    --ios-dark-text: #F2F2F7;
-  }
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Styles for your pop-up */
+        .ios-prompt { ... }
+        /* Add your custom CSS here */
+      `;
+      document.head.appendChild(style);
   
-  .ios-prompt {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    padding: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-    z-index: 10000;
-    animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    max-width: 380px;
-    width: calc(100% - 40px);
-    margin-bottom: 20px;
-    border: 1px solid var(--ios-light-gray);
-  }
-  
-  @keyframes slideUp {
-    from {
-      transform: translate(-50%, 100%);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, 0);
-      opacity: 1;
+      document.getElementById('understand-btn').addEventListener('click', function () {
+        const prompt = document.getElementById('ios-install-prompt');
+        prompt.style.opacity = '0';
+        setTimeout(() => {
+          prompt.style.display = 'none';
+        }, 300);
+        localStorage.setItem('hideiOSInstallPrompt', 'true');
+      });
     }
   }
   
-  .prompt-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .prompt-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
-    margin: 0 0 4px 0;
-    letter-spacing: -0.2px;
-  }
-  
-  .prompt-subtitle {
-    font-size: 14px;
-    color: var(--ios-gray);
-    margin: 0;
-    line-height: 1.4;
-  }
-  
-  .icon-flow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin: 20px 0;
-    padding: 12px 0;
-  }
-  
-  .ios-share-icon, .ios-add-icon {
-    width: 44px;
-    height: 44px;
-    padding: 10px;
-    background-color: var(--ios-light-gray);
-    border-radius: 12px;
-  }
-  
-  .ios-share-icon {
-    color: var(--ios-blue);
-  }
-  
-  .ios-add-icon {
-    color: #34C759; /* Warna hijau iOS untuk aksi positif */
-  }
-  
-  .ios-arrow {
-    font-size: 24px;
-    color: var(--ios-gray);
-    margin: 0 8px;
-  }
-  
-  .steps-container {
-    margin-bottom: 20px;
-  }
-  
-  .step {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
-    align-items: flex-start;
-  }
-  
-  .step-number {
-    background-color: var(--ios-blue);
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  
-  .step-content {
-    flex-grow: 1;
-  }
-  
-  .step-text {
-    font-size: 15px;
-    color: #000;
-    line-height: 1.4;
-  }
-  
-  .step-note {
-    font-size: 13px;
-    color: var(--ios-gray);
-    margin-top: 4px;
-  }
-  
-  .understand-btn {
-    width: 100%;
-    background-color: var(--ios-blue);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  
-  .understand-btn:hover {
-    background-color: var(--ios-dark-blue);
-  }
-  
-  .check-icon {
-    width: 20px;
-    height: 20px;
-  }
-  
-  /* Dark Mode */
-  @media (prefers-color-scheme: dark) {
-    .ios-prompt {
-      background-color: var(--ios-dark-bg);
-      border-color: #2C2C2E;
+  // Jalankan saat DOM sudah siap
+  window.addEventListener('DOMContentLoaded', () => {
+    if (isIOSDevice()) {
+      setTimeout(() => {
+        setIOSBackground();  // Mengatur background untuk iOS
+        iOSSpecificFunction();  // Menampilkan popup
+      }, 3000);
     }
-    
-    .prompt-title, .step-text {
-      color: var(--ios-dark-text);
-    }
-    
-    .prompt-subtitle, .step-note {
-      color: #AEAEB2;
-    }
-    
-    .icon-flow {
-      background-color: transparent;
-    }
-    
-    .ios-share-icon, .ios-add-icon {
-      background-color: #2C2C2E;
-    }
-    
-    .understand-btn {
-      background-color: var(--ios-blue);
-    }
-  }
-  </style>
-    `;
-    
-    document.body.appendChild(prompt);
-    
- // ✅ Pasang event listener di sini, setelah tombol sudah ada di DOM
- document.getElementById('understand-btn').addEventListener('click', function () {
-    const prompt = document.getElementById('ios-install-prompt');
-    prompt.style.opacity = '0';
-    setTimeout(() => {
-      prompt.style.display = 'none';
-    }, 300);
-    localStorage.setItem('hideiOSInstallPrompt', 'true');
   });
-}
-
-// Jalankan saat DOM sudah siap
-window.addEventListener('DOMContentLoaded', () => {
-  if (isIOSDevice()) {
-    setTimeout(iOSSpecificFunction, 3000);
-  }
-});
+  
 // Navbar
 function navigateToPage(pageId, button) {
   // Sembunyikan semua halaman
