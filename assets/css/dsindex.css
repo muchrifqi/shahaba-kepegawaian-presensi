@@ -55,7 +55,7 @@ html {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   @supports (-webkit-touch-callout: none) {
     html {
-      background: url('../images/background-ios-vertical-lg.png') no-repeat center center fixed;
+      background: url('../images/background-ios-vertical-1.png') no-repeat center center fixed;
     }
   }
 }
