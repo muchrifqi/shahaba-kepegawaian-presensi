@@ -484,7 +484,6 @@ function setFixedPosition() {
     });
   });
   
-  // Fungsi untuk mendeteksi iOS secara akurat
 // Fungsi untuk mendeteksi iOS
 function isIOSDevice() {
   return (
@@ -764,7 +763,7 @@ function iOSSpecificFunction() {
 
 // Menambahkan pengaturan background iOS saat perangkat terdeteksi
 setIOSBackground();
-  
+
   // Jalankan saat DOM sudah siap
   window.addEventListener('DOMContentLoaded', () => {
     if (isIOSDevice()) {
