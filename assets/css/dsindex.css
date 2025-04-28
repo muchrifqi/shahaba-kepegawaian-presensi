@@ -46,7 +46,7 @@ html {
 /* Background khusus untuk perangkat iOS */
 @supports (-webkit-touch-callout: none) {
   html {
-    background: url('../images/background-ios-vertical-1.png') no-repeat center center fixed;
+    background: url('../images/background-ios-vertical-lg.png') no-repeat center center fixed;
     background-size: cover;
   }
 }
