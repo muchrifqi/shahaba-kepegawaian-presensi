@@ -493,7 +493,37 @@ function isIOSDevice() {
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
     ) && !window.MSStream; // Exclude Windows devices
   }
-  
+
+// Fungsi untuk mengatur background khusus iOS
+function setIOSBackground() {
+  // Deteksi iOS
+  const isIOS = () => {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  };
+
+  if (isIOS()) {
+    document.documentElement.classList.add('ios-device');
+    
+    // Deteksi PWA standalone
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      document.documentElement.classList.add('ios-pwa-standalone');
+      
+      // Tambahkan style dinamis untuk PWA
+      const style = document.createElement('style');
+      style.textContent = `
+        .ios-pwa-standalone html {
+          background: url(../images/background-ios-vertical-lg.png') no-repeat center center fixed;
+          background-size: cover;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+}
+
+// Panggil saat DOM siap
+document.addEventListener('DOMContentLoaded', setIOSBackground);
   // Fungsi khusus untuk iOS
   function iOSSpecificFunction() {
     console.log('Perangkat iOS terdeteksi, menjalankan fungsi khusus...');

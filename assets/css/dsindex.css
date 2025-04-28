@@ -43,6 +43,22 @@ html {
   height: 100%;
 }
 
+/* Background khusus untuk perangkat iOS */
+@supports (-webkit-touch-callout: none) {
+  html {
+    background: url('../images/background-ios-vertical-1.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+}
+
+/* Alternatif deteksi Safari iOS */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @supports (-webkit-touch-callout: none) {
+    html {
+      background: url('../images/background-ios-vertical-lg.png') no-repeat center center fixed;
+    }
+  }
+}
 
 /* Base Styles */
 body {
@@ -53,10 +69,29 @@ body {
   font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
 }
-/* Untuk HP (lebar layar max 768px) */
-@media only screen and (max-width: 768px) {
+
+/* Fix untuk address bar iOS */
+@supports (-webkit-touch-callout: none) {
   body {
-    background-image: url("background-mobile.jpg");
+    /* Pastikan tinggi penuh di iOS */
+    min-height: -webkit-fill-available;
+  }
+  
+  html {
+    /* Fix untuk background di iOS */
+    height: -webkit-fill-available;
+  }
+}
+/* Optimalkan performa scroll di iOS */
+@supports (-webkit-touch-callout: none) {
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+/* Fallback untuk browser yang tidak support backdrop-filter */
+@supports not (backdrop-filter: blur(5px)) {
+  .ios-device body {
+    background: rgba(255, 255, 255, 0.9);
   }
 }
 /* Header */
