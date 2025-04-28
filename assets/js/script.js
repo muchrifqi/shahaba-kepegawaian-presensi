@@ -425,7 +425,7 @@ async function presensi(nama) {
 
 // Fungsi tampilkan presensi hari ini
 
-  const endpoint = "https://script.google.com/macros/s/AKfycbyvq4MOn922Jz_ZFh25CJYOgHkrS0-OdJVLgzU1JFM0X6TReO6aG7YPOBWv5kikYkhO/exec"; // Ganti dengan URL kamu
+  const endpoint = "https://script.google.com/macros/s/AKfycbwqj-P2HF0iS6qymkLZfbDI2w_aGZmSYkeob064uknEXSw5oG9ZckRRyybQlYB3slwY/exec"; // Ganti dengan URL kamu
 
   function formatTanggalHariIni() {
     const tanggal = new Date();
@@ -442,7 +442,7 @@ async function presensi(nama) {
 let presensiInterval; // Variabel untuk menyimpan interval
 
 function loadPresensiHariIni() {
-  const endpoint = "https://script.google.com/macros/s/AKfycbyvq4MOn922Jz_ZFh25CJYOgHkrS0-OdJVLgzU1JFM0X6TReO6aG7YPOBWv5kikYkhO/exec";
+  const endpoint = "https://script.google.com/macros/s/AKfycbwqj-P2HF0iS6qymkLZfbDI2w_aGZmSYkeob064uknEXSw5oG9ZckRRyybQlYB3slwY/exec";
   
   fetch(endpoint)
     .then((response) => {

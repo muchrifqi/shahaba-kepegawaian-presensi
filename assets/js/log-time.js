@@ -1,86 +1,150 @@
-// Fungsi utama presensi (tetap menggunakan GET request)
-async function handlePresensi(nama) {
-    try {
-        const mode = getPresensiMode();
-        const isPulang = mode === 'pulang';
+// Lokasi yang diizinkan
+const allowedLocations = [
+    { lat: -6.589108056587621, lng: 106.8218295143879 }, // Lokasi 1 (Shahaba Ruko Tanah Baru Residence)
+    { lat: -6.592279, lng: 106.822581 } // Lokasi 2 (Shahaba Jl. Swadaya)
+  ];
+  
+  // Fungsi untuk menghitung jarak antara dua koordinat (dalam meter)
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // Radius bumi dalam meter
+    const φ1 = (lat1 * Math.PI) / 180;
+    const φ2 = (lat2 * Math.PI) / 180;
+    const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+    const Δλ = ((lon2 - lon1) * Math.PI) / 180;
+  
+    const a =
+      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+    return R * c;
+  }
+  
+  // Fungsi cek lokasi dengan validasi lokasi yang diizinkan
+  function checkLocation() {
+      return new Promise((resolve, reject) => {
+          if (!navigator.geolocation) {
+              reject(new Error('Browser tidak mendukung geolokasi'));
+              return;
+          }
+          
+          navigator.geolocation.getCurrentPosition(
+              (position) => {
+                  const userLat = position.coords.latitude;
+                  const userLng = position.coords.longitude;
+  
+                  // Cek apakah pengguna berada dalam radius 200 meter dari lokasi yang diizinkan
+                  const isWithinRadius = allowedLocations.some(
+                      (loc) => calculateDistance(userLat, userLng, loc.lat, loc.lng) <= 200
+                  );
+  
+                  if (isWithinRadius) {
+                      resolve(position);
+                  } else {
+                      reject(new Error('Anda berada di luar lokasi yang diizinkan.'));
+                  }
+              }, 
+              (err) => {
+                  let message = 'Gagal mendapatkan lokasi';
+                  switch(err.code) {
+                      case 1: message = 'Izin lokasi ditolak'; break;
+                      case 2: message = 'Lokasi tidak tersedia'; break;
+                      case 3: message = 'Timeout mendapatkan lokasi'; break;
+                  }
+                  reject(new Error(message));
+              },
+              { 
+                  enableHighAccuracy: true,
+                  timeout: 10000,
+                  maximumAge: 0
+              }
+          );
+      });
+  }
+  
+  // Fungsi utama presensi (tetap menggunakan GET request)
+  async function handlePresensi(nama) {
+      try {
+          const mode = getPresensiMode();
+          const isPulang = mode === 'pulang';
+          
+          // Konfirmasi awal
+          const { isConfirmed } = await Swal.fire({
+              title: `Presensi ${isPulang ? 'Pulang' : 'Masuk'}`,
+              text: `Konfirmasi ${nama} untuk ${isPulang ? 'kepulangan' : 'kedatangan'}`,
+              icon: "question",
+              showCancelButton: true,
+              confirmButtonText: `Ya, Presensi ${isPulang ? 'Pulang' : 'Masuk'}`,
+              cancelButtonText: "Batal"
+          });
+  
+          if (!isConfirmed) return;
+  
+          // Validasi waktu khusus untuk presensi masuk
+          if (!isPulang && !checkWaktuMasuk()) {
+              await Swal.fire({
+                  icon: 'error',
+                  title: 'Waktu Habis',
+                  text: 'Presensi masuk hanya sampai pukul 07.00'
+              });
+              return;
+          }
+  
+          const buttonId = `btn-${nama.replace(/ /g, '-')}`;
+          const button = document.getElementById(buttonId);
+          if (!button) throw new Error('Tombol tidak ditemukan');
+  
+          // Tambahkan feedback visual memproses
+          button.disabled = true;
+          button.innerHTML = `${nama} <span class="spinner"></span>`;
+          button.classList.add('processing');
+  
+          // 1. Dapatkan lokasi (wajib) - sekarang sudah termasuk validasi 200m
+          const position = await checkLocation();
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
         
-        // Konfirmasi awal
-        const { isConfirmed } = await Swal.fire({
-            title: `Presensi ${isPulang ? 'Pulang' : 'Masuk'}`,
-            text: `Konfirmasi ${nama} untuk ${isPulang ? 'kepulangan' : 'kedatangan'}`,
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonText: `Ya, Presensi ${isPulang ? 'Pulang' : 'Masuk'}`,
-            cancelButtonText: "Batal"
-        });
-
-        if (!isConfirmed) return;
-
-        // Validasi waktu khusus untuk presensi masuk
-        if (!isPulang && !checkWaktuMasuk()) {
-            await Swal.fire({
-                icon: 'error',
-                title: 'Waktu Habis',
-                text: 'Presensi masuk hanya sampai pukul 07.00'
+            // 2. Dapatkan IP Address (opsional)
+            const ip = await getIPAddress().catch(() => 'unknown');
+            
+            // 3. Format tanggal hari ini sebagai "DD/MM/YYYY"
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            // 4. Kirim data presensi via GET dengan parameter tanggal
+            const url = `https://script.google.com/macros/s/AKfycbx905NCryDB-xr0gn9KTNVmyeO7X2dt6foZd30bqC-cwkyO8CARPTVHiJFEg9lVheBf/exec?action=presensi&nama=${encodeURIComponent(nama)}&ip=${encodeURIComponent(ip)}&type=${isPulang ? 'pulang' : 'masuk'}&lat=${lat}&long=${long}&tanggal=${formattedDate}`;
+            
+            const response = await fetch(url, {
+                redirect: 'follow',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                }
             });
-            return;
-        }
 
-        const buttonId = `btn-${nama.replace(/ /g, '-')}`;
-        const button = document.getElementById(buttonId);
-        if (!button) throw new Error('Tombol tidak ditemukan');
-
-        // Tambahkan feedback visual memproses
-        button.disabled = true;
-        button.innerHTML = `${nama} <span class="spinner"></span>`;
-        button.classList.add('processing');
-
-        // 1. Dapatkan lokasi (wajib)
-        const position = await checkLocation();
-        const lat = position.coords.latitude;
-        const long = position.coords.longitude;
-        
-        // 2. Dapatkan IP Address (opsional)
-        const ip = await getIPAddress().catch(() => 'unknown');
-        
-        // 3. Format tanggal hari ini sebagai "DD/MM/YYYY"
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const year = today.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
-        
-        // 4. Kirim data presensi via GET dengan parameter tanggal
-        const url = `https://script.google.com/macros/s/AKfycbx905NCryDB-xr0gn9KTNVmyeO7X2dt6foZd30bqC-cwkyO8CARPTVHiJFEg9lVheBf/exec?action=presensi&nama=${encodeURIComponent(nama)}&ip=${encodeURIComponent(ip)}&type=${isPulang ? 'pulang' : 'masuk'}&lat=${lat}&long=${long}&tanggal=${formattedDate}`;
-        
-        const response = await fetch(url, {
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8',
+            // Handle response khusus untuk Google Apps Script
+            const result = await response.text();
+            if (!response.ok || result.includes("error")) {
+                throw new Error(result || 'Presensi gagal');
             }
-        });
 
-        // Handle response khusus untuk Google Apps Script
-        const result = await response.text();
-        if (!response.ok || result.includes("error")) {
-            throw new Error(result || 'Presensi gagal');
-        }
-
-        // Update UI setelah sukses
-        const waktu = new Date().toLocaleTimeString('id-ID', { 
-            hour: '2-digit', 
-            minute: '2-digit' 
-        });
-        
-        button.innerHTML = `${nama} ${isPulang ? '⏏️' : '✓'}`;
-        button.classList.remove('processing');
-        button.classList.add(isPulang ? 'presensi-pulang' : 'presensi-masuk');
-        
-        await Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: `Presensi ${isPulang ? 'pulang' : 'masuk'} pukul ${waktu}`
-        });
+            // Update UI setelah sukses
+            const waktu = new Date().toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            button.innerHTML = `${nama} ${isPulang ? '⏏️' : '✓'}`;
+            button.classList.remove('processing');
+            button.classList.add(isPulang ? 'presensi-pulang' : 'presensi-masuk');
+            
+            await Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: `Presensi ${isPulang ? 'pulang' : 'masuk'} pukul ${waktu}`
+            });
 
     } catch (error) {
         console.error('Error presensi:', error);
